@@ -1799,6 +1799,11 @@
     <Content Include="Iconos\fontawesome_free_5.15.4_web\webfonts\fa-brands-400.svg" />
     <Content Include="Iconos\fontawesome_free_5.15.4_web\webfonts\fa-regular-400.svg" />
     <Content Include="Iconos\fontawesome_free_5.15.4_web\webfonts\fa-solid-900.svg" />
+    <Content Include="Images\20170326_202353.jpg" />
+    <Content Include="Images\arrows.png" />
+    <Content Include="Images\cambio-de-aceite_2.jpg" />
+    <Content Include="Images\Iconos.png" />
+    <Content Include="Images\LogoMotoRepuestosMako.jpg" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.bundle.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.bundle.min.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.esm.js" />
