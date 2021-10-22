@@ -45,10 +45,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -120,6 +126,42 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BD\MarcaTbl.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\Productos.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\RepuestosBD.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepuestosBD.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\RepuestosBD.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\RepuestosBD.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BD\ServiciosTbl.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Marcas_Result.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\TipoUsuario.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\Tipo_ServicioTbl.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\Usuarios.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,6 +169,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BD\RepuestosBD.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepuestosBD.Context.cs</LastGenOutput>
+      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+    </Content>
+    <Content Include="BD\RepuestosBD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+      <LastGenOutput>RepuestosBD.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\Boostrap_5\css\bootstrap-grid.css" />
     <Content Include="Content\Boostrap_5\css\bootstrap-grid.min.css" />
     <Content Include="Content\Boostrap_5\css\bootstrap-grid.rtl.css" />
@@ -1888,6 +1940,13 @@
     <Content Include="Scripts\Boostrap_5\js\bootstrap.esm.min.js.map" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.js.map" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.min.js.map" />
+    <EntityDeploy Include="BD\RepuestosBD.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RepuestosBD.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BD\RepuestosBD.edmx.diagram">
+      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1932,6 +1991,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
