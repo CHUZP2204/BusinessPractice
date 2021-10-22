@@ -22,8 +22,18 @@ namespace PracticaIIICO
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            //Bundle Booststrap 5
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap5").Include(
+                "~/Scripts/Boostrap_5/bootstrap.js"
+                ));
+
+            //Bundle Style Booststrap 5
+            bundles.Add(new StyleBundle("~/Style/bootstrap5").Include(
+                    "~/Content/Boostrap_5/css/bootstrap.css"
+                ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/Boostrap_5/css/bootstrap.css",
                       "~/Content/site.css"));
         }
     }

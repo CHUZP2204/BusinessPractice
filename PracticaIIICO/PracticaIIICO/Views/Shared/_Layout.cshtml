@@ -1,12 +1,17 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Practica Empresarial ASP.NET</title>
+    <link href="~/Iconos/fontawesome_free_5.15.4_web/css/all.css" rel="stylesheet" />
+    <link href="~/Content/Sidebar/sidebar.css" rel="stylesheet" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap5")
+    <script src="~/Scripts/Boostrap_5/js/bootstrap.bundle.js"></script>
 </head>
 <body>
     <!--Codigo Que Actualiza El Estado Del Menu Lateral-->
@@ -19,7 +24,7 @@
     }
     @{ if (b.Equals("fijar")) { a = "page-wrapper chiller-theme"; } else { a = "page-wrapper chiller-theme toggled"; }}*@
     <!---->
-    <div class="page-wrapper chiller-theme">
+    <div class="page-wrapper chiller-theme toggled">
         <!--toggled mantiene el sidebar fijo-->
         <!--Boton Abrir Side Bar-->
         <!--<a id="show-sidebar" class="btn btn-dark" href="#">
@@ -530,9 +535,8 @@
 
 
     @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/sideBar.js"></script>
-    <script src="~/Scripts/estadoSidebar.js"></script>
-
+    <script src="~/Scripts/Sidebar/sideBar.js"></script>
+    <script src="~/Scripts/Sidebar/estadoSidebar.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>
