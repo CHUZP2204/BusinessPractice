@@ -86,5 +86,14 @@ namespace PracticaIIICO.BD
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Marcas_Result>("sp_Retorna_Marcas", nombreMarcaParameter, descripcionParameter);
         }
+    
+        public virtual ObjectResult<sp_Retorna_Marcas_ID_Result> sp_Retorna_Marcas_ID(Nullable<int> iD_Marca)
+        {
+            var iD_MarcaParameter = iD_Marca.HasValue ?
+                new ObjectParameter("ID_Marca", iD_Marca) :
+                new ObjectParameter("ID_Marca", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Marcas_ID_Result>("sp_Retorna_Marcas_ID", iD_MarcaParameter);
+        }
     }
 }

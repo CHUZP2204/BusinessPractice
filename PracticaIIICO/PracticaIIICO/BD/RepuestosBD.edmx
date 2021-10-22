@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MotoRepuestosMakoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MotoRepuestosMakoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MarcaTbl">
           <Key>
             <PropertyRef Name="ID_Marca" />
@@ -106,6 +106,9 @@
           <Parameter Name="nombreMarca" Type="varchar" Mode="In" />
           <Parameter Name="descripcion" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_Retorna_Marcas_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Marca" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="MotoRepuestosMakoModelStoreContainer">
           <EntitySet Name="MarcaTbl" EntityType="Self.MarcaTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
@@ -122,8 +125,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MotoRepuestosMakoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -232,7 +234,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
           <FunctionImport Name="sp_Elimina_Marca">
-            <Parameter Name="idMarca" Mode="In" Type="Int32" />
+          <Parameter Name="idMarca" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_Marcas">
             <Parameter Name="nombreMarca" Mode="In" Type="String" />
@@ -247,8 +249,16 @@
             <Parameter Name="nombreMarca" Mode="In" Type="String" />
             <Parameter Name="descripcion" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Marcas_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Marcas_ID_Result)">
+            <Parameter Name="ID_Marca" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_Marcas_Result">
+          <Property Type="Int32" Name="ID_Marca" Nullable="false" />
+          <Property Type="String" Name="Nombre_Marca" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Descripcion_Marca" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_Marcas_ID_Result">
           <Property Type="Int32" Name="ID_Marca" Nullable="false" />
           <Property Type="String" Name="Nombre_Marca" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Descripcion_Marca" Nullable="false" MaxLength="250" />
@@ -332,6 +342,15 @@
           <FunctionImportMapping FunctionImportName="sp_Retorna_Marcas" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Marcas">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Marcas_Result">
+                <ScalarProperty Name="ID_Marca" ColumnName="ID_Marca" />
+                <ScalarProperty Name="Nombre_Marca" ColumnName="Nombre_Marca" />
+                <ScalarProperty Name="Descripcion_Marca" ColumnName="Descripcion_Marca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Marcas_ID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Marcas_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Marcas_ID_Result">
                 <ScalarProperty Name="ID_Marca" ColumnName="ID_Marca" />
                 <ScalarProperty Name="Nombre_Marca" ColumnName="Nombre_Marca" />
                 <ScalarProperty Name="Descripcion_Marca" ColumnName="Descripcion_Marca" />

@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "ListaMarcas";
+}
+
+<h2>Lista Marcas</h2>
+
+<a href="~/Marca/Index" class="btn btn-success">Pagina Inicial</a>
+
+<br />
+<br />
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># Marca</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result PosicionModeloMarca in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionModeloMarca.ID_Marca</td>
+                    <td>@PosicionModeloMarca.Nombre_Marca</td>
+                    <td>@PosicionModeloMarca.Descripcion_Marca</td>
+               
+                    <td>
+                        <a href="~/Marca/ModificaMarca?id_Marca=@PosicionModeloMarca.ID_Marca" class="btn btn-warning">Modificar</a>
+                        <a href="~/listaCitas/eliminarCita?id_Marca=@PosicionModeloMarca.ID_Marca" class="btn btn-success">Ver Datos</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Marca/NuevaMarca" class="btn btn-success">Nuevo Dato</a>

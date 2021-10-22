@@ -150,6 +150,9 @@
     <Compile Include="BD\ServiciosTbl.cs">
       <DependentUpon>RepuestosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_Retorna_Marcas_ID_Result.cs">
+      <DependentUpon>RepuestosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Retorna_Marcas_Result.cs">
       <DependentUpon>RepuestosBD.tt</DependentUpon>
     </Compile>
@@ -163,6 +166,7 @@
       <DependentUpon>RepuestosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Marca\MarcaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1856,6 +1860,7 @@
     <Content Include="Images\cambio-de-aceite_2.jpg" />
     <Content Include="Images\Iconos.png" />
     <Content Include="Images\LogoMotoRepuestosMako.jpg" />
+    <Content Include="Scripts\Alertas\llamarModal.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.bundle.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.bundle.min.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.esm.js" />
@@ -1974,6 +1979,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Marca\Index.cshtml" />
+    <Content Include="Views\Marca\ListaMarcas.cshtml" />
+    <Content Include="Views\Marca\NuevaMarca.cshtml" />
+    <Content Include="Views\Shared\_ModalMensaje.cshtml" />
+    <Content Include="Views\Marca\ModificaMarca.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

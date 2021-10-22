@@ -1,0 +1,41 @@
+﻿@model PracticaIIICO.BD.sp_Retorna_Marcas_ID_Result
+@{
+    ViewBag.Title = "NuevaMarca";
+}
+
+
+
+<form id="frmRegistroMarcas" method="post">
+    <h2>Modificar Marca</h2>
+
+    <div class="form-group">
+        <label>ID MARCA</label>
+        <input class="form-control" type="number" readonly value="@Model.ID_Marca" />
+        <label>Agregue Nombre De La Marca</label>
+        <input class="form-control" type="text" name="Nombre_Marca" id="Nombre_Marca" value="@Model.Nombre_Marca"/>
+
+        <label>Agregue Una Descripcion:</label>
+        <input class="form-control" type="text" name="Descripcion_Marca" id="Descripcion_Marca" value="@Model.Descripcion_Marca" />
+        <br />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+<a href="~/Marca/ListaMarcas" class="btn btn-primary">Lista Citas</a>
+
+@{
+    if (ViewBag.Error != null)
+    {
+        string mensaje = ViewBag.Error.ToString();
+        @Html.Partial("_ModalMensaje", new ViewDataDictionary
+        {
+       { "MensajeModal", mensaje }})
+    }
+
+}
+
+@section scripts{
+    <script src="~/Scripts/Alertas/llamarModal.js"></script>
+}
