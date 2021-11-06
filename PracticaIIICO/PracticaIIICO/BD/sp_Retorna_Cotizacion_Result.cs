@@ -10,19 +10,17 @@
 namespace PracticaIIICO.BD
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MarcaTbl
+    public partial class sp_Retorna_Cotizacion_Result
     {
-        public MarcaTbl()
-        {
-            this.CitasTbl = new HashSet<CitasTbl>();
-        }
-    
-        public int ID_Marca { get; set; }
-        public string Nombre_Marca { get; set; }
-        public string Descripcion_Marca { get; set; }
-    
-        public virtual ICollection<CitasTbl> CitasTbl { get; set; }
+        public int ID_Cotizacion { get; set; }
+        public int ID_Usuario { get; set; }
+        public int Numero_Cotizacion { get; set; }
+        public string Nombre_Cliente { get; set; }
+        public string Telefono_Cliente { get; set; }
+        public string Correo_Cliente { get; set; }
+        public System.DateTime Fecha_Cotizacion { get; set; }
+        public System.TimeSpan Hora_Cotizacion { get; set; }
+        public decimal Costo { get; set; }
     }
 }

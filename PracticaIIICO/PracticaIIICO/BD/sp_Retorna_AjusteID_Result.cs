@@ -10,19 +10,15 @@
 namespace PracticaIIICO.BD
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MarcaTbl
+    public partial class sp_Retorna_AjusteID_Result
     {
-        public MarcaTbl()
-        {
-            this.CitasTbl = new HashSet<CitasTbl>();
-        }
-    
-        public int ID_Marca { get; set; }
-        public string Nombre_Marca { get; set; }
-        public string Descripcion_Marca { get; set; }
-    
-        public virtual ICollection<CitasTbl> CitasTbl { get; set; }
+        public int ID_Ajuste { get; set; }
+        public int ID_Producto { get; set; }
+        public int ID_Usuario { get; set; }
+        public string Tipo_Ajuste { get; set; }
+        public int Cantida_Ajustar { get; set; }
+        public System.DateTime Fecha_Ajuste { get; set; }
+        public string Descripcion_Ajsute { get; set; }
     }
 }

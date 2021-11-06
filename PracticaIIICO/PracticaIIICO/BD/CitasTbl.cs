@@ -12,17 +12,19 @@ namespace PracticaIIICO.BD
     using System;
     using System.Collections.Generic;
     
-    public partial class MarcaTbl
+    public partial class CitasTbl
     {
-        public MarcaTbl()
-        {
-            this.CitasTbl = new HashSet<CitasTbl>();
-        }
-    
+        public int ID_Cita { get; set; }
+        public int ID_Usuario { get; set; }
         public int ID_Marca { get; set; }
-        public string Nombre_Marca { get; set; }
-        public string Descripcion_Marca { get; set; }
+        public string Nombre_Cliente { get; set; }
+        public string Numero_Cliente { get; set; }
+        public string Placa_Moto { get; set; }
+        public Nullable<System.DateTime> Fecha_Cita { get; set; }
+        public Nullable<System.TimeSpan> Hora_Cita { get; set; }
+        public Nullable<System.DateTime> Fecha_Ingreso { get; set; }
     
-        public virtual ICollection<CitasTbl> CitasTbl { get; set; }
+        public virtual MarcaTbl MarcaTbl { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

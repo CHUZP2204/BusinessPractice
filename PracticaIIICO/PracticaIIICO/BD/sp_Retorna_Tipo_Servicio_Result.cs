@@ -10,21 +10,11 @@
 namespace PracticaIIICO.BD
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ServiciosTbl
+    public partial class sp_Retorna_Tipo_Servicio_Result
     {
-        public ServiciosTbl()
-        {
-            this.DetalleCotizacionTbl = new HashSet<DetalleCotizacionTbl>();
-        }
-    
-        public int ID_Servicio { get; set; }
         public int ID_TipoServicio { get; set; }
-        public string Nombre_Servicio { get; set; }
-        public decimal Precio_Servicio { get; set; }
-    
-        public virtual ICollection<DetalleCotizacionTbl> DetalleCotizacionTbl { get; set; }
-        public virtual Tipo_ServicioTbl Tipo_ServicioTbl { get; set; }
+        public string Nombre_TipoServicio { get; set; }
+        public string Descripcion_TipoServicio { get; set; }
     }
 }

@@ -10,15 +10,10 @@
 namespace PracticaIIICO.BD
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Productos
+    public partial class sp_Retorna_TipoUsuario_Result
     {
-        public int ID_Producto { get; set; }
-        public int ID_Categoria { get; set; }
-        public string Nombre_PRD { get; set; }
-        public Nullable<decimal> Precio_PRD { get; set; }
-        public string Descrip_PRD { get; set; }
-        public bool Estado_PRD { get; set; }
+        public int ID_TipoUsuario { get; set; }
+        public string Nombre_TipoUsuario { get; set; }
     }
 }

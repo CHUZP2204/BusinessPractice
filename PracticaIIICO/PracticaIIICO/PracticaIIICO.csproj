@@ -126,62 +126,168 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BD\AjustesTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\CategoriasTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\CitasTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\CotizacionTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\DetalleCotizacionTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\DetalleEntradaTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\DetalleSalidaTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\EntradasTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\MarcaTbl.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="BD\Productos.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
-    </Compile>
-    <Compile Include="BD\RepuestosBD.Context.cs">
+    <Compile Include="BD\MotosBD.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RepuestosBD.Context.tt</DependentUpon>
+      <DependentUpon>MotosBD.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="BD\RepuestosBD.cs">
+    <Compile Include="BD\MotosBD.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="BD\RepuestosBD.Designer.cs">
+    <Compile Include="BD\MotosBD.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+      <DependentUpon>MotosBD.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BD\ProductosTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\ProveedoresTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\SalidasTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\ServiciosTbl.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_AjusteID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Ajustes_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Categorias_ID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Categorias_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_CitasID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Citas_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_CotizacionID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Cotizacion_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_DetalleCoti_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Detalle_EntrID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Detalle_Salida_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_EntradaID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Entradas_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Marcas_ID_Result.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Marcas_Result.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Proveedores_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_ProveedorID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_SalidaID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Servicio_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Serv_ID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_TipoUsuario_ID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_TipoUsuario_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Tipo_Servicio_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Tipo_SERV_ID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_UsuarioID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Usuario_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Verifica_Usuario_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\TipoUsuario.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\Tipo_ServicioTbl.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\Usuarios.cs">
-      <DependentUpon>RepuestosBD.tt</DependentUpon>
+      <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Marca\MarcaController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BD\RepuestosBD.Context.tt">
+    <Content Include="BD\MotosBD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RepuestosBD.Context.cs</LastGenOutput>
-      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+      <DependentUpon>MotosBD.edmx</DependentUpon>
+      <LastGenOutput>MotosBD.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="BD\RepuestosBD.tt">
+    <Content Include="BD\MotosBD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RepuestosBD.edmx</DependentUpon>
-      <LastGenOutput>RepuestosBD.cs</LastGenOutput>
+      <DependentUpon>MotosBD.edmx</DependentUpon>
+      <LastGenOutput>MotosBD.cs</LastGenOutput>
     </Content>
     <Content Include="Content\Boostrap_5\css\bootstrap-grid.css" />
     <Content Include="Content\Boostrap_5\css\bootstrap-grid.min.css" />
@@ -1945,12 +2051,12 @@
     <Content Include="Scripts\Boostrap_5\js\bootstrap.esm.min.js.map" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.js.map" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.min.js.map" />
-    <EntityDeploy Include="BD\RepuestosBD.edmx">
+    <EntityDeploy Include="BD\MotosBD.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RepuestosBD.Designer.cs</LastGenOutput>
+      <LastGenOutput>MotosBD.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="BD\RepuestosBD.edmx.diagram">
-      <DependentUpon>RepuestosBD.edmx</DependentUpon>
+    <Content Include="BD\MotosBD.edmx.diagram">
+      <DependentUpon>MotosBD.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -1988,6 +2094,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Productos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

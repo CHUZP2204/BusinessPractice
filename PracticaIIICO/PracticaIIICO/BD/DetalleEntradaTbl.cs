@@ -12,19 +12,15 @@ namespace PracticaIIICO.BD
     using System;
     using System.Collections.Generic;
     
-    public partial class ServiciosTbl
+    public partial class DetalleEntradaTbl
     {
-        public ServiciosTbl()
-        {
-            this.DetalleCotizacionTbl = new HashSet<DetalleCotizacionTbl>();
-        }
+        public int ID_DetalleEntrada { get; set; }
+        public int ID_Entrada { get; set; }
+        public int ID_Producto { get; set; }
+        public int Cant_Adquirida_PROD { get; set; }
+        public decimal PrecioXCant { get; set; }
     
-        public int ID_Servicio { get; set; }
-        public int ID_TipoServicio { get; set; }
-        public string Nombre_Servicio { get; set; }
-        public decimal Precio_Servicio { get; set; }
-    
-        public virtual ICollection<DetalleCotizacionTbl> DetalleCotizacionTbl { get; set; }
-        public virtual Tipo_ServicioTbl Tipo_ServicioTbl { get; set; }
+        public virtual EntradasTbl EntradasTbl { get; set; }
+        public virtual ProductosTbl ProductosTbl { get; set; }
     }
 }

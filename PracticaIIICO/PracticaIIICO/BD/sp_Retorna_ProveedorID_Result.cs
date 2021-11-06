@@ -10,19 +10,14 @@
 namespace PracticaIIICO.BD
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MarcaTbl
+    public partial class sp_Retorna_ProveedorID_Result
     {
-        public MarcaTbl()
-        {
-            this.CitasTbl = new HashSet<CitasTbl>();
-        }
-    
-        public int ID_Marca { get; set; }
-        public string Nombre_Marca { get; set; }
-        public string Descripcion_Marca { get; set; }
-    
-        public virtual ICollection<CitasTbl> CitasTbl { get; set; }
+        public int ID_Proveedor { get; set; }
+        public string Nombre_PROV { get; set; }
+        public string Direccion_PROV { get; set; }
+        public string Correo_PROV { get; set; }
+        public string Telefono_PROV { get; set; }
+        public bool Estado_PROV { get; set; }
     }
 }
