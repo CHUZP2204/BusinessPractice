@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "MostrarProveedor";
+}
+
+<h2>Datos Proveedor</h2>
+
+<form id="frmDatosProveedor" method="post">
+
+    <div class="form-group">
+        <label>ID Proveedor:</label>
+        <input type="number" name="ID_Proveedor" id="ID_Proveedor" class="form-control" value="@Model.ID_Proveedor" readonly />
+    </div>
+    <div class="form-group">
+        <label>Nombre Proveedor:</label>
+        <input type="text" name="Nombre_PROV" id="Nombre_PROV" class="form-control" value="@Model.Nombre_PROV" readonly/>
+    </div>
+    <div class="form-group">
+        <label>Direccion Proveedor:</label>
+        <input type="text" name="Direccion_PROV" id="Direccion_PROV" class="form-control" value="@Model.Direccion_PROV" readonly/>
+    </div>
+    <div class="form-group">
+        <label>Correo Proveedor:</label>
+        <input type="email" name="Correo_PROV" id="Correo_PROV" class="form-control" value="@Model.Correo_PROV" readonly />
+    </div>
+    <div class="form-group">
+        <label>Telefono Proveedor:</label>
+        <input type="number" name="Telefono_PROV" id="Telefono_PROV" class="form-control" value="@Model.Telefono_PROV" readonly/>
+    </div>
+
+    <div class="form-group">
+        <label>Estado:</label>
+        @{
+            if (Model.Estado_PROV)
+            {
+                <input type="text" name="Estado_PROV" value="ACTIVO" id="Estado_PROV" class="form-control"  readonly/>
+            }
+            else
+            {
+                <input type="text" name="Estado_PROV" value="INACTIVO" id="Estado_PROV" class="form-control" readonly />
+            }
+
+        }
+    </div>
+</form>
+<br />
+<a href="~/Proveedores/ListaProveedores" class="btn btn-primary">Lista Proveedores</a>
+
+

@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "ListaProveedores";
+}
+
+<h2>Lista Proveedores</h2>
+
+
+<br />
+<br />
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># Proveedor</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result PosicionModelo in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionModelo.ID_Proveedor</td>
+                    <td>@PosicionModelo.Nombre_PROV</td>
+                    <td>@PosicionModelo.Direccion_PROV</td>
+                    <td>@PosicionModelo.Correo_PROV</td>
+                    <td>@PosicionModelo.Telefono_PROV</td>
+                    @{
+
+                        if (PosicionModelo.Estado_PROV)
+                        {
+                            <td>ACTIVO</td>
+                        }
+                        else
+                        {
+                            <td>INACTIVO</td>
+                        }
+
+                    }
+                    <td>
+                        <a href="~/Proveedores/ModificaProveedor?id_Prov=@PosicionModelo.ID_Proveedor" class="btn btn-warning">Modificar</a>
+                        <a href="~/Proveedores/MostrarProveedor?id_Prov=@PosicionModelo.ID_Proveedor" class="btn btn-success">Ver Datos</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Proveedores/NuevoProveedor" class="btn btn-success">Nuevo Dato</a>

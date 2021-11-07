@@ -270,9 +270,23 @@
     <Compile Include="BD\Usuarios.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Ajustes\AjustesController.cs" />
+    <Compile Include="Controllers\Categorias\CategoriasController.cs" />
+    <Compile Include="Controllers\Citas\CitasController.cs" />
+    <Compile Include="Controllers\Cotizacion\CotizacionController.cs" />
+    <Compile Include="Controllers\Cotizacion\DetalleCotizacionController.cs" />
+    <Compile Include="Controllers\Entradas\DetalleEntradasController.cs" />
+    <Compile Include="Controllers\Entradas\EntradasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Marca\MarcaController.cs" />
-    <Compile Include="Controllers\ProductosController.cs" />
+    <Compile Include="Controllers\Productos\ProductosController.cs" />
+    <Compile Include="Controllers\Proveedores\ProveedoresController.cs" />
+    <Compile Include="Controllers\Salidas\DetalleSalidasController.cs" />
+    <Compile Include="Controllers\Salidas\SalidasController.cs" />
+    <Compile Include="Controllers\Servicios\ServiciosController.cs" />
+    <Compile Include="Controllers\Servicios\TipoServiciosController.cs" />
+    <Compile Include="Controllers\Usuarios\TipoUsuariosController.cs" />
+    <Compile Include="Controllers\Usuarios\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2090,11 +2104,28 @@
     <Content Include="Views\Marca\NuevaMarca.cshtml" />
     <Content Include="Views\Shared\_ModalMensaje.cshtml" />
     <Content Include="Views\Marca\ModificaMarca.cshtml" />
+    <Content Include="Views\Proveedores\ListaProveedores.cshtml" />
+    <Content Include="Views\Proveedores\NuevoProveedor.cshtml" />
+    <Content Include="Views\Proveedores\ModificaProveedor.cshtml" />
+    <Content Include="Views\Proveedores\MostrarProveedor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Ajustes\" />
+    <Folder Include="Views\Categorias\" />
+    <Folder Include="Views\Citas\" />
+    <Folder Include="Views\Cotizacion\" />
+    <Folder Include="Views\DetalleCotizacion\" />
+    <Folder Include="Views\DetalleEntradas\" />
+    <Folder Include="Views\DetalleSalidas\" />
+    <Folder Include="Views\Entradas\" />
     <Folder Include="Views\Productos\" />
+    <Folder Include="Views\Salidas\" />
+    <Folder Include="Views\Servicios\" />
+    <Folder Include="Views\TipoServicios\" />
+    <Folder Include="Views\TipoUsuarios\" />
+    <Folder Include="Views\Usuarios\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
