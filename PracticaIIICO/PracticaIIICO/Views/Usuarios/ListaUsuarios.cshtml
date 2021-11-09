@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "ListaUsuarios";
+}
+
+<h2>Lista Usuarios</h2>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tipo Usuario</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            
+            
+
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result PosicionModelo in this.Model)
+            {
+                <tr>
+                    <td>@PosicionModelo.ID_Usuario</td>
+                    <td>@PosicionModelo.ID_TipoUsuario</td>
+                    <td>@PosicionModelo.Nombre_U</td>
+                    <td>@PosicionModelo.Apellido1_U @PosicionModelo.Apellido2_U</td>
+
+                    
+                    
+                    <td>
+                        <a href="~/Usuarios/ModificaUsuario?id_User=@PosicionModelo.ID_Usuario" class="btn btn-warning">Modificar</a>
+                        <a href="~/Usuarios/MostrarUsuario?id_User=@PosicionModelo.ID_Usuario" class="btn btn-success">Ver Datos</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Usuarios/NuevoUsuario" class="btn btn-success">Nuevo Dato</a>
