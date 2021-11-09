@@ -2115,6 +2115,14 @@
     <Content Include="Views\Usuarios\NuevoUsuario.cshtml" />
     <Content Include="Views\Usuarios\ModificaUsuario.cshtml" />
     <Content Include="Views\Usuarios\MostrarUsuario.cshtml" />
+    <Content Include="Views\TipoServicios\ListTypeServices.cshtml" />
+    <Content Include="Views\TipoServicios\NuevoTipoS.cshtml" />
+    <Content Include="Views\TipoServicios\ModificaTipoS.cshtml" />
+    <Content Include="Views\TipoServicios\MostrarTipoS.cshtml" />
+    <Content Include="Views\Servicios\ListaServicios.cshtml" />
+    <Content Include="Views\Servicios\NuevoSERV.cshtml" />
+    <Content Include="Views\Servicios\ModificaSERV.cshtml" />
+    <Content Include="Views\Servicios\MostrarSERV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2129,8 +2137,6 @@
     <Folder Include="Views\Entradas\" />
     <Folder Include="Views\Productos\" />
     <Folder Include="Views\Salidas\" />
-    <Folder Include="Views\Servicios\" />
-    <Folder Include="Views\TipoServicios\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

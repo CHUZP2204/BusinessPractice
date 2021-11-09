@@ -1,0 +1,43 @@
+﻿@model PracticaIIICO.BD.sp_Retorna_Serv_ID_Result
+@{
+    ViewBag.Title = "MostrarSERV";
+}
+
+<h2>MostrarSERV</h2>
+
+<form id="frmMostrarSERV" method="post">
+    <div class="form-group">
+        <label>ID:</label>
+        <input type="number" value="@Model.ID_Servicio" name="ID_Servicio" id="ID_Servicio" class="form-control" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Tipo Servicio:</label>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
+            {
+                bool esIdTipoServicio = ModeloTipoS.ID_TipoServicio == Model.ID_TipoServicio;
+
+                if (esIdTipoServicio)
+                {
+
+                    <input type="text" name="ID_TipoServicio" id="ID_TipoServicio" class="form-control" value="@ModeloTipoS.Nombre_TipoServicio" readonly />
+                }
+
+            }
+        }
+    </div>
+    <div class="form-group">
+        <label>Servicio:</label>
+        <input type="text" name="Nombre_Servicio" id="Nombre_Servicio" class="form-control" value="@Model.Nombre_Servicio" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Precio:</label>
+        <input type="number" name="Precio_Servicio" id="Precio_Servicio" class="form-control" value="@Model.Precio_Servicio" readonly />
+    </div>
+    <br />
+
+</form>
+<br />
+<a href="~/Servicios/ListaServicios" class="btn btn-primary">Ver Lista</a>

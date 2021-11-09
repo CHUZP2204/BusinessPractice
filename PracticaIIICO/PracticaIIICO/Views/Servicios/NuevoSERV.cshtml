@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "NuevoSERV";
+}
+
+<h2>NuevoSERV</h2>
+
+<form id="frmRegistroSERV" method="post">
+
+    <div class="form-group">
+        <label>Tipo Servicio:</label>
+        <select name="ID_TipoServicio" id="ID_TipoServicio" class="form-control">
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
+                {
+                    <option value="@ModeloTipoS.ID_TipoServicio">@ModeloTipoS.Nombre_TipoServicio </option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Servicio:</label>
+        <input type="text" name="Nombre_Servicio" id="Nombre_Servicio" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Precio:</label>
+        <input type="number" name="Precio_Servicio" id="Precio_Servicio" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+<br />
+<a href="~/Servicios/ListaServicios" class="btn btn-primary">Ver Lista</a>
+

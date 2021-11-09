@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "ListaServicios";
+}
+
+<h2>Lista Servicios</h2>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tipo Servicio</th>
+            <th scope="col">Servicio</th>
+            <th scope="col">Precio</th>
+
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+                
+            foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result PosicionModelo in this.Model)
+                {
+                <tr>
+                    <td>@PosicionModelo.ID_Servicio</td>
+
+                    @foreach(PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
+                    {
+
+                        if (PosicionModelo.ID_TipoServicio == ModeloTipoS.ID_TipoServicio)
+                        {
+                            <td>@ModeloTipoS.Nombre_TipoServicio</td>
+                        }
+
+                    }
+                    <td>@PosicionModelo.Nombre_Servicio</td>
+                    <td>@PosicionModelo.Precio_Servicio</td>
+
+                    <td>
+                        <a href="~/Servicios/ModificaSERV?id_Serv=@PosicionModelo.ID_Servicio" class="btn btn-warning">Modificar</a>
+                        <a href="~/Servicios/MostrarSERV?id_Serv=@PosicionModelo.ID_Servicio" class="btn btn-success">Ver Datos</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Servicios/NuevoSERV" class="btn btn-success">Nuevo Dato</a>

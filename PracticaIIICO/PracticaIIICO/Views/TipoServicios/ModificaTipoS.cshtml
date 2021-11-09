@@ -1,0 +1,31 @@
+﻿@model PracticaIIICO.BD.sp_Retorna_Tipo_SERV_ID_Result
+@{
+    ViewBag.Title = "ModificaTipoS";
+}
+
+<h2>Modifica Tipo Servicios</h2>
+
+<form id="frmModificaTipoSER" method="post">
+
+    <div class="form-group">
+
+        <label>ID:</label>
+        <input type="number" name="ID_TipoServicio" id="ID_TipoServicio" class="form-control" readonly value="@Model.ID_TipoServicio" />
+    </div>
+
+    <div class="form-group">
+        <label>Tipo Servicio:</label>
+        <input type="text" name="Nombre_TipoServicio" id="Nombre_TipoServicio" class="form-control" value="@Model.Nombre_TipoServicio" />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input type="text" name="Descripcion_TipoServicio" id="Descripcion_TipoServicio" class="form-control" value="@Model.Descripcion_TipoServicio"/>
+        
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+
+<a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Ver Lista</a>
