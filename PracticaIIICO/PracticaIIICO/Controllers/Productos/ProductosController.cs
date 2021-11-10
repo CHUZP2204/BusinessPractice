@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PracticaIIICO.BD;
 
 namespace PracticaIIICO.Controllers
 {
     public class ProductosController : Controller
     {
+        
         // GET: Productos
         public ActionResult Index()
         {
@@ -15,8 +17,9 @@ namespace PracticaIIICO.Controllers
         }
 
         // GET: Productos/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ListaProductos()
         {
+            List<>
             return View();
         }
 

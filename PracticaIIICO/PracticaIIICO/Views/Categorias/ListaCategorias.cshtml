@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ListaCategorias";
+}
+
+<h2>Lista Categorias</h2>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Descripcion</th>
+
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result PosicionModelo in this.Model)
+            {
+                <tr>
+                    <td>@PosicionModelo.ID_Categoria</td>
+                    <td>@PosicionModelo.Nombre_Categoria</td>
+                    <td>@PosicionModelo.Descripcion_Categoria</td>
+
+                    <td>
+                        <a href="~/Categorias/ModificaCAT?id_cat=@PosicionModelo.ID_Categoria" class="btn btn-warning">Modificar</a>
+                        <a href="~/Categorias/MostrarCAT?id_cat=@PosicionModelo.ID_Categoria" class="btn btn-success">Ver Datos</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Categorias/NuevoCAT" class="btn btn-success">Nuevo Dato</a>

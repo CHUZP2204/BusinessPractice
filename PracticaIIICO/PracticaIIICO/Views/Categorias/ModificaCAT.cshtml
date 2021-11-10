@@ -1,0 +1,28 @@
+﻿@model PracticaIIICO.BD.sp_Retorna_Categorias_ID_Result
+@{
+    ViewBag.Title = "ModificaCAT";
+}
+
+<h2>ModificaCAT</h2>
+
+<form id="frModificaCAT" method="post">
+
+    <div class="form-group">
+        <label>ID:</label>
+        <input type="number" name="ID_Categoria" id="ID_Categoria" class="form-control" value="@Model.ID_Categoria" readonly/>
+    </div>
+    <div class="form-group">
+        <label>Categoria:</label>
+        <input type="text" name="Nombre_Categoria" id="Nombre_Categoria" class="form-control" value="@Model.Nombre_Categoria" />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input type="text" name="Descripcion_Categoria" id="Descripcion_Categoria" class="form-control" value="@Model.Descripcion_Categoria"/>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+
+<a href="~/Categorias/ListaCategorias" class="btn btn-primary">Ver Lista</a>

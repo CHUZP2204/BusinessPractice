@@ -2123,12 +2123,15 @@
     <Content Include="Views\Servicios\NuevoSERV.cshtml" />
     <Content Include="Views\Servicios\ModificaSERV.cshtml" />
     <Content Include="Views\Servicios\MostrarSERV.cshtml" />
+    <Content Include="Views\Categorias\ListaCategorias.cshtml" />
+    <Content Include="Views\Categorias\NuevoCAT.cshtml" />
+    <Content Include="Views\Categorias\ModificaCAT.cshtml" />
+    <Content Include="Views\Categorias\MostrarCAT.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Ajustes\" />
-    <Folder Include="Views\Categorias\" />
     <Folder Include="Views\Citas\" />
     <Folder Include="Views\Cotizacion\" />
     <Folder Include="Views\DetalleCotizacion\" />
