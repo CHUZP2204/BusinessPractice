@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "MostrarPROD";
+}
+
+<h2>MostrarPROD</h2>
+
+<form id="frmModificaPROD" method="post">
+
+    <div class="form-group">
+        <label>ID:</label>
+        <input type="number" name="ID_Producto" id="ID_Producto" class="form-control" value="@Model.ID_Producto" readonly />
+    </div>
+    <div class="form-group">
+        <label>Categoria:</label>
+
+        @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategorias in this.ViewBag.ListaCategorias)
+        {
+            bool esIdcategoria = ModeloCategorias.ID_Categoria == Model.ID_Categoria;
+
+
+            if (esIdcategoria)
+            {
+                <input type="text" name="ID_Categoria" id="ID_Categoria" value="@ModeloCategorias.Nombre_Categoria" class="form-control" readonly />
+            }
+        }
+
+    </div>
+    <div class="form-group">
+        <label>Producto:</label>
+        <input type="text" name="Nombre_PROD" id="Nombre_PROD" class="form-control" value="@Model.Nombre_PROD" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Precio:</label>
+        <input type="number" name="Precio_PROD" id="Precio_PROD" class="form-control" value="@Model.Precio_PROD" readonly />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input type="text" name="Descripcion_PROD" id="Descripcion_PROD" class="form-control" value="@Model.Descripcion_PROD" readonly />
+    </div>
+    <div class="form-group">
+        <label>Estado:</label>
+        @{
+
+            if (Model.Estado_PROD)
+            {
+                <input type="text" name="Estado_PROD" id="Estado_PROD" value="ACTIVO" class="form-control" readonly />
+            }
+            else
+            {
+                <input type="text" name="Estado_PROD" id="Estado_PROD" value="INACTIVO" class="form-control" readonly />
+            }
+        }
+    </div>
+
+    <br />
+</form>
+<br />
+<a href="~/Productos/ListaProductos" class="btn btn-primary">Ver Lista</a>

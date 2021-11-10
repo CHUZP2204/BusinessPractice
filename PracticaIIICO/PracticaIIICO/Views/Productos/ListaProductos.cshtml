@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "ListaProductos";
+}
+
+<h2>Lista Productos</h2>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result PosicionModelo in this.Model)
+            {
+                <tr>
+                    <td>@PosicionModelo.ID_Producto</td>
+                    @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategoria in this.ViewBag.ListaCategorias)
+                    {
+
+                        if (PosicionModelo.ID_Categoria == ModeloCategoria.ID_Categoria)
+                        {
+                            <td>@ModeloCategoria.Nombre_Categoria</td>
+                        }
+
+                    }
+                    <td>@PosicionModelo.Nombre_PROD</td>
+                    <td>@PosicionModelo.Precio_PROD</td>
+
+                    @{ if (PosicionModelo.Estado_PROD)
+                        {
+                            <td>ACTIVO</td>
+                        }
+                        else
+                        {
+                            <td>INACTIVO</td>
+                        }
+                    }
+
+
+
+                    <td>
+                        <a href="~/Productos/ModificaPROD?id_prod=@PosicionModelo.ID_Categoria" class="btn btn-warning">Modificar</a>
+                        <a href="~/Productos/MostrarPROD?id_prod=@PosicionModelo.ID_Categoria" class="btn btn-success">Ver Datos</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>

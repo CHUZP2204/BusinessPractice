@@ -1,0 +1,74 @@
+﻿@model PracticaIIICO.BD.sp_Retorna_Products_ID_Result
+@{
+    ViewBag.Title = "ModificaPROD";
+}
+
+<h2>ModificaPROD</h2>
+
+<form id="frmModificaPROD" method="post">
+
+    <div class="form-group">
+        <label>ID:</label>
+        <input type="number" name="ID_Producto" id="ID_Producto" class="form-control" value="@Model.ID_Producto" readonly />
+    </div>
+    <div class="form-group">
+        <label>Categoria:</label>
+        <select name="ID_Categoria" id="ID_Categoria" class="form-control">
+            @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategorias in this.ViewBag.ListaCategorias)
+            {
+                bool esIdcategoria = ModeloCategorias.ID_Categoria == Model.ID_Categoria;
+
+
+                if (esIdcategoria)
+                {
+                    <option value="@ModeloCategorias.ID_Categoria" selected>@ModeloCategorias.Nombre_Categoria </option>
+                }
+                else
+                {
+                    <option value="@ModeloCategorias.ID_Categoria">@ModeloCategorias.Nombre_Categoria</option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Producto:</label>
+        <input type="text" name="Nombre_PROD" id="Nombre_PROD" class="form-control" value="@Model.Nombre_PROD" />
+    </div>
+
+    <div class="form-group">
+        <label>Precio:</label>
+        <input type="number" name="Precio_PROD" id="Precio_PROD" class="form-control" value="@Model.Precio_PROD" />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input type="text" name="Descripcion_PROD" id="Descripcion_PROD" class="form-control" value="@Model.Descripcion_PROD" />
+    </div>
+    <div class="form-group">
+        <label>Estado:</label>
+        <select name="Estado_PROD" id="Estado_PROD" class="form-control">
+            @{
+   
+
+                    if (Model.Estado_PROD)
+                    {
+                        <option value="true" selected>ACTIVO</option>
+                        <option value="false">INACTIVO</option>
+                    }
+                    else
+                    {
+                        <option value="true">ACTIVO</option>
+                        <option value="false" selected>INACTIVO</option>
+
+                    }
+            }
+        </select>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Modifcar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+<br />
+<a href="~/Productos/ListaProductos" class="btn btn-primary">Ver Lista</a>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MotoRepuestosMakoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MotoRepuestosMakoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AjustesTbl">
           <Key>
             <PropertyRef Name="ID_Ajuste" />
@@ -866,8 +866,7 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MotoRepuestosMakoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1387,52 +1386,49 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
           <FunctionImport Name="sp_Elimina_Ajuste">
-            <Parameter Name="idAjuste" Mode="In" Type="Int32" />
+          <Parameter Name="idAjuste" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Categorias">
-            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+          <Parameter Name="idCategoria" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Citas">
-            <Parameter Name="idCita" Mode="In" Type="Int32" />
+          <Parameter Name="idCita" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Cotizacion">
-            <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
+          <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_DetalleCoti">
-            <Parameter Name="idDetalleCoti" Mode="In" Type="Int32" />
+          <Parameter Name="idDetalleCoti" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_DetalleEntrada">
-            <Parameter Name="idDetalleEnt" Mode="In" Type="Int32" />
+          <Parameter Name="idDetalleEnt" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_DetalleSalida">
-            <Parameter Name="idDetalleSal" Mode="In" Type="Int32" />
+          <Parameter Name="idDetalleSal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Entrada">
-            <Parameter Name="idEntrada" Mode="In" Type="Int32" />
+          <Parameter Name="idEntrada" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Marca">
-            <Parameter Name="idMarca" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Elimina_Products">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          <Parameter Name="idMarca" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Proveedor">
-            <Parameter Name="idProveedor" Mode="In" Type="Int32" />
+          <Parameter Name="idProveedor" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Salida">
-            <Parameter Name="idsalida" Mode="In" Type="Int32" />
+          <Parameter Name="idsalida" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_SERV_ID">
-            <Parameter Name="idSERV" Mode="In" Type="Int32" />
+          <Parameter Name="idSERV" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_TipoSERVID">
-            <Parameter Name="idTipoSERV" Mode="In" Type="Int32" />
+          <Parameter Name="idTipoSERV" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_TipoUsuario">
-            <Parameter Name="idTipousuario" Mode="In" Type="Int32" />
+          <Parameter Name="idTipousuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Elimina_Usuario">
-            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_Ajuste">
             <Parameter Name="idProd" Mode="In" Type="Int32" />
@@ -1499,13 +1495,6 @@
             <Parameter Name="nombreMarca" Mode="In" Type="String" />
             <Parameter Name="descripcionMarca" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_Inserta_Products">
-            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
-            <Parameter Name="nombrePRO" Mode="In" Type="String" />
-            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
-            <Parameter Name="descripPRO" Mode="In" Type="String" />
-            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="sp_Inserta_Proveedor">
             <Parameter Name="nombreProv" Mode="In" Type="String" />
             <Parameter Name="direccionProv" Mode="In" Type="String" />
@@ -1528,7 +1517,7 @@
             <Parameter Name="descripTipoSERV" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_TipoUsuario">
-            <Parameter Name="nombreTipoUsuario" Mode="In" Type="String" />
+          <Parameter Name="nombreTipoUsuario" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_Usuario">
             <Parameter Name="idTipoUsuario" Mode="In" Type="Int32" />
@@ -1618,14 +1607,6 @@
             <Parameter Name="nombreMarca" Mode="In" Type="String" />
             <Parameter Name="descripcionMarca" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_Modifica_Products">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
-            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
-            <Parameter Name="nombrePRO" Mode="In" Type="String" />
-            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
-            <Parameter Name="descripPRO" Mode="In" Type="String" />
-            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
-          </FunctionImport>
           <FunctionImport Name="sp_Modifica_ProveedorID">
             <Parameter Name="idprov" Mode="In" Type="Int32" />
             <Parameter Name="nombreProv" Mode="In" Type="String" />
@@ -1671,88 +1652,81 @@
             <Parameter Name="ultimaVez" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_AjusteID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_AjusteID_Result)">
-            <Parameter Name="idAjuste" Mode="In" Type="Int32" />
+          <Parameter Name="idAjuste" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Ajustes" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Ajustes_Result)">
-            <Parameter Name="tipoAjuste" Mode="In" Type="String" />
+          <Parameter Name="tipoAjuste" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Categorias" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Categorias_Result)">
             <Parameter Name="nombreCategoria" Mode="In" Type="String" />
             <Parameter Name="descripCategoria" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Categorias_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Categorias_ID_Result)">
-            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+          <Parameter Name="idCategoria" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Citas" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Citas_Result)">
             <Parameter Name="nombreCliente" Mode="In" Type="String" />
             <Parameter Name="placaMoto" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_CitasID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_CitasID_Result)">
-            <Parameter Name="idCita" Mode="In" Type="Int32" />
+          <Parameter Name="idCita" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Cotizacion" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Cotizacion_Result)">
             <Parameter Name="nombreCliente" Mode="In" Type="String" />
             <Parameter Name="correoCliente" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_CotizacionID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_CotizacionID_Result)">
-            <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
+          <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Detalle_EntrID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Detalle_EntrID_Result)">
-            <Parameter Name="idDetalleEntr" Mode="In" Type="Int32" />
+          <Parameter Name="idDetalleEntr" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Detalle_Salida" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Detalle_Salida_Result)">
-            <Parameter Name="idDetalleSal" Mode="In" Type="Int32" />
+          <Parameter Name="idDetalleSal" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_DetalleCoti" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_DetalleCoti_Result)">
-            <Parameter Name="idDetalleCoti" Mode="In" Type="Int32" />
+          <Parameter Name="idDetalleCoti" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_EntradaID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_EntradaID_Result)">
-            <Parameter Name="idEntrada" Mode="In" Type="Int32" />
+          <Parameter Name="idEntrada" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Entradas" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Entradas_Result)">
-            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="idUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Marcas" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Marcas_Result)">
             <Parameter Name="nombreMarca" Mode="In" Type="String" />
             <Parameter Name="descripcion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Marcas_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Marcas_ID_Result)">
-            <Parameter Name="ID_Marca" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Retorna_Productos">
-            <Parameter Name="nombrePROD" Mode="In" Type="String" />
-            <Parameter Name="descripPROD" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Retorna_Products_ID">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          <Parameter Name="ID_Marca" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Proveedores" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Proveedores_Result)">
-            <Parameter Name="nombreProv" Mode="In" Type="String" />
+          <Parameter Name="nombreProv" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_ProveedorID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_ProveedorID_Result)">
-            <Parameter Name="idprov" Mode="In" Type="Int32" />
+          <Parameter Name="idprov" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_SalidaID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_SalidaID_Result)">
-            <Parameter Name="idSalida" Mode="In" Type="Int32" />
+          <Parameter Name="idSalida" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Serv_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Serv_ID_Result)">
-            <Parameter Name="idSERV" Mode="In" Type="Int32" />
+          <Parameter Name="idSERV" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Servicio" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Servicio_Result)">
-            <Parameter Name="nombreSERV" Mode="In" Type="String" />
+          <Parameter Name="nombreSERV" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Tipo_SERV_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Tipo_SERV_ID_Result)">
-            <Parameter Name="idTipoSERV" Mode="In" Type="Int32" />
+          <Parameter Name="idTipoSERV" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Tipo_Servicio" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Tipo_Servicio_Result)">
             <Parameter Name="nombreTipoSERV" Mode="In" Type="String" />
             <Parameter Name="descripTipoSERV" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_TipoUsuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_TipoUsuario_Result)">
-            <Parameter Name="nombreTipoUsu" Mode="In" Type="String" />
+          <Parameter Name="nombreTipoUsu" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_TipoUsuario_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_TipoUsuario_ID_Result)">
-            <Parameter Name="idTipousuario" Mode="In" Type="Int32" />
+          <Parameter Name="idTipousuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Usuario_Result)">
             <Parameter Name="nombreUsuario" Mode="In" Type="String" />
@@ -1766,6 +1740,31 @@
           <FunctionImport Name="sp_Verifica_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Verifica_Usuario_Result)">
             <Parameter Name="nombreU" Mode="In" Type="String" />
             <Parameter Name="claveU" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Elimina_Products">
+            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Inserta_Products">
+            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="nombrePRO" Mode="In" Type="String" />
+            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
+            <Parameter Name="descripPRO" Mode="In" Type="String" />
+            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Modifica_Products">
+            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="nombrePRO" Mode="In" Type="String" />
+            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
+            <Parameter Name="descripPRO" Mode="In" Type="String" />
+            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Productos" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Productos_Result)">
+            <Parameter Name="nombrePROD" Mode="In" Type="String" />
+            <Parameter Name="descripPROD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Products_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result)">
+            <Parameter Name="idPROD" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -1980,6 +1979,22 @@
           <Property Type="String" Name="Clave_U" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="sp_Retorna_Productos_Result">
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
+          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
+          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_Products_ID_Result">
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
+          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
+          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2185,7 +2200,6 @@
           <FunctionImportMapping FunctionImportName="sp_Elimina_DetalleSalida" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_DetalleSalida" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Entrada" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Entrada" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Marca" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Marca" />
-          <FunctionImportMapping FunctionImportName="sp_Elimina_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Products" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Proveedor" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Proveedor" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Salida" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Salida" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_SERV_ID" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_SERV_ID" />
@@ -2201,7 +2215,6 @@
           <FunctionImportMapping FunctionImportName="sp_Inserta_DetalleCoti" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_DetalleCoti" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Entrada" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Entrada" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Marcas" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Marcas" />
-          <FunctionImportMapping FunctionImportName="sp_Inserta_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Products" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Proveedor" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Proveedor" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Salida" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Salida" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Servicio" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Servicio" />
@@ -2217,7 +2230,6 @@
           <FunctionImportMapping FunctionImportName="sp_Modifica_DetalleCoti" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_DetalleCoti" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Entrada" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Entrada" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Marcas" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Marcas" />
-          <FunctionImportMapping FunctionImportName="sp_Modifica_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Products" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_ProveedorID" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_ProveedorID" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Salida" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Salida" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Servicio" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Servicio" />
@@ -2410,8 +2422,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Retorna_Productos" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Productos" />
-          <FunctionImportMapping FunctionImportName="sp_Retorna_Products_ID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Products_ID" />
           <FunctionImportMapping FunctionImportName="sp_Retorna_Proveedores" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Proveedores">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Proveedores_Result">
@@ -2543,6 +2553,33 @@
                 <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
                 <ScalarProperty Name="Clave_U" ColumnName="Clave_U" />
                 <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Elimina_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Products" />
+          <FunctionImportMapping FunctionImportName="sp_Inserta_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Products" />
+          <FunctionImportMapping FunctionImportName="sp_Modifica_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Products" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Productos" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Productos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Productos_Result">
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Products_ID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Products_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result">
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -9,7 +9,7 @@ namespace PracticaIIICO.Controllers
 {
     public class ProductosController : Controller
     {
-        
+        MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();   
         // GET: Productos
         public ActionResult Index()
         {
@@ -19,54 +19,118 @@ namespace PracticaIIICO.Controllers
         // GET: Productos/Details/5
         public ActionResult ListaProductos()
         {
-            List<>
-            return View();
+            List<sp_Retorna_Productos_Result> datosObtenidos = new List<sp_Retorna_Productos_Result>();
+            datosObtenidos = this.ModeloBD.sp_Retorna_Productos(null, null).ToList();
+
+            this.agregaCategorias();
+            return View(datosObtenidos);
         }
 
         // GET: Productos/Create
-        public ActionResult Create()
+        public ActionResult NuevoPROD()
         {
+            this.agregaCategorias();
             return View();
         }
 
         // POST: Productos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult NuevoPROD(sp_Retorna_Productos_Result collection)
         {
+
+            int cantidadRegistrosAfectados = 0;
+            string resultado = " ";
+            bool estadoPROD = true;
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                cantidadRegistrosAfectados =
+                this.ModeloBD.sp_Inserta_Products(
+                    collection.ID_Categoria,
+                    collection.Nombre_PROD,
+                    collection.Precio_PROD,
+                    collection.Descripcion_PROD,
+                    estadoPROD
+                    );
+                return RedirectToAction("ListaProductos");
             }
-            catch
+            catch (Exception errorObtenido)
             {
-                return View();
+                resultado = "Ocurrio Un Error: " + errorObtenido.Message;
             }
+            finally
+            {
+                if (cantidadRegistrosAfectados > 0)
+                {
+                    resultado = "Registro Insertado";
+                }
+                else
+                {
+                    resultado += "No se pudo Insertar";
+                }
+            }
+            Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
+            this.agregaCategorias();
+            return View(collection);
         }
 
         // GET: Productos/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult ModificaPROD(int id_prod)
         {
-            return View();
+            sp_Retorna_Products_ID_Result vistObtenida = new sp_Retorna_Products_ID_Result();
+            vistObtenida = this.ModeloBD.sp_Retorna_Products_ID(id_prod).FirstOrDefault();
+
+            this.agregaCategorias();
+            return View(vistObtenida);
         }
 
         // POST: Productos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult ModificaPROD(sp_Retorna_Products_ID_Result collection)
         {
+            int cantidadRegistrosAfectados = 0;
+            string resultado = " ";
+
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                cantidadRegistrosAfectados =
+                this.ModeloBD.sp_Modifica_Products(
+                    collection.ID_Producto,
+                    collection.ID_Categoria,
+                    collection.Nombre_PROD,
+                    collection.Precio_PROD,
+                    collection.Descripcion_PROD,
+                    collection.Estado_PROD
+                    );
+                return RedirectToAction("ListaProductos");
             }
-            catch
+            catch (Exception errorObtenido)
             {
-                return View();
+                resultado = "Ocurrio Un Error: " + errorObtenido.Message;
             }
+            finally
+            {
+                if (cantidadRegistrosAfectados > 0)
+                {
+                    resultado = "Registro Modificado";
+                }
+                else
+                {
+                    resultado += "No se pudo Modificar";
+                }
+            }
+            Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
+            this.agregaCategorias();
+            return View(collection);
         }
+        //
+        public ActionResult MostrarPROD(int id_prod)
+        {
+            sp_Retorna_Products_ID_Result vistObtenida = new sp_Retorna_Products_ID_Result();
+            vistObtenida = this.ModeloBD.sp_Retorna_Products_ID(id_prod).FirstOrDefault();
 
+            this.agregaCategorias();
+            return View(vistObtenida);
+        }
         // GET: Productos/Delete/5
         public ActionResult Delete(int id)
         {
@@ -87,6 +151,11 @@ namespace PracticaIIICO.Controllers
             {
                 return View();
             }
+        }
+
+        void agregaCategorias()
+        {
+            this.ViewBag.ListaCategorias = this.ModeloBD.sp_Retorna_Categorias(null, null).ToList();
         }
     }
 }

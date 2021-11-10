@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "NuevoPROD";
+}
+
+<h2>Nuevo Producto</h2>
+
+<form id="frmRegistroPROD" method="post">
+
+    <div class="form-group">
+        <label>Categoria:</label>
+        <select name="ID_Categoria" id="ID_Categoria" class="form-control">
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategorias in this.ViewBag.ListaCategorias)
+                {
+                    <option value="@ModeloCategorias.ID_Categoria">@ModeloCategorias.Nombre_Categoria </option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Producto:</label>
+        <input type="text" name="Nombre_PROD" id="Nombre_PROD" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Precio:</label>
+        <input type="number" name="Precio_PROD" id="Precio_PROD" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input type="text" name="Descripcion_PROD" id="Descripcion_PROD" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Estado:</label>
+        <input type="text" name="Estado_PROD" id="Estado_PROD" value="ACTIVO" class="form-control" readonly />
+    </div>
+
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+<br />
+<a href="~/Productos/ListaProductos" class="btn btn-primary">Ver Lista</a>

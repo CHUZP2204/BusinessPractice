@@ -225,6 +225,12 @@
     <Compile Include="BD\sp_Retorna_Marcas_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_Retorna_Productos_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Products_ID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Retorna_Proveedores_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -2127,6 +2133,10 @@
     <Content Include="Views\Categorias\NuevoCAT.cshtml" />
     <Content Include="Views\Categorias\ModificaCAT.cshtml" />
     <Content Include="Views\Categorias\MostrarCAT.cshtml" />
+    <Content Include="Views\Productos\ListaProductos.cshtml" />
+    <Content Include="Views\Productos\NuevoPROD.cshtml" />
+    <Content Include="Views\Productos\ModificaPROD.cshtml" />
+    <Content Include="Views\Productos\MostrarPROD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2138,7 +2148,6 @@
     <Folder Include="Views\DetalleEntradas\" />
     <Folder Include="Views\DetalleSalidas\" />
     <Folder Include="Views\Entradas\" />
-    <Folder Include="Views\Productos\" />
     <Folder Include="Views\Salidas\" />
   </ItemGroup>
   <ItemGroup>

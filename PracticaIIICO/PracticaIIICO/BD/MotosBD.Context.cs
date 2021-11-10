@@ -126,15 +126,6 @@ namespace PracticaIIICO.BD
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Elimina_Marca", idMarcaParameter);
         }
     
-        public virtual int sp_Elimina_Products(Nullable<int> idPROD)
-        {
-            var idPRODParameter = idPROD.HasValue ?
-                new ObjectParameter("idPROD", idPROD) :
-                new ObjectParameter("idPROD", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Elimina_Products", idPRODParameter);
-        }
-    
         public virtual int sp_Elimina_Proveedor(Nullable<int> idProveedor)
         {
             var idProveedorParameter = idProveedor.HasValue ?
@@ -420,31 +411,6 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("descripcionMarca", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Marcas", nombreMarcaParameter, descripcionMarcaParameter);
-        }
-    
-        public virtual int sp_Inserta_Products(Nullable<int> idCategoria, string nombrePRO, Nullable<decimal> precioPRO, string descripPRO, Nullable<bool> estadoPRO)
-        {
-            var idCategoriaParameter = idCategoria.HasValue ?
-                new ObjectParameter("idCategoria", idCategoria) :
-                new ObjectParameter("idCategoria", typeof(int));
-    
-            var nombrePROParameter = nombrePRO != null ?
-                new ObjectParameter("nombrePRO", nombrePRO) :
-                new ObjectParameter("nombrePRO", typeof(string));
-    
-            var precioPROParameter = precioPRO.HasValue ?
-                new ObjectParameter("precioPRO", precioPRO) :
-                new ObjectParameter("precioPRO", typeof(decimal));
-    
-            var descripPROParameter = descripPRO != null ?
-                new ObjectParameter("descripPRO", descripPRO) :
-                new ObjectParameter("descripPRO", typeof(string));
-    
-            var estadoPROParameter = estadoPRO.HasValue ?
-                new ObjectParameter("estadoPRO", estadoPRO) :
-                new ObjectParameter("estadoPRO", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Products", idCategoriaParameter, nombrePROParameter, precioPROParameter, descripPROParameter, estadoPROParameter);
         }
     
         public virtual int sp_Inserta_Proveedor(string nombreProv, string direccionProv, string correoProv, string telefonoProv, Nullable<bool> estadoProv)
@@ -850,35 +816,6 @@ namespace PracticaIIICO.BD
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Modifica_Marcas", idMarcaParameter, nombreMarcaParameter, descripcionMarcaParameter);
         }
     
-        public virtual int sp_Modifica_Products(Nullable<int> idPROD, Nullable<int> idCategoria, string nombrePRO, Nullable<decimal> precioPRO, string descripPRO, Nullable<bool> estadoPRO)
-        {
-            var idPRODParameter = idPROD.HasValue ?
-                new ObjectParameter("idPROD", idPROD) :
-                new ObjectParameter("idPROD", typeof(int));
-    
-            var idCategoriaParameter = idCategoria.HasValue ?
-                new ObjectParameter("idCategoria", idCategoria) :
-                new ObjectParameter("idCategoria", typeof(int));
-    
-            var nombrePROParameter = nombrePRO != null ?
-                new ObjectParameter("nombrePRO", nombrePRO) :
-                new ObjectParameter("nombrePRO", typeof(string));
-    
-            var precioPROParameter = precioPRO.HasValue ?
-                new ObjectParameter("precioPRO", precioPRO) :
-                new ObjectParameter("precioPRO", typeof(decimal));
-    
-            var descripPROParameter = descripPRO != null ?
-                new ObjectParameter("descripPRO", descripPRO) :
-                new ObjectParameter("descripPRO", typeof(string));
-    
-            var estadoPROParameter = estadoPRO.HasValue ?
-                new ObjectParameter("estadoPRO", estadoPRO) :
-                new ObjectParameter("estadoPRO", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Modifica_Products", idPRODParameter, idCategoriaParameter, nombrePROParameter, precioPROParameter, descripPROParameter, estadoPROParameter);
-        }
-    
         public virtual int sp_Modifica_ProveedorID(Nullable<int> idprov, string nombreProv, string direccionProv, string correoProv, string telefonoProv, Nullable<bool> estadoProv)
         {
             var idprovParameter = idprov.HasValue ?
@@ -1188,28 +1125,6 @@ namespace PracticaIIICO.BD
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Marcas_ID_Result>("sp_Retorna_Marcas_ID", iD_MarcaParameter);
         }
     
-        public virtual int sp_Retorna_Productos(string nombrePROD, string descripPROD)
-        {
-            var nombrePRODParameter = nombrePROD != null ?
-                new ObjectParameter("nombrePROD", nombrePROD) :
-                new ObjectParameter("nombrePROD", typeof(string));
-    
-            var descripPRODParameter = descripPROD != null ?
-                new ObjectParameter("descripPROD", descripPROD) :
-                new ObjectParameter("descripPROD", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Retorna_Productos", nombrePRODParameter, descripPRODParameter);
-        }
-    
-        public virtual int sp_Retorna_Products_ID(Nullable<int> idPROD)
-        {
-            var idPRODParameter = idPROD.HasValue ?
-                new ObjectParameter("idPROD", idPROD) :
-                new ObjectParameter("idPROD", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Retorna_Products_ID", idPRODParameter);
-        }
-    
         public virtual ObjectResult<sp_Retorna_Proveedores_Result> sp_Retorna_Proveedores(string nombreProv)
         {
             var nombreProvParameter = nombreProv != null ?
@@ -1336,6 +1251,91 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("claveU", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Verifica_Usuario_Result>("sp_Verifica_Usuario", nombreUParameter, claveUParameter);
+        }
+    
+        public virtual int sp_Elimina_Products(Nullable<int> idPROD)
+        {
+            var idPRODParameter = idPROD.HasValue ?
+                new ObjectParameter("idPROD", idPROD) :
+                new ObjectParameter("idPROD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Elimina_Products", idPRODParameter);
+        }
+    
+        public virtual int sp_Inserta_Products(Nullable<int> idCategoria, string nombrePRO, Nullable<decimal> precioPRO, string descripPRO, Nullable<bool> estadoPRO)
+        {
+            var idCategoriaParameter = idCategoria.HasValue ?
+                new ObjectParameter("idCategoria", idCategoria) :
+                new ObjectParameter("idCategoria", typeof(int));
+    
+            var nombrePROParameter = nombrePRO != null ?
+                new ObjectParameter("nombrePRO", nombrePRO) :
+                new ObjectParameter("nombrePRO", typeof(string));
+    
+            var precioPROParameter = precioPRO.HasValue ?
+                new ObjectParameter("precioPRO", precioPRO) :
+                new ObjectParameter("precioPRO", typeof(decimal));
+    
+            var descripPROParameter = descripPRO != null ?
+                new ObjectParameter("descripPRO", descripPRO) :
+                new ObjectParameter("descripPRO", typeof(string));
+    
+            var estadoPROParameter = estadoPRO.HasValue ?
+                new ObjectParameter("estadoPRO", estadoPRO) :
+                new ObjectParameter("estadoPRO", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Products", idCategoriaParameter, nombrePROParameter, precioPROParameter, descripPROParameter, estadoPROParameter);
+        }
+    
+        public virtual int sp_Modifica_Products(Nullable<int> idPROD, Nullable<int> idCategoria, string nombrePRO, Nullable<decimal> precioPRO, string descripPRO, Nullable<bool> estadoPRO)
+        {
+            var idPRODParameter = idPROD.HasValue ?
+                new ObjectParameter("idPROD", idPROD) :
+                new ObjectParameter("idPROD", typeof(int));
+    
+            var idCategoriaParameter = idCategoria.HasValue ?
+                new ObjectParameter("idCategoria", idCategoria) :
+                new ObjectParameter("idCategoria", typeof(int));
+    
+            var nombrePROParameter = nombrePRO != null ?
+                new ObjectParameter("nombrePRO", nombrePRO) :
+                new ObjectParameter("nombrePRO", typeof(string));
+    
+            var precioPROParameter = precioPRO.HasValue ?
+                new ObjectParameter("precioPRO", precioPRO) :
+                new ObjectParameter("precioPRO", typeof(decimal));
+    
+            var descripPROParameter = descripPRO != null ?
+                new ObjectParameter("descripPRO", descripPRO) :
+                new ObjectParameter("descripPRO", typeof(string));
+    
+            var estadoPROParameter = estadoPRO.HasValue ?
+                new ObjectParameter("estadoPRO", estadoPRO) :
+                new ObjectParameter("estadoPRO", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Modifica_Products", idPRODParameter, idCategoriaParameter, nombrePROParameter, precioPROParameter, descripPROParameter, estadoPROParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_Productos_Result> sp_Retorna_Productos(string nombrePROD, string descripPROD)
+        {
+            var nombrePRODParameter = nombrePROD != null ?
+                new ObjectParameter("nombrePROD", nombrePROD) :
+                new ObjectParameter("nombrePROD", typeof(string));
+    
+            var descripPRODParameter = descripPROD != null ?
+                new ObjectParameter("descripPROD", descripPROD) :
+                new ObjectParameter("descripPROD", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Productos_Result>("sp_Retorna_Productos", nombrePRODParameter, descripPRODParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_Products_ID_Result> sp_Retorna_Products_ID(Nullable<int> idPROD)
+        {
+            var idPRODParameter = idPROD.HasValue ?
+                new ObjectParameter("idPROD", idPROD) :
+                new ObjectParameter("idPROD", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Products_ID_Result>("sp_Retorna_Products_ID", idPRODParameter);
         }
     }
 }
