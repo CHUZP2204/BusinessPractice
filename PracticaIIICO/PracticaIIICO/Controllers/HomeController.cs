@@ -27,6 +27,11 @@ namespace PracticaIIICO.Controllers
             return View();
         }
 
+        public ActionResult Configuracion()
+        {
+            return View();
+        }
+
         //Evento que Bloquea El Menu Lateral
         [HttpPost]
         public ActionResult RetornaOpcionSidebarBloqueo()

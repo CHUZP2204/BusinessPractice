@@ -3,29 +3,35 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Pagina Inicio</h1>
+    <h3 style="color:green">Bienvenido Al Sistema @Session["NombreUsuario"] @Session["ApellidosUsuario"]</h3>
+
+    <hr />
+    <h3 style="text-align:center">Mantenimientos Del Sistema</h3>
+    <br />
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h4>Productos Y Servicios</h4>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+           Administre Tus productos 
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <a href="~/Productos/ListaProductos" class="btn btn-primary">Productos</a>
+        <a href="~/Servicios/ListaServicios" class="btn btn-primary">Servicios</a>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h4>Usuarios</h4>
+        <p>Admnistre Los Usuarios</p>
+        <a href="~/Usuarios/ListaUsuarios" class="btn btn-primary">Usuarios</a>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h4>Entradas y Salidas</h4>
+        <p>Admnistre Su Inventario</p>
+        <a href="#" class="btn btn-primary">Acceder</a>
     </div>
 </div>
+
+@section scripts{ 
+    <script src="~/Scripts/Sesion/HoraActual.js"></script>
+}

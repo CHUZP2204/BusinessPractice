@@ -51,13 +51,18 @@
                     </div>
                     <div class="user-info">
                         <span class="user-name">
-                            JESUS 
-                            <strong>PEREZ S</strong>
+                            @Session["NombreUsuario"]
+                            <strong>@Session["ApellidosUsuario"]</strong>
                         </span>
-                        <span class="user-role">ADMINISTRADOR</span>
+                        <span class="user-role">@Session["RoleUsuario"]</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
+                            <br />
+                            Fecha:
+                            <span>@DateTime.Now.Date.ToShortDateString()</span>
+                            <br />
+                            Hora:<span id="HoraActual"></span>
                         </span>
 
                     </div>
@@ -85,7 +90,7 @@
 
                             <a aria-haspopup="true" href="#">
                                 <i class="fa fa-tachometer-alt"></i>
-                                <span>Dashboard</span>
+                                <span>Empresa</span>
                                 <span class="badge badge-pill badge-success">New</span>
                             </a>
 
@@ -93,8 +98,8 @@
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">
-                                            Dashboard 1
+                                        <a href="~/Home/Index">
+                                            Menu Principal
                                             <span class="badge badge-pill badge-success">Pro</span>
                                         </a>
                                     </li>
@@ -110,23 +115,21 @@
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-shopping-cart"></i>
-                                <span>E-commerce</span>
+                                <span>Ventas</span>
                                 <span class="badge badge-pill badge-danger">3</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a id="btnProducts">
-                                            Products
-
-                                        </a>
+                                        <!--<a id="btnProducts">Products</a>-->
+                                        <a href="~/Productos/ListaProductos">Productos</a>
                                     </li>
                                     <li>
-                                        <a href="~/listaCitas/listaCitas">Orders</a>
+                                        <a href="~/Proveedores/ListaProveedores">Proveedores</a>
                                     </li>
                                     <li>
                                         <!---->
-                                        <a href="~/listaCitas/listaCitas">CreditCart</a>
+                                        <a href="~/Servicios/ListaServicios">Servicios</a>
                                     </li>
                                 </ul>
                             </div>
@@ -404,23 +407,24 @@
                             Herramientas
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="~/Usuarios/MostrarUsuario?id_User=@Session["IdUsuario"]">
                             <div class="tools-content">
                                 <div class="icon">
                                     <i class="fas fa-user text-primary border border-primary"></i>
                                 </div>
                                 <div class="content">
-                                    <p>My Profile</p>
+                                    <p>Mi Perfil</p>
+                                    
                                 </div>
                             </div>
                         </a>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="~/Home/Configuracion">
                             <div class="tools-content">
                                 <div class="icon">
                                     <i class="fas fa-tools text-primary border border-primary"></i>
                                 </div>
                                 <div class="content">
-                                    <p>Settings</p>
+                                    <p>Ajustes</p>
                                 </div>
                             </div>
                         </a>
@@ -430,7 +434,7 @@
                                     <i class="far fa-question-circle text-primary border border-primary"></i>
                                 </div>
                                 <div class="content">
-                                    <p>Help</p>
+                                    <p>Ayuda</p>
                                 </div>
                             </div>
                         </a>
@@ -488,29 +492,18 @@
                 <!--Boton Que Venia Por Defecto-->
                 <!--<a class="btn btn-primary" href="#">Toggle Sidebar</a>-->
 
-                <a href="~/Servicios/ListaServicios" class="btn btn-primary">Servicios</a>
-                <a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Tipos Servicios</a>
 
-                <a href="~/Usuarios/ListaUsuarios" class="btn btn-primary">Usuarios</a>
-                <a href="~/TipoUsuarios/ListTypeUser" class="btn btn-primary">Tipos Usuarios</a>
+                <br />
+                <br />
 
-                <a href="~/Home/Login" class="btn btn-primary">Iniciar Session</a>
-                <a href="~/Products/ListProducts" class="btn btn-primary">Ver Productos</a>
-                <br />
-                <br />
-                <a href="~/Archivo/IndexCarga" class="btn btn-primary">Subir Archivos</a>
-                <a href="~/Home/Informes" class="btn btn-primary">Crear Infome PDF</a>
-                <a href="~/Admin/tbl_Usuarios" class="btn btn-primary">Ver Usuarios</a>
-                <br />
                 <hr />
-                <h2>Eventos Para Mantener El Menu Lateral Fijo o Flexible</h2>
-                <a class="btn btn-secondary" id="btnCreditCart">Bloquear SideBar</a>
-                <a class="btn btn-secondary" id="btnDesbloqueo">Desbloquear SideBar</a>
-                <hr />
+
                 <!--Cuerpo De los otros Controllers-->
                 @RenderBody()
 
-
+                <br />
+                <br />
+                <hr />
                 <footer class="text-center">
                     <div class="mb-2">
                         <small>
@@ -546,6 +539,7 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/Sidebar/sideBar.js"></script>
     <script src="~/Scripts/Sidebar/estadoSidebar.js"></script>
+    <script src="~/Scripts/Sesion/HoraActual.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>

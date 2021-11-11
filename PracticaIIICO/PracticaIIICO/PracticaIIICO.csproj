@@ -296,6 +296,9 @@
     <Compile Include="Controllers\Usuarios\TipoUsuariosController.cs" />
     <Compile Include="Controllers\Usuarios\UsuariosController.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
+    <Compile Include="Filters\Lock.cs" />
+    <Compile Include="Filters\LockInicioSesion.cs" />
+    <Compile Include="Filters\VerificaSesion.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2094,6 +2097,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Sesion\HoraActual.js" />
     <Content Include="Scripts\Sesion\InicioSesion.js" />
     <Content Include="Scripts\Sesion\llamarModal.js" />
     <Content Include="Scripts\Sidebar\estadoSidebar.js" />
@@ -2149,6 +2153,7 @@
     <Content Include="Views\Error\UnauthorizeOperation.cshtml" />
     <Content Include="Views\Error\Unauthorize.cshtml" />
     <Content Include="Views\Error\MessageError.cshtml" />
+    <Content Include="Views\Home\Configuracion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

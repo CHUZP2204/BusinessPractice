@@ -11,7 +11,7 @@ namespace PracticaIIICO.Filters
     public class AuthorizeUser : AuthorizeAttribute
     {
 
-        private sp_Retorna_Usuario_Result usuario;
+        private sp_Retorna_UsuarioID_Result usuario;
         private MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();
         private string tipoUsuario = "";
 
@@ -27,7 +27,7 @@ namespace PracticaIIICO.Filters
 
             try
             {
-                usuario = (sp_Retorna_Usuario_Result)HttpContext.Current.Session["UsuarioActual"];
+                usuario = (sp_Retorna_UsuarioID_Result)HttpContext.Current.Session["UsuarioActual"];
                 if (usuario != null)
                 {
 
