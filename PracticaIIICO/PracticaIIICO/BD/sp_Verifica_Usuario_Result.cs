@@ -14,7 +14,9 @@ namespace PracticaIIICO.BD
     public partial class sp_Verifica_Usuario_Result
     {
         public int ID_Usuario { get; set; }
-        public string Clave_U { get; set; }
+        public string Nombre_U { get; set; }
+        public string Apellido1_U { get; set; }
+        public string Apellido2_U { get; set; }
         public string Usuario_Ingreso { get; set; }
     }
 }

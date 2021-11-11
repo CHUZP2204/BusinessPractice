@@ -1737,12 +1737,8 @@
             <Parameter Name="nombreUsuario" Mode="In" Type="String" />
             <Parameter Name="apellido1" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_Verifica_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Verifica_Usuario_Result)">
-            <Parameter Name="nombreU" Mode="In" Type="String" />
-            <Parameter Name="claveU" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_Elimina_Products">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          <Parameter Name="idPROD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Inserta_Products">
             <Parameter Name="idCategoria" Mode="In" Type="Int32" />
@@ -1764,7 +1760,11 @@
             <Parameter Name="descripPROD" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Products_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result)">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Verifica_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Verifica_Usuario_Result)">
+            <Parameter Name="nombreU" Mode="In" Type="String" />
+            <Parameter Name="claveU" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -1974,11 +1974,6 @@
           <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
           <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="sp_Verifica_Usuario_Result">
-          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
-          <Property Type="String" Name="Clave_U" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="sp_Retorna_Productos_Result">
           <Property Type="Int32" Name="ID_Producto" Nullable="false" />
           <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
@@ -1994,6 +1989,13 @@
           <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
           <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Verifica_Usuario_Result">
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2547,15 +2549,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Verifica_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Verifica_Usuario">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Verifica_Usuario_Result">
-                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
-                <ScalarProperty Name="Clave_U" ColumnName="Clave_U" />
-                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Elimina_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Products" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Products" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Products" />
@@ -2580,6 +2573,17 @@
                 <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
                 <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
                 <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Verifica_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Verifica_Usuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Verifica_Usuario_Result">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -1240,19 +1240,6 @@ namespace PracticaIIICO.BD
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_UsuarioID_Result>("sp_Retorna_UsuarioID", idUsuarioParameter, nombreUsuarioParameter, apellido1Parameter);
         }
     
-        public virtual ObjectResult<sp_Verifica_Usuario_Result> sp_Verifica_Usuario(string nombreU, string claveU)
-        {
-            var nombreUParameter = nombreU != null ?
-                new ObjectParameter("nombreU", nombreU) :
-                new ObjectParameter("nombreU", typeof(string));
-    
-            var claveUParameter = claveU != null ?
-                new ObjectParameter("claveU", claveU) :
-                new ObjectParameter("claveU", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Verifica_Usuario_Result>("sp_Verifica_Usuario", nombreUParameter, claveUParameter);
-        }
-    
         public virtual int sp_Elimina_Products(Nullable<int> idPROD)
         {
             var idPRODParameter = idPROD.HasValue ?
@@ -1336,6 +1323,19 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("idPROD", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Products_ID_Result>("sp_Retorna_Products_ID", idPRODParameter);
+        }
+    
+        public virtual ObjectResult<sp_Verifica_Usuario_Result> sp_Verifica_Usuario(string nombreU, string claveU)
+        {
+            var nombreUParameter = nombreU != null ?
+                new ObjectParameter("nombreU", nombreU) :
+                new ObjectParameter("nombreU", typeof(string));
+    
+            var claveUParameter = claveU != null ?
+                new ObjectParameter("claveU", claveU) :
+                new ObjectParameter("claveU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Verifica_Usuario_Result>("sp_Verifica_Usuario", nombreUParameter, claveUParameter);
         }
     }
 }

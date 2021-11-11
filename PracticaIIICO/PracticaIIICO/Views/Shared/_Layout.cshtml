@@ -12,19 +12,21 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap5")
     <script src="~/Scripts/Boostrap_5/js/bootstrap.bundle.js"></script>
+    @RenderSection("css", required: false)
 </head>
 <body>
     <!--Codigo Que Actualiza El Estado Del Menu Lateral-->
-    @*{ string a = "", b = ""; /**/}
+    @{ string a = "", b = ""; /**/}
 
     @{
         if (Session["SidebarFijo"] == null) /*Compara el valor actual de la variable de Session*/
         { b = "fijar"; } /*Si Es vacio */
         else { b = ""; } /*No esta Vacio*/
     }
-    @{ if (b.Equals("fijar")) { a = "page-wrapper chiller-theme"; } else { a = "page-wrapper chiller-theme toggled"; }}*@
+    @{ if (b.Equals("fijar")) { a = "page-wrapper chiller-theme"; } else { a = "page-wrapper chiller-theme toggled"; }}
+        
     <!---->
-    <div class="page-wrapper chiller-theme toggled">
+    <div class="@a">
         <!--toggled mantiene el sidebar fijo-->
         <!--Boton Abrir Side Bar-->
         <!--<a id="show-sidebar" class="btn btn-dark" href="#">

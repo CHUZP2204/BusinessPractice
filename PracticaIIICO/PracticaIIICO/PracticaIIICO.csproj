@@ -283,6 +283,7 @@
     <Compile Include="Controllers\Cotizacion\DetalleCotizacionController.cs" />
     <Compile Include="Controllers\Entradas\DetalleEntradasController.cs" />
     <Compile Include="Controllers\Entradas\EntradasController.cs" />
+    <Compile Include="Controllers\Error\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Marca\MarcaController.cs" />
     <Compile Include="Controllers\Productos\ProductosController.cs" />
@@ -291,11 +292,14 @@
     <Compile Include="Controllers\Salidas\SalidasController.cs" />
     <Compile Include="Controllers\Servicios\ServiciosController.cs" />
     <Compile Include="Controllers\Servicios\TipoServiciosController.cs" />
+    <Compile Include="Controllers\Sesion\SesionController.cs" />
     <Compile Include="Controllers\Usuarios\TipoUsuariosController.cs" />
     <Compile Include="Controllers\Usuarios\UsuariosController.cs" />
+    <Compile Include="Filters\AuthorizeUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SesionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +333,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Sesion\loginFinal.css" />
     <Content Include="Content\Sidebar\sidebar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2089,6 +2094,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Sesion\InicioSesion.js" />
+    <Content Include="Scripts\Sesion\llamarModal.js" />
     <Content Include="Scripts\Sidebar\estadoSidebar.js" />
     <Content Include="Scripts\Sidebar\sideBar.js" />
     <Content Include="Web.config" />
@@ -2137,10 +2144,14 @@
     <Content Include="Views\Productos\NuevoPROD.cshtml" />
     <Content Include="Views\Productos\ModificaPROD.cshtml" />
     <Content Include="Views\Productos\MostrarPROD.cshtml" />
+    <Content Include="Views\Sesion\Iniciar.cshtml" />
+    <Content Include="Views\Shared\_Sesion.cshtml" />
+    <Content Include="Views\Error\UnauthorizeOperation.cshtml" />
+    <Content Include="Views\Error\Unauthorize.cshtml" />
+    <Content Include="Views\Error\MessageError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Ajustes\" />
     <Folder Include="Views\Citas\" />
     <Folder Include="Views\Cotizacion\" />

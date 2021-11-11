@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Iconos/fontawesome_free_5.15.4_web/css/all.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap5")
+    <script src="~/Scripts/Boostrap_5/js/bootstrap.bundle.js"></script>
+    @RenderSection("css", required: false)
+</head>
+<body>
+    <header>
+
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+                <h4 class="text-white">Collapsed content</h4>
+                <span class="text-muted">Toggleable via the navbar brand.</span>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <!-- Navbar content -->
+            <div class="container-fluid">
+                <!--Boton Llamar Side Bar Antes Era show-sidebar-->
+                <button id="show-sidebar2" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!---->
+                <a class="navbar-brand" href="#">
+                    <img src="~/Images/LogoMotoRepuestosMako.jpg" alt="" width="110" height="30">
+                    MAKO REPUESTOS
+                </a>
+            </div>
+        </nav>
+        <!--Fin Navbar-->
+    </header>
+    <div class="container">
+        <hr />
+        @RenderBody()
+        <hr />
+        <footer style="text-align:center">
+            <small>
+                &copy; @DateTime.Now.Date.Year <i class="fa fa-user" style="color:red"></i>Desarrollado Por
+                -
+                <a>
+                    Jesus Perez Saenz
+                </a>
+            </small>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="@Url.Content("~/Scripts/Global.js")"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

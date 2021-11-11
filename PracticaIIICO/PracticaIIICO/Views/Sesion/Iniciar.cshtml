@@ -1,0 +1,161 @@
+﻿
+@model PracticaIIICO.Models.SesionModel
+@{
+    ViewBag.Title = "Iniciar";
+    Layout = "~/Views/Shared/_Sesion.cshtml";
+    
+
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    <link href="~/Content/Sesion/loginFinal.css" rel="stylesheet" />
+}
+<h2 style="text-align:center">Bienvenido Al Sistema</h2>
+<h3 style="text-align:center">Repuestos Y Llantera Mako</h3>
+<!--<div id="alertRoja" class="alert alert-danger align-items-center"
+     style="display: none; flex-direction: row;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+         class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+         aria-label="Warning:">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </svg>
+    <div id="mensajeAlertaRoja">
+        <!--Mensaje de Erro Va Aqui
+
+    </div>
+
+</div>-->
+<div class="danger">
+    @ViewBag.Error
+</div>
+@*using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-6 form-group">
+                @Html.LabelFor(m => m.NombreUsuario)
+                @Html.TextBoxFor(m => m.NombreUsuario, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 form-group">
+                @Html.LabelFor(m => m.Clave)
+                @Html.TextBoxFor(m => m.Clave, new { @type = "password", @class = "form-control", @style = "background:white" })
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <input id="btnIniciar" type="submit" class="btn btn-success" value="Iniciar" />
+            </div>
+        </div>
+    }*@
+<!--Login 2-->
+
+
+<div id="loginPrueba" class="container">
+    <section id="content">
+        @using (Html.BeginForm())
+        {
+            <h1>Iniciar <br />Sesion</h1>
+            <div>
+                @Html.TextBoxFor(m => m.NombreUsuario, new { @class = "form-login", @id = "username" })
+
+            </div>
+            <div>
+                @Html.TextBoxFor(m => m.Clave, new { @type = "password", @class = "form-login", @id = "password" })
+
+            </div>
+            <div>
+                <input id="btnIniciar" type="submit" class="btn btn-success" value="Iniciar" />
+                <a href="#">Olvido Clave?</a>
+                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">Registrarse!</a>
+            </div>
+        }
+        <!-- form -->
+        <div class="button">
+            <a href="#">Download source file</a>
+        </div><!-- button -->
+    </section><!-- content -->
+</div><!-- container -->
+
+<script type="text/javascript">
+    $("#btnIniciar").click(function (event) {
+        $("#username").val("");
+    });
+</script>
+<!-- Button trigger modal -->
+<!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">
+    Registrar
+</button>-->
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenteredScrollable" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Pantalla De Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <label class="col-form-label">Nombre</label>
+                    <div class="col">
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Primer Apellido" aria-label="Last name">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name">
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <label class="col-form-label">Correo</label>
+                    <div class="col-12">
+                        <input type="email" class="form-control" id="exampleInputEmail1">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="inputPassword6" class="col-form-label">Contraseña</label>
+                        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                    </div>
+                    <div class="col">
+                        <label for="inputPassword6" class="col-form-label">Confirme Contraseña</label>
+                        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                    </div>
+                </div>
+                <div class="row g-3 align-items-center">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<textarea class="form-control">
+
+</textarea>
+
+@{
+    if (ViewBag.Error != null)
+    {
+        string mensaje = ViewBag.Error.ToString();
+        @Html.Partial("_ModalMensaje", new ViewDataDictionary
+        {
+       { "MensajeModal", mensaje }})
+    }
+
+}
+
+
+
+@section scripts{
+    <script src="~/Scripts/Sesion/InicioSesion.js"></script>
+    <script src="~/Scripts/Sesion/llamarModal.js"></script>
+}
