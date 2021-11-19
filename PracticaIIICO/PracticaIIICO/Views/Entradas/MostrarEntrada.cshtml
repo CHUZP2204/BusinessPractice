@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "MostrarEntrada";
+}
+
+<h2>Mostrar Entrada</h2>
+
+<form id="frmRegistroEntrada" method="post">
+
+    <div class="form-group">
+        <label>#ID</label>
+        <input type="number" name="ID_Entrada" id="ID_Entrada" class="form-control" value="@Model.ID_Entrada" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Proveedor:</label>
+        
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result ModeloProv in this.ViewBag.ListaProveedores)
+                {
+                    bool esIdPROV = ModeloProv.ID_Proveedor == Model.ID_Proveedor;
+
+                    if (esIdPROV)
+                    {
+                        <input name="ID_Proveedor" id="ID_Proveedor" class="form-control" readonly value="@ModeloProv.Nombre_PROV" />
+                    }
+                 
+                }
+
+            }
+
+       
+    </div>
+    <div class="form-group">
+        <label>Usuario:</label>
+        @{
+
+            foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+            {
+                bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
+                if (esIdUser)
+                {
+                    
+                    <input type="text" name="ID_Usuario" id="ID_Usuario" class="form-control"  value="@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U" readonly/>
+                }
+
+            }
+
+        }
+
+    </div>
+    <div class="form-group">
+        <label>Factura:</label>
+        <input type="number" name="Numero_Factura" id="Numero_Factura" class="form-control" value="@Model.Numero_Factura" readonly />
+    </div>
+    <div class="form-group">
+        <label>Fecha Factura:</label>
+        <input type="text" name="Fecha_Factura" id="Fecha_Factura" class="form-control" value="@Model.Fecha_Factura.ToShortDateString()" readonly />
+    </div>
+    <div class="form-group">
+        <label>Fecha Ingreso:</label>
+        <input type="text" name="Fecha_Registro" id="Fecha_Registro" class="form-control" value="@Model.Fecha_Factura.ToShortDateString()" readonly />
+    </div>
+
+    <div class="form-group">
+        <label>Monto Bruto:</label>
+        <input type="number" name="Monto_Bruto" id="Monto_Bruto" class="form-control" value="@Model.Monto_Bruto" readonly />
+    </div>
+    <div class="form-group">
+        <label>Descuento:</label>
+        <input type="number" name="Monto_Descuento" id="Monto_Descuento" class="form-control" value="@Model.Monto_Descuento" readonly />
+    </div>
+    <div class="form-group">
+        <label>Monto Final:</label>
+        <input type="number" name="Monto_Final" id="Monto_Final" class="form-control" value="@Model.Monto_Final" readonly />
+    </div>
+
+    <br />
+</form>
+<br />
+<a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>

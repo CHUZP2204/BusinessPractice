@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "NuevaEntrada";
+}
+
+<h2>Nueva Entrada</h2>
+
+<form id="frmRegistroEntrada" method="post">
+
+    <div class="form-group">
+        <label>Proveedor:</label>
+        <select name="ID_Proveedor" id="ID_Proveedor" class="form-control">
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result ModeloProv in this.ViewBag.ListaProveedores)
+                {
+                    <option value="@ModeloProv.ID_Proveedor">@ModeloProv.Nombre_PROV </option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Usuario:</label>
+        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                {
+                    <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U </option>
+                }
+
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Factura:</label>
+        <input type="number" name="Numero_Factura" id="Numero_Factura" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Fecha Factura:</label>
+        <input type="date" name="Fecha_Factura" id="Fecha_Factura" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Monto Bruto:</label>
+        <input type="number" name="Monto_Bruto" id="Monto_Bruto" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Descuento:</label>
+        <input type="number" name="Monto_Descuento" id="Monto_Descuento" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+    </div>
+</form>
+<br />
+<a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+

@@ -2154,6 +2154,10 @@
     <Content Include="Views\Error\Unauthorize.cshtml" />
     <Content Include="Views\Error\MessageError.cshtml" />
     <Content Include="Views\Home\Configuracion.cshtml" />
+    <Content Include="Views\Entradas\ListaEntradas.cshtml" />
+    <Content Include="Views\Entradas\NuevaEntrada.cshtml" />
+    <Content Include="Views\Entradas\ModificaEntrada.cshtml" />
+    <Content Include="Views\Entradas\MostrarEntrada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2163,7 +2167,6 @@
     <Folder Include="Views\DetalleCotizacion\" />
     <Folder Include="Views\DetalleEntradas\" />
     <Folder Include="Views\DetalleSalidas\" />
-    <Folder Include="Views\Entradas\" />
     <Folder Include="Views\Salidas\" />
   </ItemGroup>
   <ItemGroup>
