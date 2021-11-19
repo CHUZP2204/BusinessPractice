@@ -22,8 +22,8 @@ namespace PracticaIIICO.Filters
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            String nombreTipouser = "";
-            String nombreModulo = "";
+            //String nombreTipouser = "";
+            //String nombreModulo = "";
 
             try
             {

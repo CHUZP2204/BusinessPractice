@@ -179,6 +179,30 @@
           <Property Name="Fecha_Creado" Type="date" />
           <Property Name="UltimaVezConectado" Type="date" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Entradas_DesgloseView">
+          <Key>
+            <PropertyRef Name="ID_Entrada" />
+            <PropertyRef Name="ID_DetalleEntrada" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="ID_Proveedor" />
+            <PropertyRef Name="Precio_PROD" />
+            <PropertyRef Name="Cant_Adquirida_PROD" />
+            <PropertyRef Name="PrecioXCant" />
+            <PropertyRef Name="Nombre_PROV" />
+            <PropertyRef Name="Nombre_PROD" />
+          </Key>
+          <Property Name="ID_Entrada" Type="int" Nullable="false" />
+          <Property Name="ID_DetalleEntrada" Type="int" Nullable="false" />
+          <Property Name="ID_Producto" Type="int" Nullable="false" />
+          <Property Name="ID_Proveedor" Type="int" Nullable="false" />
+          <Property Name="Precio_PROD" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Cant_Adquirida_PROD" Type="int" Nullable="false" />
+          <Property Name="PrecioXCant" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Nombre_PROV" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nombre_PROD" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <Association Name="FK_AjustesTbl_ProductosTbl">
           <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="1" />
           <End Role="AjustesTbl" Type="Self.AjustesTbl" Multiplicity="*" />
@@ -706,8 +730,14 @@
         <Function Name="sp_Retorna_CotizacionID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCotizacion" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Retorna_Detalle_Entradas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idDetalleEntr" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Retorna_Detalle_EntrID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idDetalleEntr" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_Detalle_FacturaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEntr" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Retorna_Detalle_Salida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idDetalleSal" Type="int" Mode="In" />
@@ -720,6 +750,9 @@
         </Function>
         <Function Name="sp_Retorna_Entradas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_FacturaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEntr" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Retorna_Marcas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreMarca" Type="varchar" Mode="In" />
@@ -793,6 +826,19 @@
           <EntitySet Name="Tipo_ServicioTbl" EntityType="Self.Tipo_ServicioTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entradas_DesgloseView" EntityType="Self.Entradas_DesgloseView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Entradas_DesgloseView].[ID_Entrada] AS [ID_Entrada], 
+[Entradas_DesgloseView].[ID_DetalleEntrada] AS [ID_DetalleEntrada], 
+[Entradas_DesgloseView].[ID_Producto] AS [ID_Producto], 
+[Entradas_DesgloseView].[ID_Proveedor] AS [ID_Proveedor], 
+[Entradas_DesgloseView].[Precio_PROD] AS [Precio_PROD], 
+[Entradas_DesgloseView].[Cant_Adquirida_PROD] AS [Cant_Adquirida_PROD], 
+[Entradas_DesgloseView].[PrecioXCant] AS [PrecioXCant], 
+[Entradas_DesgloseView].[Nombre_PROV] AS [Nombre_PROV], 
+[Entradas_DesgloseView].[Nombre_PROD] AS [Nombre_PROD]
+FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AjustesTbl_ProductosTbl" Association="Self.FK_AjustesTbl_ProductosTbl">
             <End Role="ProductosTbl" EntitySet="ProductosTbl" />
             <End Role="AjustesTbl" EntitySet="AjustesTbl" />
@@ -1766,6 +1812,16 @@
             <Parameter Name="nombreU" Mode="In" Type="String" />
             <Parameter Name="claveU" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Entradas_DesgloseView" EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" />
+          <FunctionImport Name="sp_Retorna_Detalle_Entradas" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Detalle_Entradas_Result)">
+          <Parameter Name="idDetalleEntr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Detalle_FacturaID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Detalle_FacturaID_Result)">
+          <Parameter Name="idEntr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_FacturaID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_FacturaID_Result)">
+            <Parameter Name="idEntr" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
           <Property Type="Int32" Name="ID_Ajuste" Nullable="false" />
@@ -1996,6 +2052,53 @@
           <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Entradas_DesgloseView">
+          <Key>
+            <PropertyRef Name="ID_Entrada" />
+            <PropertyRef Name="ID_DetalleEntrada" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="ID_Proveedor" />
+            <PropertyRef Name="Precio_PROD" />
+            <PropertyRef Name="Cant_Adquirida_PROD" />
+            <PropertyRef Name="PrecioXCant" />
+            <PropertyRef Name="Nombre_PROV" />
+            <PropertyRef Name="Nombre_PROD" />
+          </Key>
+          <Property Name="ID_Entrada" Type="Int32" Nullable="false" />
+          <Property Name="ID_DetalleEntrada" Type="Int32" Nullable="false" />
+          <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+          <Property Name="ID_Proveedor" Type="Int32" Nullable="false" />
+          <Property Name="Precio_PROD" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Cant_Adquirida_PROD" Type="Int32" Nullable="false" />
+          <Property Name="PrecioXCant" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Nombre_PROV" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_PROD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_Retorna_Detalle_Entradas_Result">
+          <Property Type="Int32" Name="ID_DetalleEntrada" Nullable="false" />
+          <Property Type="Int32" Name="ID_Entrada" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="Cant_Adquirida_PROD" Nullable="false" />
+          <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_Detalle_FacturaID_Result">
+          <Property Type="Int32" Name="ID_Entrada" Nullable="false" />
+          <Property Type="Int32" Name="ID_DetalleEntrada" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="Cant_Adquirida_PROD" Nullable="false" />
+          <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_FacturaID_Result">
+          <Property Type="Int32" Name="ID_Entrada" Nullable="false" />
+          <Property Type="Int32" Name="ID_DetalleEntrada" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Proveedor" Nullable="false" />
+          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Int32" Name="Cant_Adquirida_PROD" Nullable="false" />
+          <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Nombre_PROV" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2584,6 +2687,58 @@
                 <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
                 <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
                 <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Entradas_DesgloseView">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.Entradas_DesgloseView">
+              <MappingFragment StoreEntitySet="Entradas_DesgloseView">
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Nombre_PROV" ColumnName="Nombre_PROV" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+                <ScalarProperty Name="Cant_Adquirida_PROD" ColumnName="Cant_Adquirida_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_DetalleEntrada" ColumnName="ID_DetalleEntrada" />
+                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Detalle_Entradas" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Detalle_Entradas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Detalle_Entradas_Result">
+                <ScalarProperty Name="ID_DetalleEntrada" ColumnName="ID_DetalleEntrada" />
+                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="Cant_Adquirida_PROD" ColumnName="Cant_Adquirida_PROD" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Detalle_FacturaID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Detalle_FacturaID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Detalle_FacturaID_Result">
+                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+                <ScalarProperty Name="ID_DetalleEntrada" ColumnName="ID_DetalleEntrada" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="Cant_Adquirida_PROD" ColumnName="Cant_Adquirida_PROD" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_FacturaID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_FacturaID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_FacturaID_Result">
+                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+                <ScalarProperty Name="ID_DetalleEntrada" ColumnName="ID_DetalleEntrada" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Cant_Adquirida_PROD" ColumnName="Cant_Adquirida_PROD" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+                <ScalarProperty Name="Nombre_PROV" ColumnName="Nombre_PROV" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

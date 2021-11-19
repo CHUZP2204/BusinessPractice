@@ -150,6 +150,9 @@
     <Compile Include="BD\EntradasTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\Entradas_DesgloseView.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\MarcaTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -207,7 +210,13 @@
     <Compile Include="BD\sp_Retorna_DetalleCoti_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_Retorna_Detalle_Entradas_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Retorna_Detalle_EntrID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Detalle_FacturaID_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Detalle_Salida_Result.cs">
@@ -217,6 +226,9 @@
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Entradas_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_FacturaID_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Marcas_ID_Result.cs">
@@ -2158,6 +2170,8 @@
     <Content Include="Views\Entradas\NuevaEntrada.cshtml" />
     <Content Include="Views\Entradas\ModificaEntrada.cshtml" />
     <Content Include="Views\Entradas\MostrarEntrada.cshtml" />
+    <Content Include="Views\DetalleEntradas\AgregaDetEntr.cshtml" />
+    <Content Include="Views\DetalleEntradas\MostrarDetEntr.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2165,7 +2179,6 @@
     <Folder Include="Views\Citas\" />
     <Folder Include="Views\Cotizacion\" />
     <Folder Include="Views\DetalleCotizacion\" />
-    <Folder Include="Views\DetalleEntradas\" />
     <Folder Include="Views\DetalleSalidas\" />
     <Folder Include="Views\Salidas\" />
   </ItemGroup>

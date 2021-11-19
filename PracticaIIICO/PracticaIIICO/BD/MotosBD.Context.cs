@@ -44,6 +44,7 @@ namespace PracticaIIICO.BD
         public DbSet<Tipo_ServicioTbl> Tipo_ServicioTbl { get; set; }
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Entradas_DesgloseView> Entradas_DesgloseView { get; set; }
     
         public virtual int sp_Elimina_Ajuste(Nullable<int> idAjuste)
         {
@@ -1336,6 +1337,33 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("claveU", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Verifica_Usuario_Result>("sp_Verifica_Usuario", nombreUParameter, claveUParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_Detalle_Entradas_Result> sp_Retorna_Detalle_Entradas(Nullable<int> idDetalleEntr)
+        {
+            var idDetalleEntrParameter = idDetalleEntr.HasValue ?
+                new ObjectParameter("idDetalleEntr", idDetalleEntr) :
+                new ObjectParameter("idDetalleEntr", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Detalle_Entradas_Result>("sp_Retorna_Detalle_Entradas", idDetalleEntrParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_Detalle_FacturaID_Result> sp_Retorna_Detalle_FacturaID(Nullable<int> idEntr)
+        {
+            var idEntrParameter = idEntr.HasValue ?
+                new ObjectParameter("idEntr", idEntr) :
+                new ObjectParameter("idEntr", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Detalle_FacturaID_Result>("sp_Retorna_Detalle_FacturaID", idEntrParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_FacturaID_Result> sp_Retorna_FacturaID(Nullable<int> idEntr)
+        {
+            var idEntrParameter = idEntr.HasValue ?
+                new ObjectParameter("idEntr", idEntr) :
+                new ObjectParameter("idEntr", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_FacturaID_Result>("sp_Retorna_FacturaID", idEntrParameter);
         }
     }
 }

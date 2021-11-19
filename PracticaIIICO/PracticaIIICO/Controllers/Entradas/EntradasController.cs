@@ -184,8 +184,16 @@ namespace PracticaIIICO.Controllers.Entradas
         //Get: Entradas/Mostrar
         public ActionResult MostrarEntrada(int id_Entr)
         {
-            sp_Retorna_EntradaID_Result collectionObtenido = new sp_Retorna_EntradaID_Result();
-            collectionObtenido = this.ModeloBD.sp_Retorna_EntradaID(id_Entr).FirstOrDefault();
+            ///Obtener Listado De Entrada Con Detalle
+            List<sp_Retorna_FacturaID_Result> collectionObtenido = new List<sp_Retorna_FacturaID_Result>();
+            collectionObtenido = this.ModeloBD.sp_Retorna_FacturaID(id_Entr).ToList();
+            ///
+
+            string Mensaje = id_Entr.ToString();
+            /*Session["Mensaje"]*/
+            ViewBag.NumeroFactura = Mensaje;
+
+            this.agregaEntradaMontos(id_Entr);
             this.agregaProveedores();
             this.agregaUsuarios();
 
@@ -214,6 +222,10 @@ namespace PracticaIIICO.Controllers.Entradas
             }
         }
 
+        void agregaEntradaMontos(int idEntrada)
+        {
+            this.ViewBag.ListaEntradas = this.ModeloBD.sp_Retorna_EntradaID(idEntrada).ToList();
+        }
         void agregaProveedores()
         {
             this.ViewBag.ListaProveedores = this.ModeloBD.sp_Retorna_Proveedores(null).ToList();

@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "MostrarDetEntr";
+}
+
+
+
+<h3>Detalle Factura #@ViewBag.NumeroFactura</h3>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># Detalle</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_Detalle_FacturaID_Result PosicionDetalle in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionDetalle.ID_DetalleEntrada</td>
+
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPRD in this.ViewBag.ListaProductos)
+                        {
+                            bool esIdUser = ModeloPRD.ID_Producto == PosicionDetalle.ID_Producto;
+                            if (esIdUser)
+                            {
+                                <td>@ModeloPRD.Nombre_PROD</td>
+                            }
+                        }
+
+                    }
+
+
+
+                    <td>@PosicionDetalle.Cant_Adquirida_PROD</td>
+                    <td>@PosicionDetalle.PrecioXCant</td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<br />
+<a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>

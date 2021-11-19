@@ -14,7 +14,7 @@ namespace PracticaIIICO.Filters
         private MotoRepuestosMakoEntities BD = new MotoRepuestosMakoEntities();
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            String tipoUsuario = "";
+            //String tipoUsuario = "";
             String estado = "";
 
             try
