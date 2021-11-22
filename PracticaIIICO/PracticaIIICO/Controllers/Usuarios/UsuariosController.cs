@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.Filters;
 
 namespace PracticaIIICO.Controllers.Usuarios
 {
+
     public class UsuariosController : Controller
     {
         MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();
@@ -17,6 +19,7 @@ namespace PracticaIIICO.Controllers.Usuarios
         }
 
         // GET: Usuarios/Details/5
+        [AuthorizeUser]
         public ActionResult ListaUsuarios()
         {
             List<sp_Retorna_Usuario_Result> datosObtenidos = new List<sp_Retorna_Usuario_Result>();

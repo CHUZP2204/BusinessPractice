@@ -93,6 +93,88 @@ namespace PracticaIIICO.Controllers.Sesion
             return this.RedirectToAction("Iniciar");
         }
 
+
+        //Registrar Usuario Desde Login
+        [HttpPost]
+        public ActionResult RegistrarUsuario(
+            string pNombreC,
+            string pApellido1,
+            string pApellido2,
+            string pCorreo,
+            string pContrasenia)
+        {
+            ///Variable Que Registra La Cantidad De Registros Afectados
+            ///Si Un Procedimiento Que Ejecuta Insert, Update o Delete
+            ///No Afecta Registros Implica Que Hubo Un Error
+            int cantRegistrosAfectados = 0;
+            string resultado = "";
+
+            string parteUnaNombre = "";
+            string parteDosNombre = "";
+            string usuarioFinal = "";
+            ///Crear Un Usuario de Logueo a partir del nombre y apellido 
+            parteUnaNombre = pNombreC.Substring(0, 3);
+            parteDosNombre = pApellido1.Substring(0, 3);
+            ///Concatenar los datos obtnidos y unirlos
+            ///Asi Se obtnedra el Nombre Usuario Final
+            usuarioFinal = parteUnaNombre + parteDosNombre;
+
+            ViewBag.NombreUsuario = usuarioFinal;
+
+            int idTipoUsuario = 2; //2 por defecto Va Ser Cliente
+            string direccion = "";
+            string pTelefono = "";
+            string estadoUsuario = "ACTIVO";
+
+            ////
+            DateTime fechaCreado;
+            DateTime fechaUltimaVes;
+
+            ///Asignar fechas
+
+            fechaCreado = DateTime.Now;
+            fechaUltimaVes = DateTime.Now;
+            
+            try
+            {
+
+                cantRegistrosAfectados = this.ModeloBD.sp_Inserta_Usuario(
+                        idTipoUsuario,
+                        pNombreC,
+                        pApellido1,
+                        pApellido2,
+                        direccion,
+                        pCorreo,
+                        pTelefono,
+                        pContrasenia,
+                        usuarioFinal,
+                        estadoUsuario,
+                        fechaCreado,
+                        fechaUltimaVes
+                  );
+
+
+
+            }
+            catch (Exception error)
+            {
+                resultado = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistrosAfectados > 0)
+                {
+                    resultado = "El Usuario Se Regitro Exitosamente, Su Usuario Es:"+usuarioFinal;
+                }
+                else
+                {
+                    resultado += " No Se Pudo Registrar";
+                }
+            }
+
+            return Json(resultado);
+        }
+
         // GET: Sesion/Details/5
         public ActionResult Details(int id)
         {

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Iniciar";
     Layout = "~/Views/Shared/_Sesion.cshtml";
-    
+
 
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -97,50 +97,51 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <label class="col-form-label">Nombre</label>
-                    <div class="col">
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre">
+                <form id="frmRegistraUsuario">
+                    <div class="row">
+                        <label class="col-form-label">Nombre</label>
+                        <div class="col">
+                            <input type="text" class="form-control" name="Nombre_U" id="Nombre_U" placeholder="Nombre">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="Apellido1_U" id="Apellido1_U" placeholder="Primer Apellido" aria-label="Last name">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="Apellido2_U" id="Apellido2_U" placeholder="Segundo Apellido" aria-label="Last name">
+                        </div>
                     </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Primer Apellido" aria-label="Last name">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" placeholder="Segundo Apellido" aria-label="Last name">
-                    </div>
-                </div>
 
-                <div class="row ">
-                    <label class="col-form-label">Correo</label>
-                    <div class="col-12">
-                        <input type="email" class="form-control" id="exampleInputEmail1">
+                    <div class="row ">
+                        <label class="col-form-label">Correo</label>
+                        <div class="col-12">
+                            <input type="email" name="Correo_U" class="form-control" id="Correo_U">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputPassword6" class="col-form-label">Contraseña</label>
-                        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputPassword6" class="col-form-label">Contraseña</label>
+                            <input type="password" id="Clave_U" name="Clave_U" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                        <div class="col">
+                            <label for="inputPassword6" class="col-form-label">Confirme Contraseña</label>
+                            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="inputPassword6" class="col-form-label">Confirme Contraseña</label>
-                        <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                    </div>
-                </div>
+                </form>
+
                 <div class="row g-3 align-items-center">
 
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
 </div>
+<div id="messageRegistrarse"></div>
 
-<textarea class="form-control">
-
-</textarea>
 
 @{
     if (ViewBag.Error != null)
@@ -158,4 +159,7 @@
 @section scripts{
     <script src="~/Scripts/Sesion/InicioSesion.js"></script>
     <script src="~/Scripts/Sesion/llamarModal.js"></script>
+
+    <script src="~/Scripts/Sesion/Registrarse.js"></script>
+    <script src="~/Scripts/scriptGenerico.js"></script>
 }

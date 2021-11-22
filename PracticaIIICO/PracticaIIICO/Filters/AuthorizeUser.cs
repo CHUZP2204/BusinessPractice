@@ -36,11 +36,11 @@ namespace PracticaIIICO.Filters
 
                     sp_Retorna_TipoUsuario_ID_Result tipoUsuarioActual = new sp_Retorna_TipoUsuario_ID_Result();
                     tipoUsuarioActual = this.ModeloBD.sp_Retorna_TipoUsuario_ID(usuario.ID_TipoUsuario).FirstOrDefault();
-
+                    tipoUsuario = tipoUsuarioActual.Nombre_TipoUsuario;
 
                     if (tipoUsuarioActual.Nombre_TipoUsuario.Equals("Empleado"))
                     {
-                        filterContext.Result = new RedirectResult("~/Error/UnauthorizeOperation?tipoUsuario=" + tipoUsuario);
+                        filterContext.Result = new RedirectResult("~/Error/UnauthorizeOperation?tipoUsuario="+tipoUsuario);
                     }
                 }
 

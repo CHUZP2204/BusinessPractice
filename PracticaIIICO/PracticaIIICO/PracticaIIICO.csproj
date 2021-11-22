@@ -2109,9 +2109,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\scriptGenerico.js" />
     <Content Include="Scripts\Sesion\HoraActual.js" />
     <Content Include="Scripts\Sesion\InicioSesion.js" />
     <Content Include="Scripts\Sesion\llamarModal.js" />
+    <Content Include="Scripts\Sesion\Registrarse.js" />
     <Content Include="Scripts\Sidebar\estadoSidebar.js" />
     <Content Include="Scripts\Sidebar\sideBar.js" />
     <Content Include="Web.config" />
