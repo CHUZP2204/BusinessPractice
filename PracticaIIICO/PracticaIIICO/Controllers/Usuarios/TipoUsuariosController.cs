@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.Filters;
 
 namespace PracticaIIICO.Controllers.TipoUsuarios
 {
+    
     public class TipoUsuariosController : Controller
     {
         MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();
@@ -18,6 +20,7 @@ namespace PracticaIIICO.Controllers.TipoUsuarios
         }
 
         // GET: TipoUsuarios/Details/5
+        [AuthorizeUser]
         public ActionResult ListTypeUser()
         {
             List<sp_Retorna_TipoUsuario_Result> modeloObtenido = new List<sp_Retorna_TipoUsuario_Result>();
@@ -26,6 +29,7 @@ namespace PracticaIIICO.Controllers.TipoUsuarios
         }
 
         // GET: TipoUsuarios/Create
+        [AuthorizeUser]
         public ActionResult NuevoTipoUsuario()
         {
             return View();
@@ -65,6 +69,7 @@ namespace PracticaIIICO.Controllers.TipoUsuarios
         }
 
         // GET: TipoUsuarios/Edit/5
+        [AuthorizeUser]
         public ActionResult ModificaTipoUsuario(int id_TipoU)
         {
             sp_Retorna_TipoUsuario_ID_Result modeloObtenido = new sp_Retorna_TipoUsuario_ID_Result();

@@ -28,6 +28,7 @@ namespace PracticaIIICO.Controllers.Usuarios
         }
 
         // GET: Usuarios/Create
+        [AuthorizeUser]
         public ActionResult NuevoUsuario()
         {
             this.AgregTipoUsuariosViewBag();
