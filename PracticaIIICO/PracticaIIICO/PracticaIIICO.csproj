@@ -276,6 +276,9 @@
     <Compile Include="BD\sp_Retorna_Usuario_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_VerificaDatos_Usuario_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Verifica_Usuario_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -2113,7 +2116,9 @@
     <Content Include="Scripts\Sesion\HoraActual.js" />
     <Content Include="Scripts\Sesion\InicioSesion.js" />
     <Content Include="Scripts\Sesion\llamarModal.js" />
+    <Content Include="Scripts\Sesion\RecuperacionClave.js" />
     <Content Include="Scripts\Sesion\Registrarse.js" />
+    <Content Include="Scripts\Sesion\Validaciones.js" />
     <Content Include="Scripts\Sidebar\estadoSidebar.js" />
     <Content Include="Scripts\Sidebar\sideBar.js" />
     <Content Include="Web.config" />

@@ -134,7 +134,11 @@ namespace PracticaIIICO.Controllers.Sesion
 
             fechaCreado = DateTime.Now;
             fechaUltimaVes = DateTime.Now;
-            
+
+            //Mensajes para JSON
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
             try
             {
 
@@ -158,22 +162,76 @@ namespace PracticaIIICO.Controllers.Sesion
             }
             catch (Exception error)
             {
-                resultado = "Ocurrio Un Error" + error.Message;
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
             }
             finally
             {
                 if (cantRegistrosAfectados > 0)
                 {
-                    resultado = "El Usuario Se Regitro Exitosamente, Su Usuario Es:"+usuarioFinal;
+                    MensajeFinal = "El Usuario Se Regitro Exitosamente, Su Usuario Es:" + usuarioFinal;
+                    estadoRegistro = 1;
                 }
                 else
                 {
-                    resultado += " No Se Pudo Registrar";
+                    MensajeFinal += " No Se Pudo Registrar";
+                    estadoRegistro = 0;
                 }
             }
 
-            return Json(resultado);
+            //return Json(resultado);
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
+
+        // Recuperacion De Clave
+
+        [HttpPost]
+        public ActionResult RecuperarClave(
+            string pNombreUsuario,
+            string pCorreo)
+        {
+            string resultado = "";
+            string correoMostrar = "";
+            string cadena1 = "";
+            string cadena2 = "";
+
+            
+
+
+            sp_VerificaDatos_Usuario_Result busquedaDatos = new sp_VerificaDatos_Usuario_Result();
+            busquedaDatos = this.ModeloBD.sp_VerificaDatos_Usuario(pNombreUsuario, pCorreo).FirstOrDefault();
+
+            if (busquedaDatos != null)
+            {
+                cadena1 = pCorreo.Substring(0, 2);
+                int posicion = pCorreo.IndexOf("@");
+                int limiteCorreo = pCorreo.Length;
+
+                cadena2 = pCorreo.Substring(posicion);
+
+                correoMostrar = cadena1 + "************" + cadena2;
+
+                resultado = "Enviamos un Correo A La Cuenta " + correoMostrar + " , \n " +
+                    "Que Esta Registrada al Usuario " + pNombreUsuario + " En Nuestra Base Datos \n" +
+                    "Verifica Tu Buzon, y ingresa Nuevamente";
+            }
+            else
+            {
+                resultado = "No Encontramos Datos Con La Informacion Ingresada, \n" +
+                    "Por Favor Intenta De Nuevo o Contacta A Soporte";
+            }
+
+
+            return Json(new
+            {
+                result = resultado
+            });
+        }
+
 
         // GET: Sesion/Details/5
         public ActionResult Details(int id)

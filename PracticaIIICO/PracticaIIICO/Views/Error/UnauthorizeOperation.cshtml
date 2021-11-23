@@ -14,11 +14,12 @@
 <section class="content">
     <div class="error-page">
         <h2 class="headline text-red">
-            Ingreso No Permitido
+            Ingreso No Permitido a Empleados<br />
+            Estas Conectado como @ViewBag.tipoUsuario
         </h2>
         <div class="error-content">
             <h3><i class="fa fa-warning text-red">Sin Permiso</i></h3>
-            <p>Consulta Al @ViewBag.tipoUsuario Sobre Este Problema</p>
+            <p>Consulta Al Administrador Sobre Este Problema</p>
         </div>
     </div>
 </section>
@@ -37,10 +38,11 @@
             </div>
             <div class="modal-body" style="text-align:center">
                 <h2 class="headline text-red">
-                    Ingreso No Autorizado <br />
+                    Ingreso No Autorizado A Empleados<br />
+                    Estas Conectado Como @ViewBag.tipoUsuario
                     Intentente De Nuevo
                 </h2>
-                <p>O bien Consulte Al @ViewBag.tipoUsuario Sobre Este Problema</p>
+                <p>O bien Consulte Al Admnistrador Sobre Este Problema</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

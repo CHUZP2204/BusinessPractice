@@ -1365,5 +1365,18 @@ namespace PracticaIIICO.BD
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_FacturaID_Result>("sp_Retorna_FacturaID", idEntrParameter);
         }
+    
+        public virtual ObjectResult<sp_VerificaDatos_Usuario_Result> sp_VerificaDatos_Usuario(string nombreUsuario, string correoUsuario)
+        {
+            var nombreUsuarioParameter = nombreUsuario != null ?
+                new ObjectParameter("nombreUsuario", nombreUsuario) :
+                new ObjectParameter("nombreUsuario", typeof(string));
+    
+            var correoUsuarioParameter = correoUsuario != null ?
+                new ObjectParameter("correoUsuario", correoUsuario) :
+                new ObjectParameter("correoUsuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_VerificaDatos_Usuario_Result>("sp_VerificaDatos_Usuario", nombreUsuarioParameter, correoUsuarioParameter);
+        }
     }
 }

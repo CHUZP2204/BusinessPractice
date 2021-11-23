@@ -809,6 +809,10 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="nombreU" Type="varchar" Mode="In" />
           <Parameter Name="claveU" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_VerificaDatos_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombreUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="correoUsuario" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="MotoRepuestosMakoModelStoreContainer">
           <EntitySet Name="AjustesTbl" EntityType="Self.AjustesTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CategoriasTbl" EntityType="Self.CategoriasTbl" Schema="dbo" store:Type="Tables" />
@@ -1820,7 +1824,11 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Parameter Name="idEntr" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_FacturaID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_FacturaID_Result)">
-            <Parameter Name="idEntr" Mode="In" Type="Int32" />
+          <Parameter Name="idEntr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_VerificaDatos_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_VerificaDatos_Usuario_Result)">
+            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="correoUsuario" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -2099,6 +2107,13 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
           <Property Type="String" Name="Nombre_PROV" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_VerificaDatos_Usuario_Result">
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2739,6 +2754,17 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
                 <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
                 <ScalarProperty Name="Nombre_PROV" ColumnName="Nombre_PROV" />
                 <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_VerificaDatos_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_VerificaDatos_Usuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_VerificaDatos_Usuario_Result">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

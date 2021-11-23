@@ -10,7 +10,7 @@
 
     <div class="form-group">
         <label>ID</label>
-        <input type="number" name="ID_Usuario" id="ID_Usuario" class="form-control" value="@Model.ID_Usuario" readonly/>
+        <input type="number" name="ID_Usuario" id="ID_Usuario" class="form-control" value="@Model.ID_Usuario" readonly />
     </div>
     <div class="form-group">
         <label>Tipo Usuario:</label>
@@ -22,10 +22,10 @@
                     bool esIdTipoUsuario = ModeloTipoU.ID_TipoUsuario == Model.ID_TipoUsuario;
 
                     @*
-                Incluir la propiedad selected para que la opción aparezca
-                seleccionada. Se compara la propiedad id_Provincia
-                del objeto del viewBag contra la propiedad id_Provincia
-                del modelo de la vista
+                        Incluir la propiedad selected para que la opción aparezca
+                        seleccionada. Se compara la propiedad id_Provincia
+                        del objeto del viewBag contra la propiedad id_Provincia
+                        del modelo de la vista
                     *@
                     if (esIdTipoUsuario)
                     {
@@ -50,35 +50,35 @@
     </div>
     <div class="form-group">
         <label>2 Apellido</label>
-        <input type="text" name="Apellido2_U" id="Apellido2_U" class="form-control" value="@Model.Apellido2_U"/>
+        <input type="text" name="Apellido2_U" id="Apellido2_U" class="form-control" value="@Model.Apellido2_U" />
     </div>
     <div class="form-group">
         <label>Direccion</label>
-        <input type="text" name="Direccion_U" id="Direccion_U" class="form-control" value="@Model.Direccion_U"/>
+        <input type="text" name="Direccion_U" id="Direccion_U" class="form-control" value="@Model.Direccion_U" />
     </div>
     <div class="form-group">
         <label>Correo</label>
-        <input type="email" name="Correo_U" id="Correo_U" class="form-control" value="@Model.Correo_U"/>
+        <input type="email" name="Correo_U" id="Correo_U" class="form-control" value="@Model.Correo_U" />
     </div>
     <div class="form-group">
         <label>Telefono</label>
-        <input type="text" name="Telefono_U" id="Telefono_U" class="form-control" value="@Model.Telefono_U"/>
+        <input type="text" name="Telefono_U" id="Telefono_U" class="form-control" value="@Model.Telefono_U" />
     </div>
 
     <hr />
     <label>Datos De Ingreso!</label>
     <div class="form-group">
-        <label >Usuario De Ingreso:</label>
+        <label>Usuario De Ingreso:</label>
         <input type="text" name="Usuario_Ingreso" id="Usuario_Ingreso" class="form-control" value="@Model.Usuario_Ingreso" readonly />
     </div>
     <div class="form-group">
         <label>Clave:</label>
-        <input type="password" name="Clave_U" id="Clave_U" class="form-control" value="@Model.Clave_U"/>
+        <input type="password" name="Clave_U" id="Clave_U" class="form-control" value="@Model.Clave_U" />
     </div>
     <hr />
     <div>
         <label>Estado:</label>
-        <input type="text" name="Estado_U" id="Estado_U" class="form-control" value="@Model.Estado_U" readonly/>
+        <input type="text" name="Estado_U" id="Estado_U" class="form-control" value="@Model.Estado_U" readonly />
     </div>
     <br />
     <div class="form-group">
@@ -86,5 +86,17 @@
     </div>
 </form>
 <br />
-<a href="~/Usuarios/ListaUsuarios" class="btn btn-primary">Ver Lista</a>
+@{
+    if (Model.ID_TipoUsuario != 2)
+    {
+
+        <a href="~/Usuarios/ListaUsuarios" class="btn btn-primary">Ver Lista</a>
+    }
+    else
+    {
+        <a href="~/Home/Index" class="btn btn-primary">Pagina Inicial</a>
+    }
+
+
+}
 

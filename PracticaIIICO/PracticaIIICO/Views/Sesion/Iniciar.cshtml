@@ -68,8 +68,8 @@
             </div>
             <div>
                 <input id="btnIniciar" type="submit" class="btn btn-success" value="Iniciar" />
-                <a href="#">Olvido Clave?</a>
-                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">Registrarse!</a>
+                <a href="" data-bs-toggle="modal" data-bs-target="#RecuperacionClave">Olvido Clave?</a>
+                <a href="" data-bs-toggle="modal" data-bs-target="#ModalChuz">Registrarse!</a>
             </div>
         }
         <!-- form -->
@@ -78,36 +78,30 @@
         </div><!-- button -->
     </section><!-- content -->
 </div><!-- container -->
-
-<script type="text/javascript">
-    $("#btnIniciar").click(function (event) {
-        $("#username").val("");
-    });
-</script>
 <!-- Button trigger modal -->
 <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenteredScrollable">
     Registrar
 </button>-->
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenteredScrollable" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" style="display: none;" aria-hidden="true">
+<div class="modal" id="ModalChuz" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Pantalla De Registro</h5>
+                <h5 class="modal-title" id="tituloID">Pantalla De Registro</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="frmRegistraUsuario">
+                <form method="post" class="form-control" id="frmRegistroInicio">
                     <div class="row">
                         <label class="col-form-label">Nombre</label>
                         <div class="col">
                             <input type="text" class="form-control" name="Nombre_U" id="Nombre_U" placeholder="Nombre">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="Apellido1_U" id="Apellido1_U" placeholder="Primer Apellido" aria-label="Last name">
+                            <input type="text" class="form-control" name="Apellido1_U" id="Apellido1_U" placeholder="Primer Apellido">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="Apellido2_U" id="Apellido2_U" placeholder="Segundo Apellido" aria-label="Last name">
+                            <input type="text" class="form-control" name="Apellido2_U" id="Apellido2_U" placeholder="Segundo Apellido">
                         </div>
                     </div>
 
@@ -119,12 +113,12 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="inputPassword6" class="col-form-label">Contraseña</label>
-                            <input type="password" id="Clave_U" name="Clave_U" class="form-control" aria-describedby="passwordHelpInline">
+                            <label class="col-form-label">Contraseña</label>
+                            <input type="password" id="contrasenaVal1" name="contrasenaVal1" class="form-control">
                         </div>
                         <div class="col">
-                            <label for="inputPassword6" class="col-form-label">Confirme Contraseña</label>
-                            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                            <label class="col-form-label">Confirme Contraseña</label>
+                            <input type="password" id="contrasenaVal" name="contrasenaVal" class="form-control">
                         </div>
                     </div>
                 </form>
@@ -140,8 +134,49 @@
         </div>
     </div>
 </div>
-<div id="messageRegistrarse"></div>
 
+<div id="messageRegistrarse"></div>
+<div id="messageRecuperacion"></div>
+
+<!-- Button trigger modal -->
+<!--
+<button type="button" class="btn btn-primary" id="btnAbrirModal">
+    Launch demo modal
+</button>Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="RecuperacionClave" tabindex="-1" aria-labelledby="tituloRecuperacion" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloRecuperacion">Recupera Tu Clave</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <h1>Confirme Tus Datos</h1>
+                <form method="post" class="form-control" id="frmRecuperacion">
+                    <div class="row">
+                        <label class="col-form-label">Su Nombre Usuario:</label>
+                        <input type="text" class="form-control" name="NombreUsuario" id="NombreUsuario" placeholder="Nombre Usuario">
+                    </div>
+                    <div class="row">
+                        <label class="col-form-label">Su Correo:</label>
+                        <input type="email" class="form-control" name="CorreoUsuario" id="CorreoUsuario" placeholder="Correo Usuario">
+                    </div>
+                </form>
+                <!--
+                 <button type="button" class="btn btn-secondary" id="btnCerrarModal">
+                     Cerrar Modal
+                 </button>
+                -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="btnRecuperar">Recuperar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @{
     if (ViewBag.Error != null)
@@ -160,6 +195,10 @@
     <script src="~/Scripts/Sesion/InicioSesion.js"></script>
     <script src="~/Scripts/Sesion/llamarModal.js"></script>
 
+    <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/Sesion/Registrarse.js"></script>
+
+    <script src="~/Scripts/Sesion/RecuperacionClave.js"></script>
+
     <script src="~/Scripts/scriptGenerico.js"></script>
 }
