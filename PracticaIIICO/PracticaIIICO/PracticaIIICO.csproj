@@ -135,6 +135,9 @@
     <Compile Include="BD\CitasTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\CotizacionDesgloseView.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\CotizacionTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -210,7 +213,13 @@
     <Compile Include="BD\sp_Retorna_Cotizacion_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_Retorna_DesgloseCotizacion_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Retorna_DesgloseSalida_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_DetalleCotID_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_DetalleCoti_Result.cs">
@@ -2196,13 +2205,17 @@
     <Content Include="Views\DetalleSalidas\MostrarDetSal.cshtml" />
     <Content Include="Views\Salidas\MostrarSalida.cshtml" />
     <Content Include="Views\Salidas\ModificaSalida.cshtml" />
+    <Content Include="Views\Cotizacion\ListaCotizacion.cshtml" />
+    <Content Include="Views\Cotizacion\NuevaCotizacion.cshtml" />
+    <Content Include="Views\DetalleCotizacion\AgregaDetCot.cshtml" />
+    <Content Include="Views\DetalleCotizacion\MostrarDetCot.cshtml" />
+    <Content Include="Views\Cotizacion\ModificaCotizacion.cshtml" />
+    <Content Include="Views\Cotizacion\MostrarCotizacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Ajustes\" />
     <Folder Include="Views\Citas\" />
-    <Folder Include="Views\Cotizacion\" />
-    <Folder Include="Views\DetalleCotizacion\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

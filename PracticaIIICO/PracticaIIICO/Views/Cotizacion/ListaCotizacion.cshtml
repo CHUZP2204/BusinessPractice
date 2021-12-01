@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "ListaCotizacion";
+}
+
+<h2>Lista Cotizacion</h2>
+<br />
+<a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
+<br />
+
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Fecha</th>
+
+            <th scope="col">Acciones</th>
+            <th scope="col">Detalle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_Cotizacion_Result PosicionCotizacion in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionCotizacion.ID_Cotizacion</td>
+
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                        {
+                            bool esIdUser = ModeloUSER.ID_Usuario == PosicionCotizacion.ID_Usuario;
+                            if (esIdUser)
+                            {
+                                <td>@ModeloUSER.Nombre_U</td>
+                            }
+                        }
+
+                    }
+
+
+
+                    <td>@PosicionCotizacion.Nombre_Cliente</td>
+                    <td>@PosicionCotizacion.Fecha_Cotizacion.ToShortDateString()</td>
+
+                    <td>
+                        <a href="~/Cotizacion/ModificaCotizacion?id_Cot=@PosicionCotizacion.ID_Cotizacion" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                        <a href="~/Cotizacion/MostrarCotizacion?id_Cot=@PosicionCotizacion.ID_Cotizacion" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                    </td>
+                    <td>
+                        <a href="~/DetalleCotizacion/MostrarDetCot?id_Cot=@PosicionCotizacion.ID_Cotizacion" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                        <a href="~/DetalleCotizacion/AgregaDetCot?id_Cot=@PosicionCotizacion.ID_Cotizacion" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<a href="~/Cotizacion/NuevaCotizacion" class="btn btn-success">Nuevo</a>

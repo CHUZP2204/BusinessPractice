@@ -1,0 +1,80 @@
+﻿@model PracticaIIICO.BD.DetalleCotizacionTbl
+
+@{
+    ViewBag.Title = "AgregaDetCot";
+}
+
+<h2>AgregaDetCot</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>DetalleCotizacionTbl</h4>
+    <hr />
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ID_Cotizacion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ID_Cotizacion, new { htmlAttributes = new { @class = "form-control", @value = Model.ID_Cotizacion, @readonly = true } })
+            @Html.ValidationMessageFor(model => model.ID_Cotizacion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Producto:</label>
+        <select name="ID_Producto" id="ID_Producto" class="form-control">
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
+                {
+                    <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD </option>
+                }
+
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Servicio:</label>
+        <select name="ID_Servicio" id="ID_Servicio" class="form-control">
+            @{
+
+                foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result ModeloSERV in this.ViewBag.ListaServicios)
+                {
+                    <option value="@ModeloSERV.ID_Servicio">@ModeloSERV.Nombre_Servicio </option>
+                }
+
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cant_AdquiPROD, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Cant_AdquiPROD, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Cant_AdquiPROD, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PrecioXCant, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PrecioXCant, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PrecioXCant, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Agregar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+<br />
+<div>
+    <a href="~/Cotizacion/ListaCotizacion" class="btn btn-primary">Ver Lista</a>
+</div>

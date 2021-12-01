@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "MostrarCotizacion";
+}
+
+<h2>Mostrar Cotizacion</h2>
+
+@{
+    foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result Posicion in this.ViewBag.ListaCotizaciones)
+    {
+        <h3>Factura #@ViewBag.NumeroCotizacion</h3>
+        <h4>Nombre Cliente: @Posicion.Nombre_Cliente</h4>
+
+        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+        {
+            bool esIdUser = ModeloUSER.ID_Usuario == Posicion.ID_Usuario;
+            if (esIdUser)
+            {
+                <p>Creado Por Usuario: <strong>@Posicion.ID_Usuario</strong>  Nombre: @ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </p>
+            }
+        }
+        <p>Fecha Factura:@Posicion.Fecha_Cotizacion.ToShortDateString()</p>
+
+    }
+}
+
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Servicio</th>
+            
+            
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio/Cant</th>
+            <th scope="col">Costo</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_DesgloseCotizacion_Result PosicionDetalle in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionDetalle.ID_DetalleCotizar</td>
+
+                    @foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
+                    {
+                        bool esIdPROD = ModeloPROD.ID_Producto == PosicionDetalle.ID_Producto;
+                        if (esIdPROD)
+                        {
+                            <td>@ModeloPROD.Nombre_PROD</td>
+                        }
+                    }
+                    @foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result ModeloSERV in this.ViewBag.ListaServicios)
+                    {
+                        bool esIdPROD = ModeloSERV.ID_Servicio == PosicionDetalle.ID_Servicio;
+                        if (esIdPROD)
+                        {
+                            <td>@ModeloSERV.Nombre_Servicio</td>
+                        }
+                    }
+                    
+
+                    
+                    <td>@PosicionDetalle.Cant_AdquiPROD</td>
+                    <td>@PosicionDetalle.PrecioXCant</td>
+                    <td>@PosicionDetalle.Costo</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<br />
+<a href="~/Cotizacion/ListaCotizacion" class="btn btn-primary">Ver Lista</a>
+
+

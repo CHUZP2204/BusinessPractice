@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "MostrarDetCot";
+}
+
+<h3>Detalle Cotizacion #@ViewBag.NumeroCotizacion</h3>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># Detalle</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Servicio</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_DetalleCotID_Result PosicionDetalle in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionDetalle.ID_DetalleCotizar</td>
+
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPRD in this.ViewBag.ListaProductos)
+                        {
+                            bool esIdUser = ModeloPRD.ID_Producto == PosicionDetalle.ID_Producto;
+                            if (esIdUser)
+                            {
+                                <td>@ModeloPRD.Nombre_PROD</td>
+                            }
+                        }
+
+                    }
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result ModeloSERV in this.ViewBag.ListaServicios)
+                        {
+                            bool esIdUser = ModeloSERV.ID_Servicio == PosicionDetalle.ID_Servicio;
+                            if (esIdUser)
+                            {
+                                <td>@ModeloSERV.Nombre_Servicio</td>
+                            }
+                        }
+
+                    }
+
+
+                    <td>@PosicionDetalle.Cant_AdquiPROD</td>
+                    <td>@PosicionDetalle.PrecioXCant</td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<br />
+<a href="~/Cotizacion/ListaCotizacion" class="btn btn-primary">Ver Lista</a>

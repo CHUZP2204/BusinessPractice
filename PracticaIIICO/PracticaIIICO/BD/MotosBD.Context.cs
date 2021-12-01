@@ -46,6 +46,7 @@ namespace PracticaIIICO.BD
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Entradas_DesgloseView> Entradas_DesgloseView { get; set; }
         public DbSet<Desglose_SalidaView> Desglose_SalidaView { get; set; }
+        public DbSet<CotizacionDesgloseView> CotizacionDesgloseView { get; set; }
     
         public virtual int sp_Elimina_Ajuste(Nullable<int> idAjuste)
         {
@@ -1396,6 +1397,24 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("idSal", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_DesgloseSalida_Result>("sp_Retorna_DesgloseSalida", idSalParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_DesgloseCotizacion_Result> sp_Retorna_DesgloseCotizacion(Nullable<int> idCot)
+        {
+            var idCotParameter = idCot.HasValue ?
+                new ObjectParameter("idCot", idCot) :
+                new ObjectParameter("idCot", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_DesgloseCotizacion_Result>("sp_Retorna_DesgloseCotizacion", idCotParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_DetalleCotID_Result> sp_Retorna_DetalleCotID(Nullable<int> idCotizacion)
+        {
+            var idCotizacionParameter = idCotizacion.HasValue ?
+                new ObjectParameter("idCotizacion", idCotizacion) :
+                new ObjectParameter("idCotizacion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_DetalleCotID_Result>("sp_Retorna_DetalleCotID", idCotizacionParameter);
         }
     }
 }

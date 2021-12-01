@@ -180,6 +180,40 @@
           <Property Name="UltimaVezConectado" Type="date" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.CotizacionDesgloseView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="CotizacionDesgloseView">
+          <Key>
+            <PropertyRef Name="ID_Cotizacion" />
+            <PropertyRef Name="ID_DetalleCotizar" />
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_Servicio" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="Numero_Cotizacion" />
+            <PropertyRef Name="Nombre_Cliente" />
+            <PropertyRef Name="Cant_AdquiPROD" />
+            <PropertyRef Name="PrecioXCant" />
+            <PropertyRef Name="Costo" />
+            <PropertyRef Name="Hora_Cotizacion" />
+            <PropertyRef Name="Fecha_Cotizacion" />
+            <PropertyRef Name="Correo_Cliente" />
+            <PropertyRef Name="Telefono_Cliente" />
+          </Key>
+          <Property Name="ID_Cotizacion" Type="int" Nullable="false" />
+          <Property Name="ID_DetalleCotizar" Type="int" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_Servicio" Type="int" Nullable="false" />
+          <Property Name="ID_Producto" Type="int" Nullable="false" />
+          <Property Name="Numero_Cotizacion" Type="int" Nullable="false" />
+          <Property Name="Nombre_Cliente" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cant_AdquiPROD" Type="int" Nullable="false" />
+          <Property Name="PrecioXCant" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Costo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Hora_Cotizacion" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Fecha_Cotizacion" Type="date" Nullable="false" />
+          <Property Name="Correo_Cliente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Telefono_Cliente" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Desglose_SalidaView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Desglose_SalidaView">
           <Key>
@@ -754,6 +788,9 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
         <Function Name="sp_Retorna_CotizacionID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idCotizacion" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Retorna_DesgloseCotizacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCot" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Retorna_DesgloseSalida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idSal" Type="int" Mode="In" />
         </Function>
@@ -771,6 +808,9 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
         </Function>
         <Function Name="sp_Retorna_DetalleCoti" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idDetalleCoti" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_DetalleCotID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idCotizacion" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Retorna_DetalleFacturaSalida" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idSalida" Type="int" Mode="In" />
@@ -860,6 +900,24 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <EntitySet Name="Tipo_ServicioTbl" EntityType="Self.Tipo_ServicioTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CotizacionDesgloseView" EntityType="Self.CotizacionDesgloseView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[CotizacionDesgloseView].[ID_Cotizacion] AS [ID_Cotizacion], 
+[CotizacionDesgloseView].[ID_DetalleCotizar] AS [ID_DetalleCotizar], 
+[CotizacionDesgloseView].[ID_Usuario] AS [ID_Usuario], 
+[CotizacionDesgloseView].[ID_Servicio] AS [ID_Servicio], 
+[CotizacionDesgloseView].[ID_Producto] AS [ID_Producto], 
+[CotizacionDesgloseView].[Numero_Cotizacion] AS [Numero_Cotizacion], 
+[CotizacionDesgloseView].[Nombre_Cliente] AS [Nombre_Cliente], 
+[CotizacionDesgloseView].[Cant_AdquiPROD] AS [Cant_AdquiPROD], 
+[CotizacionDesgloseView].[PrecioXCant] AS [PrecioXCant], 
+[CotizacionDesgloseView].[Costo] AS [Costo], 
+[CotizacionDesgloseView].[Hora_Cotizacion] AS [Hora_Cotizacion], 
+[CotizacionDesgloseView].[Fecha_Cotizacion] AS [Fecha_Cotizacion], 
+[CotizacionDesgloseView].[Correo_Cliente] AS [Correo_Cliente], 
+[CotizacionDesgloseView].[Telefono_Cliente] AS [Telefono_Cliente]
+FROM [dbo].[CotizacionDesgloseView] AS [CotizacionDesgloseView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Desglose_SalidaView" EntityType="Self.Desglose_SalidaView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [Desglose_SalidaView].[ID_Salida] AS [ID_Salida], 
@@ -1878,7 +1936,14 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           </FunctionImport>
           <EntitySet Name="Desglose_SalidaView" EntityType="MotoRepuestosMakoModel.Desglose_SalidaView" />
           <FunctionImport Name="sp_Retorna_DesgloseSalida" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_DesgloseSalida_Result)">
-            <Parameter Name="idSal" Mode="In" Type="Int32" />
+          <Parameter Name="idSal" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="CotizacionDesgloseView" EntityType="MotoRepuestosMakoModel.CotizacionDesgloseView" />
+          <FunctionImport Name="sp_Retorna_DesgloseCotizacion" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_DesgloseCotizacion_Result)">
+          <Parameter Name="idCot" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_DetalleCotID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_DetalleCotID_Result)">
+            <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -2203,6 +2268,62 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="Int32" Name="Cant_Salida_PROD" Nullable="false" />
           <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+        </ComplexType>
+        <EntityType Name="CotizacionDesgloseView">
+          <Key>
+            <PropertyRef Name="ID_Cotizacion" />
+            <PropertyRef Name="ID_DetalleCotizar" />
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_Servicio" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="Numero_Cotizacion" />
+            <PropertyRef Name="Nombre_Cliente" />
+            <PropertyRef Name="Cant_AdquiPROD" />
+            <PropertyRef Name="PrecioXCant" />
+            <PropertyRef Name="Costo" />
+            <PropertyRef Name="Hora_Cotizacion" />
+            <PropertyRef Name="Fecha_Cotizacion" />
+            <PropertyRef Name="Correo_Cliente" />
+            <PropertyRef Name="Telefono_Cliente" />
+          </Key>
+          <Property Name="ID_Cotizacion" Type="Int32" Nullable="false" />
+          <Property Name="ID_DetalleCotizar" Type="Int32" Nullable="false" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_Servicio" Type="Int32" Nullable="false" />
+          <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+          <Property Name="Numero_Cotizacion" Type="Int32" Nullable="false" />
+          <Property Name="Nombre_Cliente" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cant_AdquiPROD" Type="Int32" Nullable="false" />
+          <Property Name="PrecioXCant" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Costo" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Hora_Cotizacion" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="Fecha_Cotizacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Correo_Cliente" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono_Cliente" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_Retorna_DesgloseCotizacion_Result">
+          <Property Type="Int32" Name="ID_Cotizacion" Nullable="false" />
+          <Property Type="Int32" Name="ID_DetalleCotizar" Nullable="false" />
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_Servicio" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="Numero_Cotizacion" Nullable="false" />
+          <Property Type="String" Name="Nombre_Cliente" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Cant_AdquiPROD" Nullable="false" />
+          <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="Costo" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Time" Name="Hora_Cotizacion" Nullable="false" />
+          <Property Type="DateTime" Name="Fecha_Cotizacion" Nullable="false" />
+          <Property Type="String" Name="Correo_Cliente" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Telefono_Cliente" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_DetalleCotID_Result">
+          <Property Type="Int32" Name="ID_DetalleCotizar" Nullable="false" />
+          <Property Type="Int32" Name="ID_Cotizacion" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Servicio" Nullable="false" />
+          <Property Type="Int32" Name="Cant_AdquiPROD" Nullable="false" />
+          <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2894,6 +3015,58 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
                 <ScalarProperty Name="Cant_Salida_PROD" ColumnName="Cant_Salida_PROD" />
                 <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
                 <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CotizacionDesgloseView">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.CotizacionDesgloseView">
+              <MappingFragment StoreEntitySet="CotizacionDesgloseView">
+                <ScalarProperty Name="Telefono_Cliente" ColumnName="Telefono_Cliente" />
+                <ScalarProperty Name="Correo_Cliente" ColumnName="Correo_Cliente" />
+                <ScalarProperty Name="Fecha_Cotizacion" ColumnName="Fecha_Cotizacion" />
+                <ScalarProperty Name="Hora_Cotizacion" ColumnName="Hora_Cotizacion" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+                <ScalarProperty Name="Cant_AdquiPROD" ColumnName="Cant_AdquiPROD" />
+                <ScalarProperty Name="Nombre_Cliente" ColumnName="Nombre_Cliente" />
+                <ScalarProperty Name="Numero_Cotizacion" ColumnName="Numero_Cotizacion" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Servicio" ColumnName="ID_Servicio" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_DetalleCotizar" ColumnName="ID_DetalleCotizar" />
+                <ScalarProperty Name="ID_Cotizacion" ColumnName="ID_Cotizacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_DesgloseCotizacion" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_DesgloseCotizacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_DesgloseCotizacion_Result">
+                <ScalarProperty Name="ID_Cotizacion" ColumnName="ID_Cotizacion" />
+                <ScalarProperty Name="ID_DetalleCotizar" ColumnName="ID_DetalleCotizar" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_Servicio" ColumnName="ID_Servicio" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="Numero_Cotizacion" ColumnName="Numero_Cotizacion" />
+                <ScalarProperty Name="Nombre_Cliente" ColumnName="Nombre_Cliente" />
+                <ScalarProperty Name="Cant_AdquiPROD" ColumnName="Cant_AdquiPROD" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+                <ScalarProperty Name="Costo" ColumnName="Costo" />
+                <ScalarProperty Name="Hora_Cotizacion" ColumnName="Hora_Cotizacion" />
+                <ScalarProperty Name="Fecha_Cotizacion" ColumnName="Fecha_Cotizacion" />
+                <ScalarProperty Name="Correo_Cliente" ColumnName="Correo_Cliente" />
+                <ScalarProperty Name="Telefono_Cliente" ColumnName="Telefono_Cliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_DetalleCotID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_DetalleCotID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_DetalleCotID_Result">
+                <ScalarProperty Name="ID_DetalleCotizar" ColumnName="ID_DetalleCotizar" />
+                <ScalarProperty Name="ID_Cotizacion" ColumnName="ID_Cotizacion" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Servicio" ColumnName="ID_Servicio" />
+                <ScalarProperty Name="Cant_AdquiPROD" ColumnName="Cant_AdquiPROD" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
