@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "MostrarDetSal";
+}
+
+<h2>Mostrar Detalle Salida @ViewBag.NumeroDetalleSal</h2>
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># Detalle</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_DetalleFacturaSalida_Result PosicionDetalle in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionDetalle.ID_DetalleSalida</td>
+
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPRD in this.ViewBag.ListaProductos)
+                        {
+                            bool esIdPROD = ModeloPRD.ID_Producto == PosicionDetalle.ID_Producto;
+                            if (esIdPROD)
+                            {
+                                <td>@ModeloPRD.Nombre_PROD</td>
+                            }
+                        }
+
+                    }
+
+
+
+                    <td>@PosicionDetalle.Cant_Salida_PROD</td>
+                   
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<br />
+<a href="~/Salidas/ListaSalidas" class="btn btn-primary">Ver Lista</a>

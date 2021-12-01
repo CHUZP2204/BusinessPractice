@@ -40,6 +40,7 @@
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_ServiciosTbl_Tipo_ServicioTbl" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_Usuarios_TipoUsuario" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.Desglose_SalidaView" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

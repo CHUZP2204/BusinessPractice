@@ -45,6 +45,7 @@ namespace PracticaIIICO.BD
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Entradas_DesgloseView> Entradas_DesgloseView { get; set; }
+        public DbSet<Desglose_SalidaView> Desglose_SalidaView { get; set; }
     
         public virtual int sp_Elimina_Ajuste(Nullable<int> idAjuste)
         {
@@ -1377,6 +1378,24 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("correoUsuario", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_VerificaDatos_Usuario_Result>("sp_VerificaDatos_Usuario", nombreUsuarioParameter, correoUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_DetalleFacturaSalida_Result> sp_Retorna_DetalleFacturaSalida(Nullable<int> idSalida)
+        {
+            var idSalidaParameter = idSalida.HasValue ?
+                new ObjectParameter("idSalida", idSalida) :
+                new ObjectParameter("idSalida", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_DetalleFacturaSalida_Result>("sp_Retorna_DetalleFacturaSalida", idSalidaParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_DesgloseSalida_Result> sp_Retorna_DesgloseSalida(Nullable<int> idSal)
+        {
+            var idSalParameter = idSal.HasValue ?
+                new ObjectParameter("idSal", idSal) :
+                new ObjectParameter("idSal", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_DesgloseSalida_Result>("sp_Retorna_DesgloseSalida", idSalParameter);
         }
     }
 }

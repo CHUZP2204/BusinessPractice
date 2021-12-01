@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "MostrarSalida";
+}
+
+
+@{
+    foreach (PracticaIIICO.BD.sp_Retorna_SalidaID_Result Posicion in this.ViewBag.ListaSalidas)
+    {
+        <h3>Factura #@ViewBag.NumeroSalida</h3>
+
+        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+        {
+            bool esIdUser = ModeloUSER.ID_Usuario == Posicion.ID_Usuario;
+            if (esIdUser)
+            {
+                <p>Creado Por Usuario: <strong>@Posicion.ID_Usuario</strong>  Nombre: @ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </p>
+            }
+        }
+        <p>Fecha Factura:@Posicion.Fecha_Registro.ToShortDateString()</p>
+
+    }
+}
+
+
+<!---->
+<table id="myTable" class="table table-hover table-bordered table-success table-striped">
+    <thead>
+        <tr>
+            <th scope="col"># Salida</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_DesgloseSalida_Result PosicionDetalle in this.Model)
+            {
+                <tr>
+
+                    <td>@PosicionDetalle.ID_Salida</td>
+                    @foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUS in this.ViewBag.ListaUsuarios)
+                    {
+                        bool esIdU = ModeloUS.ID_Usuario == PosicionDetalle.ID_Usuario;
+                        if (esIdU)
+                        {
+                            <td>@ModeloUS.Nombre_U @ModeloUS.Apellido1_U</td>
+                        }
+                    }
+                    <td>@PosicionDetalle.Nombre_PROD</td>
+                    <td>@PosicionDetalle.Cant_Salida_PROD</td>
+                    <td>@PosicionDetalle.Fecha_Registro.ToShortDateString()</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<br />
+<a href="~/Salidas/ListaSalidas" class="btn btn-primary">Ver Lista</a>
