@@ -24,6 +24,8 @@ namespace PracticaIIICO.Controllers.Usuarios
         {
             List<sp_Retorna_Usuario_Result> datosObtenidos = new List<sp_Retorna_Usuario_Result>();
             datosObtenidos = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
+
+            this.AgregTipoUsuariosViewBag();
             return View(datosObtenidos);
         }
 

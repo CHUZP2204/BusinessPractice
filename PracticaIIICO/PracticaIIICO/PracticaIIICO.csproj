@@ -2211,10 +2211,13 @@
     <Content Include="Views\DetalleCotizacion\MostrarDetCot.cshtml" />
     <Content Include="Views\Cotizacion\ModificaCotizacion.cshtml" />
     <Content Include="Views\Cotizacion\MostrarCotizacion.cshtml" />
+    <Content Include="Views\Ajustes\ListAjustes.cshtml" />
+    <Content Include="Views\Ajustes\NuevoAjuste.cshtml" />
+    <Content Include="Views\Ajustes\ModificaAjuste.cshtml" />
+    <Content Include="Views\Ajustes\MostrarAjuste.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Ajustes\" />
     <Folder Include="Views\Citas\" />
   </ItemGroup>
   <ItemGroup>

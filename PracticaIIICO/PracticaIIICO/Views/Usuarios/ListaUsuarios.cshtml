@@ -50,7 +50,17 @@
             {
                 <tr>
                     <td>@PosicionModelo.ID_Usuario</td>
-                    <td>@PosicionModelo.ID_TipoUsuario</td>
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result ModeloTUSER in this.ViewBag.ListaTipoUsuarios)
+                        {
+                            bool esIdUser = ModeloTUSER.ID_TipoUsuario == PosicionModelo.ID_TipoUsuario;
+
+                            if (esIdUser)
+                            {
+                                <td>@ModeloTUSER.Nombre_TipoUsuario</td>
+                            }
+                        }
+                    }
                     <td>@PosicionModelo.Nombre_U</td>
                     <td>@PosicionModelo.Apellido1_U @PosicionModelo.Apellido2_U</td>
 
