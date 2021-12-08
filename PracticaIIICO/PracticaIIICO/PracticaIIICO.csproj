@@ -2215,10 +2215,13 @@
     <Content Include="Views\Ajustes\NuevoAjuste.cshtml" />
     <Content Include="Views\Ajustes\ModificaAjuste.cshtml" />
     <Content Include="Views\Ajustes\MostrarAjuste.cshtml" />
+    <Content Include="Views\Citas\ListaCitas.cshtml" />
+    <Content Include="Views\Citas\NuevaCita.cshtml" />
+    <Content Include="Views\Citas\ModificaCita.cshtml" />
+    <Content Include="Views\Citas\MostrarCita.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Citas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
