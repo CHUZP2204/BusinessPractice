@@ -369,6 +369,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MiPerfil.css" />
     <Content Include="Content\Sesion\loginFinal.css" />
     <Content Include="Content\Sidebar\sidebar.css" />
     <Content Include="favicon.ico" />
@@ -2027,6 +2028,8 @@
     <Content Include="Images\cambio-de-aceite_2.jpg" />
     <Content Include="Images\Iconos.png" />
     <Content Include="Images\LogoMotoRepuestosMako.jpg" />
+    <Content Include="Images\LogoSinFondo.png" />
+    <Content Include="Images\User.png" />
     <Content Include="Scripts\Alertas\llamarModal.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.bundle.js" />
     <Content Include="Scripts\Boostrap_5\js\bootstrap.bundle.min.js" />

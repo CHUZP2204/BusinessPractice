@@ -1,10 +1,50 @@
 ﻿
+
 @{
     ViewBag.Title = "MostrarUsuario";
 }
 
+@section css{
+    <link href="~/Content/MiPerfil.css" rel="stylesheet" />
+}
 <h2>Informacion Usuario</h2>
+<div id="cardChuz">
+    <img src="~/Images/20170326_202353.jpg" id="avatarChuz">
+    <div class="container">
 
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4">
+
+        </div>
+
+
+        <h4><b>@Model.Nombre_U @Model.Apellido1_U @Model.Apellido2_U  </b></h4>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result ModeloTipoU in this.ViewBag.ListaTipoUsuarios)
+            {
+                bool esIdTipoUsuario = ModeloTipoU.ID_TipoUsuario == Model.ID_TipoUsuario;
+
+                if (esIdTipoUsuario)
+                {
+                    <p><i class="fa fa-user" aria-hidden="true"></i> @ModeloTipoU.Nombre_TipoUsuario</p>
+                }
+            }
+        }
+        <p><i class="far fa-envelope"></i> @Model.Correo_U</p>
+        <p><i class="fas fa-map-marker-alt"></i> @Model.Direccion_U</p>
+        <p><i class="fa fa-phone" aria-hidden="true"></i> @Model.Telefono_U</p>
+        <p><i class="fas fa-user-tag"></i> @Model.Usuario_Ingreso</p>
+        
+
+        <a href="~/Usuarios/ModificaUsuario?id_User=@Model.ID_Usuario" class="btn btn-warning"><i class="fas fa-edit">Editar</i></a>
+
+        <br />
+        <br />
+    </div>
+</div>
+<br />
 <a href="~/Usuarios/ModificaUsuario?id_User=@Model.ID_Usuario" class="btn btn-warning">Modificar</a>
 <form id="frmListaU" method="post">
 
