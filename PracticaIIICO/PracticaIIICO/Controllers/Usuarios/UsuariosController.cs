@@ -18,6 +18,15 @@ namespace PracticaIIICO.Controllers.Usuarios
             return View();
         }
 
+        public ActionResult ListaNueva()
+        {
+            List<sp_Retorna_Usuario_Result> datosObtenidos = new List<sp_Retorna_Usuario_Result>();
+            datosObtenidos = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
+
+            this.AgregTipoUsuariosViewBag();
+            return View(datosObtenidos);
+        }
+
         // GET: Usuarios/Details/5
         [AuthorizeUser]
         public ActionResult ListaUsuarios()

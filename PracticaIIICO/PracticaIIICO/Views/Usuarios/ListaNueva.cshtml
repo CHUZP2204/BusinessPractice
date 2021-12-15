@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "ListaNueva";
+}
+
+@section css{
+    <link href="~/Content/Table/fullGrid.css" rel="stylesheet" />
+    <link href="~/Content/Table/gridCSS.css" rel="stylesheet" />
+
+}
+
+<div id="MARK__grid">
+    <div id="toolbar_cont_MARK__grid_fg" class="fullgrid-dt-toolbar text-right"
+         style="padding: 3px; position: relative;">
+        <h3 style="text-align:center">Lista Usuarios</h3>
+        <div class="btn-group" id="toolbar_MARK__grid_fg">
+            <button id="BCTXT_MARK__NEW" type="button"
+                    class="btn btn-primary ">
+                <i class="fa fa-file"></i> Nuevo
+            </button>
+        </div>
+    </div>
+    <!---->
+    <table id="MARK__grid_fg" class="table table-striped table-hover table-condensed table-bordered table-success ">
+        <thead>
+            <tr>
+                <!--ID-->
+                <th class="text-center" style="width: 1%; vertical-align: middle;">Nro.</th>
+                <!--ACCIONES-->
+                <th class="text-center" id="MARK__grid_fg_axions" style="width: 50px; vertical-align: middle;">
+                    Acciones
+                </th>
+                <!--Descripcion-->
+                <th id="MARK__grid_fg_head_th_0" class="text-center col_marcaMARK__grid_fg sorting_asc"
+                    data-order="marca" style="width: 550px; vertical-align: middle;">
+                    Descripción
+                </th>
+                <!--Estado-->
+                <th id="MARK__grid_fg_head_th_1" class="text-center col_activoMARK__grid_fg sorting"
+                    data-order="activo" style="width: 80px; vertical-align: middle;">
+                    Estado
+                </th>
+            </tr>
+            <tr>
+                <th style="height: 45px;"></th>
+                <th style="height: 45px;"></th>
+                <th id="" style="position: relative; height: 45px;">
+                    <!--Input-->
+                    <div class="input-group input-group-md">
+                        <label>
+                            <input style="" type="text" id="f1_MARK__grid_fg_marca"
+                                   class="form-control filter1" field="marca" />
+                        </label>
+
+                        <span class="input-group-addon" id="chuzp" data-filter="marca">
+                            <i data-filter="marca" class="fa fa-filter" style="cursor: pointer;"></i>
+                        </span>
+
+                    </div>
+
+
+                    <!--Fin Input-->
+                    <div data-filter="marca" class="well well-sm main-filter" id="cont_filter_MARK__grid_fg_marca"
+                         style="display: none; position: absolute; right: 6px; z-index: 5;">
+                        <p data-filter="marca">Mostrar&nbsp;registros&nbsp;que&nbsp;sean:</p><select id="op1_MARK__grid_fg_marca" data-filter="marca" class="form-control operador1">
+                            <option value="LIKE" selected="selected" data-filter="marca">
+                                Contiene
+                            </option>
+                            <option value="=" data-filter="marca">Igual</option>
+                            <option value="!=" data-filter="marca">Diferente</option>
+                            <option value=">" data-filter="marca">Mayor</option>
+                            <option value=">=" data-filter="marca">Mayor o igual</option>
+                            <option value="<" data-filter="marca">Menor</option>
+                            <option value="<=" data-filter="marca">Menor o igual</option>
+                            <option value="C" data-filter="marca">Comienza</option>
+                            <option value="T" data-filter="marca">Termina</option>
+                        </select><select id="op2_MARK__grid_fg_marca" data-filter="marca"
+                                         class="form-control operador2"
+                                         style="margin-top: 5px; margin-bottom: 5px; width: 80px;">
+                            <option value="AND" data-filter="marca">AND</option>
+                            <option value="OR" data-filter="marca">OR</option>
+                        </select><select id="op3_MARK__grid_fg_marca" data-filter="marca"
+                                         class="form-control operador3" style="margin-bottom: 5px;">
+                            <option value="LIKE" selected="selected" data-filter="marca">
+                                Contiene
+                            </option>
+                            <option value="=" data-filter="marca">Igual</option>
+                            <option value="!=" data-filter="marca">Diferente</option>
+                            <option value=">" data-filter="marca">Mayor</option>
+                            <option value=">=" data-filter="marca">Mayor o igual</option>
+                            <option value="<" data-filter="marca">Menor</option>
+                            <option value="<=" data-filter="marca">Menor o igual</option>
+                            <option value="C" data-filter="marca">Comienza</option>
+                            <option value="T" data-filter="marca">Termina</option>
+                        </select><input type="text" class="form-control filter2" id="f2_MARK__grid_fg_marca"
+                                        data-filter="marca">
+                        <div data-filter="marca" style="margin-top: 5px;">
+                            <button id="btn_filter_MARK__grid_fg_marca" type="button" class="btn btn-default"
+                                    data-filter="marca" style="float: left;">
+                                <i class="fa fa-search"></i>
+                                Filtrar
+                            </button><button id="btn_close_MARK__grid_fg_marca" type="button"
+                                             class="btn btn-default" data-filter="marca" style="float: right;">
+                                <i class="fa fa-trash-o"></i>
+                                Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </th>
+                <th id="th_cont_search_MARK__grid_fg_activo" class="hasinput col_activoMARK__grid_fg"
+                    style="position: relative; height: 45px;">
+                    <div class="input-group input-group-md">
+                        <label>
+                            <input type="text" id="f1_MARK__grid_fg_activo" class="form-control filter1"
+                                   field="activo">
+                        </label>
+                        <span class="input-group-addon" data-filter="activo">
+                            <i data-filter="activo"
+                               class="fa fa-filter" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                    <div data-filter="activo" class="well well-sm main-filter" id="cont_filter_MARK__grid_fg_activo"
+                         style="display: none; position: absolute; right: 6px; z-index: 5;">
+                        <p data-filter="activo">Mostrar&nbsp;registros&nbsp;que&nbsp;sean:</p>
+                        <select id="op1_MARK__grid_fg_activo" data-filter="activo" class="form-control operador1">
+                            <option value="LIKE" selected="selected" data-filter="activo">
+                                Contiene
+                            </option>
+                            <option value="=" data-filter="activo">Igual</option>
+                            <option value="!=" data-filter="activo">Diferente</option>
+                            <option value=">" data-filter="activo">Mayor</option>
+                            <option value=">=" data-filter="activo">Mayor o igual</option>
+                            <option value="<" data-filter="activo">Menor</option>
+                            <option value="<=" data-filter="activo">Menor o igual</option>
+                            <option value="C" data-filter="activo">Comienza</option>
+                            <option value="T" data-filter="activo">Termina</option>
+                        </select><select id="op2_MARK__grid_fg_activo" data-filter="activo"
+                                         class="form-control operador2"
+                                         style="margin-top: 5px; margin-bottom: 5px; width: 80px;">
+                            <option value="AND" data-filter="activo">AND</option>
+                            <option value="OR" data-filter="activo">OR</option>
+                        </select><select id="op3_MARK__grid_fg_activo" data-filter="activo"
+                                         class="form-control operador3" style="margin-bottom: 5px;">
+                            <option value="LIKE" selected="selected" data-filter="activo">
+                                Contiene
+                            </option>
+                            <option value="=" data-filter="activo">Igual</option>
+                            <option value="!=" data-filter="activo">Diferente</option>
+                            <option value=">" data-filter="activo">Mayor</option>
+                            <option value=">=" data-filter="activo">Mayor o igual</option>
+                            <option value="<" data-filter="activo">Menor</option>
+                            <option value="<=" data-filter="activo">Menor o igual</option>
+                            <option value="C" data-filter="activo">Comienza</option>
+                            <option value="T" data-filter="activo">Termina</option>
+                        </select><input type="text" class="form-control filter2" id="f2_MARK__grid_fg_activo"
+                                        data-filter="activo">
+                        <div data-filter="activo" style="margin-top: 5px;">
+                            <button id="btn_filter_MARK__grid_fg_activo" type="button" class="btn btn-default"
+                                    data-filter="activo" style="float: left;">
+                                <i class="fa fa-search"></i>
+                                Filtrar
+                            </button><button id="btn_close_MARK__grid_fg_activo" type="button"
+                                             class="btn btn-default" data-filter="activo" style="float: right;">
+                                <i class="fa fa-trash-o"></i> Limpiar
+                            </button>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tbody_MARK__grid_fg">
+            <!--Body Table-->
+
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModelUSER in this.Model)
+                {
+                    <tr id="tr_MARK__grid_fg_0">
+                        <td class="text-center">
+                            <!--Campo 1-->
+                            <b>@ModelUSER.ID_Usuario</b>
+                        </td>
+                        <td class="text-center" style="vertical-align: middle;">
+                            <div class="btn-group">
+                                <button class="btn btn-success btn-xs dropdown-toggle"
+                                        data-toggle="dropdown" title="Acciones">
+                                    <i class="fa fa-cog"></i>
+                                    <span class="caret"></span>
+                                </button>
+                                <!--Botones Para Acciones-->
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a id="btn_axion_MARK__grid_fg_0_0_0" href="javascript:;">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a id="btn_axion_MARK__grid_fg_0_0_1" href="javascript:;">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td class="col_marcaMARK__grid_fg sorting_1" style="width: 550px;">
+                            <!--Campo 2-->
+                            @ModelUSER.Nombre_U @ModelUSER.Apellido1_U @ModelUSER.Apellido2_U
+                        </td>
+                        <td class="text-center col_activoMARK__grid_fg" style="width: 80px;">
+                            <!--Campo 3-->
+                            <label class="label label-danger">@ModelUSER.Estado_U</label>
+                        </td>
+                    </tr>
+                }
+            }
+            <!--Table Body-->
+        </tbody>
+    </table>
+    <!--TABLE-->
+    <div id="foot_MARK__grid_fg" class="fullgrid-dt-toolbar-footer">
+        <div id="info_MARK__grid_fg" class="col-sm-6 col-xs-12 hidden-xs">
+            <div class="fullgrid_info pull-left">1 al 10 de 48</div>
+            <div id="contCbLength_MARK__grid_fg" class="pull-left" style="margin-left: 5px;">
+                <span>
+                    <label style="width: 60px;">
+                        <select id="MARK__grid_fg_cbLength" name="MARK__grid_fg_cbLength"
+                                class="form-control" style="width: 73px;">
+                            <option value="10" selected="selected">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </label>
+                </span>
+            </div><button id="btnRefresh_MARK__grid_fg" type="button" class="btn btn-primary" title="Actualizar"
+                          style="margin-left: 18px;">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
+        <div id="paginate_MARK__grid_fg" class="col-sm-6 col-xs-12">
+            <div class="fullgrid_paginate paging_simple_numbers">
+                <ul class="pagination pagination-sm" id="ul_pagin_MARK__grid_fg">
+                    <li class="paginate_button previous disabled">
+                        <a href="javascript:;">
+                            <i class="fa fa-fast-backward"></i>
+                        </a>
+                    </li>
+                    <li class="paginate_button previous disabled">
+                        <a href="javascript:;">
+                            <i class="fa fa-backward"></i>
+                        </a>
+                    </li>
+                    <li class="num paginate_button activefg">
+                        <a href="javascript:;"
+                           style="background: rgb(50, 118, 177); color: rgb(255, 255, 255); border: 1px solid rgb(50, 118, 177); cursor: default;">1</a>
+                    </li>
+                    <li class="num paginate_button"><a href="javascript:;">2</a></li>
+                    <li class="num paginate_button"><a href="javascript:;">3</a></li>
+                    <li class="num paginate_button"><a href="javascript:;">4</a></li>
+                    <li class="num paginate_button"><a href="javascript:;">5</a></li>
+                    <li class="paginate_button next"><a href="javascript:;"><i class="fa fa-forward"></i></a></li>
+                    <li class="paginate_button next">
+                        <a href="javascript:;"><i class="fa fa-fast-forward"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

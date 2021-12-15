@@ -33,8 +33,7 @@ namespace PracticaIIICO
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Boostrap_5/css/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/Boostrap_5/css/bootstrap.css")); //~/Content/site.css
         }
     }
 }

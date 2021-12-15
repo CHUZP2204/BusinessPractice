@@ -1,0 +1,55 @@
+﻿.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+
+    .input-group input {
+        font-size: 12px
+    }
+
+.input-group-addon {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #EFA;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    float: right;
+    /**/
+}
+
+    .input-group-addon .fa {
+        font-size: 14px;
+    }
+
+.input-group-addon {
+    padding: 6px 10px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: -32px;
+    margin-right: 35px;
+}
+
+.db {
+    font-weight: 400;
+    width: 100%;
+}
+
+.text-right {
+
+    text-align: right;
+}
+
+.table {
+   border: 1px solid #ccc;
+   margin-bottom: 0px;
+}
+
+    .fc-border-separate thead tr, .table thead tr {
+        font-size: 12px;
+    }

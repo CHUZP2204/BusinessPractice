@@ -372,6 +372,9 @@
     <Content Include="Content\MiPerfil.css" />
     <Content Include="Content\Sesion\loginFinal.css" />
     <Content Include="Content\Sidebar\sidebar.css" />
+    <Content Include="Content\Table\fullGrid.css" />
+    <Content Include="Content\Table\gridCSS.css" />
+    <Content Include="Content\Table\smartadmin-production.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2222,6 +2225,7 @@
     <Content Include="Views\Citas\NuevaCita.cshtml" />
     <Content Include="Views\Citas\ModificaCita.cshtml" />
     <Content Include="Views\Citas\MostrarCita.cshtml" />
+    <Content Include="Views\Usuarios\ListaNueva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

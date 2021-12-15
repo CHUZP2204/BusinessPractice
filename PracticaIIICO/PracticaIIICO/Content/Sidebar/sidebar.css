@@ -74,8 +74,14 @@ body {
 
 /**/
 
+#inputLayout {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
 /*----------------page-wrapper----------------*/
-
 .page-wrapper {
     height: 100vh;
 }
