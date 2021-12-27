@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8392f538e18e4b4d97bbc9a3aca4b5b7" Name="Diagram1">
+      <Diagram DiagramId="8392f538e18e4b4d97bbc9a3aca4b5b7" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.AjustesTbl" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.CategoriasTbl" Width="1.5" PointX="3.625" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.CitasTbl" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
@@ -14,34 +14,35 @@
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.DetalleSalidaTbl" Width="1.5" PointX="8" PointY="23.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.EntradasTbl" Width="1.5" PointX="4.625" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.MarcaTbl" Width="1.5" PointX="6.5" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="MotoRepuestosMakoModel.ProductosTbl" Width="1.5" PointX="8.375" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.ProveedoresTbl" Width="1.5" PointX="2.25" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.SalidasTbl" Width="1.5" PointX="5.25" PointY="23.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.ServiciosTbl" Width="1.5" PointX="5.25" PointY="27.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.Tipo_ServicioTbl" Width="1.5" PointX="3" PointY="27.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MotoRepuestosMakoModel.Usuarios" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_AjustesTbl_ProductosTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_AjustesTbl_Usuarios" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_ProductosTbl_CategoriasTbl" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_CitasTbl_MarcaTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_CitasTbl_UsuariosTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_CotizacionTbl_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_CotizacionTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_ProductosTbl" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_ServiciosTbl" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_EntradasTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_ProductosTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_ProductosTbl" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_SalidasTbl" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_EntradasTbl_ProveedoresTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_EntradasTbl_Usuarios" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_SalidasTbl_Usuarios" ManuallyRouted="false" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_ServiciosTbl_Tipo_ServicioTbl" ManuallyRouted="false" />
-        <AssociationConnector Association="MotoRepuestosMakoModel.FK_Usuarios_TipoUsuario" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.Desglose_SalidaView" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.CotizacionDesgloseView" Width="1.5" PointX="10.375" PointY="4.75" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.Usuarios" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.ImagenesTbl" Width="1.5" PointX="10.375" PointY="9.75" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_AjustesTbl_Usuarios" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_CitasTbl_UsuariosTbl" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_CotizacionTbl_Usuarios" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_EntradasTbl_Usuarios" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_SalidasTbl_Usuarios" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_Usuarios_TipoUsuario" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.ProductosTbl" Width="1.5" PointX="5.875" PointY="0.75" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_AjustesTbl_ProductosTbl" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_ProductosTbl_CategoriasTbl" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_ProductosTbl" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_ProductosTbl" />
+        <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_ProductosTbl" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

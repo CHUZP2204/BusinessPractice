@@ -98,6 +98,20 @@
           <Property Name="Monto_IVA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Monto_Final" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.ImagenesTbl' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ImagenesTbl">
+          <Key>
+            <PropertyRef Name="ID_Imagen" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="Url_Imagen" />
+            <PropertyRef Name="Descripcion_Imagen" />
+          </Key>
+          <Property Name="ID_Imagen" Type="int" Nullable="false" />
+          <Property Name="ID_Producto" Type="int" Nullable="false" />
+          <Property Name="Url_Imagen" Type="varchar" MaxLength="450" Nullable="false" />
+          <Property Name="Descripcion_Imagen" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="MarcaTbl">
           <Key>
             <PropertyRef Name="ID_Marca" />
@@ -116,6 +130,7 @@
           <Property Name="Precio_PROD" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Descripcion_PROD" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="Estado_PROD" Type="bit" Nullable="false" />
+          <Property Name="Cantidad_PROD" Type="int" />
         </EntityType>
         <EntityType Name="ProveedoresTbl">
           <Key>
@@ -178,6 +193,7 @@
           <Property Name="Estado_U" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Fecha_Creado" Type="date" />
           <Property Name="UltimaVezConectado" Type="date" />
+          <Property Name="Cedula_U" Type="varchar" MaxLength="25" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.CotizacionDesgloseView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -596,6 +612,7 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="precioPRO" Type="numeric" Mode="In" />
           <Parameter Name="descripPRO" Type="varchar" Mode="In" />
           <Parameter Name="estadoPRO" Type="bit" Mode="In" />
+          <Parameter Name="CantDisponible" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Inserta_Proveedor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreProv" Type="varchar" Mode="In" />
@@ -634,6 +651,7 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="estadoU" Type="varchar" Mode="In" />
           <Parameter Name="fechaCreado" Type="date" Mode="In" />
           <Parameter Name="ultimaVez" Type="date" Mode="In" />
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_Modifica_Ajuste" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idAjuste" Type="int" Mode="In" />
@@ -716,6 +734,7 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="precioPRO" Type="numeric" Mode="In" />
           <Parameter Name="descripPRO" Type="varchar" Mode="In" />
           <Parameter Name="estadoPRO" Type="bit" Mode="In" />
+          <Parameter Name="CantidadDisponible" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Modifica_ProveedorID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idprov" Type="int" Mode="In" />
@@ -760,6 +779,7 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="estadoU" Type="varchar" Mode="In" />
           <Parameter Name="fechaCreado" Type="date" Mode="In" />
           <Parameter Name="ultimaVez" Type="date" Mode="In" />
+          <Parameter Name="cedula" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_Retorna_AjusteID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idAjuste" Type="int" Mode="In" />
@@ -900,6 +920,14 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <EntitySet Name="Tipo_ServicioTbl" EntityType="Self.Tipo_ServicioTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImagenesTbl" EntityType="Self.ImagenesTbl" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ImagenesTbl].[ID_Imagen] AS [ID_Imagen], 
+[ImagenesTbl].[ID_Producto] AS [ID_Producto], 
+[ImagenesTbl].[Url_Imagen] AS [Url_Imagen], 
+[ImagenesTbl].[Descripcion_Imagen] AS [Descripcion_Imagen]
+FROM [dbo].[ImagenesTbl] AS [ImagenesTbl]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="CotizacionDesgloseView" EntityType="Self.CotizacionDesgloseView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [CotizacionDesgloseView].[ID_Cotizacion] AS [ID_Cotizacion], 
@@ -1032,8 +1060,8 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Cantida_Ajustar" Type="Int32" Nullable="false" />
           <Property Name="Fecha_Ajuste" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Descripcion_Ajsute" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ProductosTbl" Relationship="Self.FK_AjustesTbl_ProductosTbl" FromRole="AjustesTbl" ToRole="ProductosTbl" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_AjustesTbl_Usuarios" FromRole="AjustesTbl" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="MotoRepuestosMakoModel.FK_AjustesTbl_Usuarios" FromRole="AjustesTbl" ToRole="Usuarios" />
+          <NavigationProperty Name="ProductosTbl" Relationship="MotoRepuestosMakoModel.FK_AjustesTbl_ProductosTbl" FromRole="AjustesTbl" ToRole="ProductosTbl" />
         </EntityType>
         <EntityType Name="CategoriasTbl">
           <Key>
@@ -1042,7 +1070,7 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="ID_Categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre_Categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion_Categoria" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ProductosTbl" Relationship="Self.FK_ProductosTbl_CategoriasTbl" FromRole="CategoriasTbl" ToRole="ProductosTbl" />
+          <NavigationProperty Name="ProductosTbl" Relationship="MotoRepuestosMakoModel.FK_ProductosTbl_CategoriasTbl" FromRole="CategoriasTbl" ToRole="ProductosTbl" />
         </EntityType>
         <EntityType Name="CitasTbl">
           <Key>
@@ -1058,7 +1086,7 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Hora_Cita" Type="Time" Precision="7" />
           <Property Name="Fecha_Ingreso" Type="DateTime" Precision="0" />
           <NavigationProperty Name="MarcaTbl" Relationship="Self.FK_CitasTbl_MarcaTbl" FromRole="CitasTbl" ToRole="MarcaTbl" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_CitasTbl_UsuariosTbl" FromRole="CitasTbl" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="MotoRepuestosMakoModel.FK_CitasTbl_UsuariosTbl" FromRole="CitasTbl" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="CotizacionTbl">
           <Key>
@@ -1073,8 +1101,8 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Fecha_Cotizacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Hora_Cotizacion" Type="Time" Nullable="false" Precision="7" />
           <Property Name="Costo" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_CotizacionTbl_Usuarios" FromRole="CotizacionTbl" ToRole="Usuarios" />
           <NavigationProperty Name="DetalleCotizacionTbl" Relationship="Self.FK_DetalleCotizacionTbl_CotizacionTbl" FromRole="CotizacionTbl" ToRole="DetalleCotizacionTbl" />
+          <NavigationProperty Name="Usuarios" Relationship="MotoRepuestosMakoModel.FK_CotizacionTbl_Usuarios" FromRole="CotizacionTbl" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="DetalleCotizacionTbl">
           <Key>
@@ -1087,8 +1115,8 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Cant_AdquiPROD" Type="Int32" Nullable="false" />
           <Property Name="PrecioXCant" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <NavigationProperty Name="CotizacionTbl" Relationship="Self.FK_DetalleCotizacionTbl_CotizacionTbl" FromRole="DetalleCotizacionTbl" ToRole="CotizacionTbl" />
-          <NavigationProperty Name="ProductosTbl" Relationship="Self.FK_DetalleCotizacionTbl_ProductosTbl" FromRole="DetalleCotizacionTbl" ToRole="ProductosTbl" />
           <NavigationProperty Name="ServiciosTbl" Relationship="Self.FK_DetalleCotizacionTbl_ServiciosTbl" FromRole="DetalleCotizacionTbl" ToRole="ServiciosTbl" />
+          <NavigationProperty Name="ProductosTbl" Relationship="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_ProductosTbl" FromRole="DetalleCotizacionTbl" ToRole="ProductosTbl" />
         </EntityType>
         <EntityType Name="DetalleEntradaTbl">
           <Key>
@@ -1100,7 +1128,7 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Cant_Adquirida_PROD" Type="Int32" Nullable="false" />
           <Property Name="PrecioXCant" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <NavigationProperty Name="EntradasTbl" Relationship="Self.FK_DetalleEntradaTbl_EntradasTbl" FromRole="DetalleEntradaTbl" ToRole="EntradasTbl" />
-          <NavigationProperty Name="ProductosTbl" Relationship="Self.FK_DetalleEntradaTbl_ProductosTbl" FromRole="DetalleEntradaTbl" ToRole="ProductosTbl" />
+          <NavigationProperty Name="ProductosTbl" Relationship="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_ProductosTbl" FromRole="DetalleEntradaTbl" ToRole="ProductosTbl" />
         </EntityType>
         <EntityType Name="DetalleSalidaTbl">
           <Key>
@@ -1110,8 +1138,8 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="ID_Salida" Type="Int32" Nullable="false" />
           <Property Name="ID_Producto" Type="Int32" Nullable="false" />
           <Property Name="Cant_Salida_PROD" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProductosTbl" Relationship="Self.FK_DetalleSalidaTbl_ProductosTbl" FromRole="DetalleSalidaTbl" ToRole="ProductosTbl" />
           <NavigationProperty Name="SalidasTbl" Relationship="Self.FK_DetalleSalidaTbl_SalidasTbl" FromRole="DetalleSalidaTbl" ToRole="SalidasTbl" />
+          <NavigationProperty Name="ProductosTbl" Relationship="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_ProductosTbl" FromRole="DetalleSalidaTbl" ToRole="ProductosTbl" />
         </EntityType>
         <EntityType Name="EntradasTbl">
           <Key>
@@ -1129,7 +1157,7 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Monto_Final" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <NavigationProperty Name="DetalleEntradaTbl" Relationship="Self.FK_DetalleEntradaTbl_EntradasTbl" FromRole="EntradasTbl" ToRole="DetalleEntradaTbl" />
           <NavigationProperty Name="ProveedoresTbl" Relationship="Self.FK_EntradasTbl_ProveedoresTbl" FromRole="EntradasTbl" ToRole="ProveedoresTbl" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_EntradasTbl_Usuarios" FromRole="EntradasTbl" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="MotoRepuestosMakoModel.FK_EntradasTbl_Usuarios" FromRole="EntradasTbl" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="MarcaTbl">
           <Key>
@@ -1139,22 +1167,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Nombre_Marca" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descripcion_Marca" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CitasTbl" Relationship="Self.FK_CitasTbl_MarcaTbl" FromRole="MarcaTbl" ToRole="CitasTbl" />
-        </EntityType>
-        <EntityType Name="ProductosTbl">
-          <Key>
-            <PropertyRef Name="ID_Producto" />
-          </Key>
-          <Property Name="ID_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
-          <Property Name="Nombre_PROD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Precio_PROD" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Descripcion_PROD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Estado_PROD" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AjustesTbl" Relationship="Self.FK_AjustesTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="AjustesTbl" />
-          <NavigationProperty Name="CategoriasTbl" Relationship="Self.FK_ProductosTbl_CategoriasTbl" FromRole="ProductosTbl" ToRole="CategoriasTbl" />
-          <NavigationProperty Name="DetalleCotizacionTbl" Relationship="Self.FK_DetalleCotizacionTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="DetalleCotizacionTbl" />
-          <NavigationProperty Name="DetalleEntradaTbl" Relationship="Self.FK_DetalleEntradaTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="DetalleEntradaTbl" />
-          <NavigationProperty Name="DetalleSalidaTbl" Relationship="Self.FK_DetalleSalidaTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="DetalleSalidaTbl" />
         </EntityType>
         <EntityType Name="ProveedoresTbl">
           <Key>
@@ -1177,7 +1189,7 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Name="Fecha_Registro" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Hora_Orden" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="DetalleSalidaTbl" Relationship="Self.FK_DetalleSalidaTbl_SalidasTbl" FromRole="SalidasTbl" ToRole="DetalleSalidaTbl" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_SalidasTbl_Usuarios" FromRole="SalidasTbl" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="MotoRepuestosMakoModel.FK_SalidasTbl_Usuarios" FromRole="SalidasTbl" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="ServiciosTbl">
           <Key>
@@ -1205,68 +1217,8 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           </Key>
           <Property Name="ID_TipoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre_TipoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_TipoUsuario" FromRole="TipoUsuario" ToRole="Usuarios" />
+          <NavigationProperty Name="Usuarios" Relationship="MotoRepuestosMakoModel.FK_Usuarios_TipoUsuario" FromRole="TipoUsuario" ToRole="Usuarios" />
         </EntityType>
-        <EntityType Name="Usuarios">
-          <Key>
-            <PropertyRef Name="ID_Usuario" />
-          </Key>
-          <Property Name="ID_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_TipoUsuario" Type="Int32" Nullable="false" />
-          <Property Name="Nombre_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Apellido1_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Apellido2_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Direccion_U" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Correo_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Telefono_U" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Clave_U" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Usuario_Ingreso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Estado_U" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Fecha_Creado" Type="DateTime" Precision="0" />
-          <Property Name="UltimaVezConectado" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="AjustesTbl" Relationship="Self.FK_AjustesTbl_Usuarios" FromRole="Usuarios" ToRole="AjustesTbl" />
-          <NavigationProperty Name="CitasTbl" Relationship="Self.FK_CitasTbl_UsuariosTbl" FromRole="Usuarios" ToRole="CitasTbl" />
-          <NavigationProperty Name="CotizacionTbl" Relationship="Self.FK_CotizacionTbl_Usuarios" FromRole="Usuarios" ToRole="CotizacionTbl" />
-          <NavigationProperty Name="EntradasTbl" Relationship="Self.FK_EntradasTbl_Usuarios" FromRole="Usuarios" ToRole="EntradasTbl" />
-          <NavigationProperty Name="SalidasTbl" Relationship="Self.FK_SalidasTbl_Usuarios" FromRole="Usuarios" ToRole="SalidasTbl" />
-          <NavigationProperty Name="TipoUsuario" Relationship="Self.FK_Usuarios_TipoUsuario" FromRole="Usuarios" ToRole="TipoUsuario" />
-        </EntityType>
-        <Association Name="FK_AjustesTbl_ProductosTbl">
-          <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="1" />
-          <End Role="AjustesTbl" Type="Self.AjustesTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductosTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Principal>
-            <Dependent Role="AjustesTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AjustesTbl_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="AjustesTbl" Type="Self.AjustesTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="ID_Usuario" />
-            </Principal>
-            <Dependent Role="AjustesTbl">
-              <PropertyRef Name="ID_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductosTbl_CategoriasTbl">
-          <End Role="CategoriasTbl" Type="Self.CategoriasTbl" Multiplicity="1" />
-          <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CategoriasTbl">
-              <PropertyRef Name="ID_Categoria" />
-            </Principal>
-            <Dependent Role="ProductosTbl">
-              <PropertyRef Name="ID_Categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CitasTbl_MarcaTbl">
           <End Role="MarcaTbl" Type="Self.MarcaTbl" Multiplicity="1" />
           <End Role="CitasTbl" Type="Self.CitasTbl" Multiplicity="*" />
@@ -1279,30 +1231,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CitasTbl_UsuariosTbl">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="CitasTbl" Type="Self.CitasTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="ID_Usuario" />
-            </Principal>
-            <Dependent Role="CitasTbl">
-              <PropertyRef Name="ID_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CotizacionTbl_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="CotizacionTbl" Type="Self.CotizacionTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="ID_Usuario" />
-            </Principal>
-            <Dependent Role="CotizacionTbl">
-              <PropertyRef Name="ID_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DetalleCotizacionTbl_CotizacionTbl">
           <End Role="CotizacionTbl" Type="Self.CotizacionTbl" Multiplicity="1" />
           <End Role="DetalleCotizacionTbl" Type="Self.DetalleCotizacionTbl" Multiplicity="*" />
@@ -1312,18 +1240,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             </Principal>
             <Dependent Role="DetalleCotizacionTbl">
               <PropertyRef Name="ID_Cotizacion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DetalleCotizacionTbl_ProductosTbl">
-          <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="1" />
-          <End Role="DetalleCotizacionTbl" Type="Self.DetalleCotizacionTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductosTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Principal>
-            <Dependent Role="DetalleCotizacionTbl">
-              <PropertyRef Name="ID_Producto" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1351,30 +1267,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DetalleEntradaTbl_ProductosTbl">
-          <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="1" />
-          <End Role="DetalleEntradaTbl" Type="Self.DetalleEntradaTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductosTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Principal>
-            <Dependent Role="DetalleEntradaTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DetalleSalidaTbl_ProductosTbl">
-          <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="1" />
-          <End Role="DetalleSalidaTbl" Type="Self.DetalleSalidaTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductosTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Principal>
-            <Dependent Role="DetalleSalidaTbl">
-              <PropertyRef Name="ID_Producto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DetalleSalidaTbl_SalidasTbl">
           <End Role="SalidasTbl" Type="Self.SalidasTbl" Multiplicity="1" />
           <End Role="DetalleSalidaTbl" Type="Self.DetalleSalidaTbl" Multiplicity="*" />
@@ -1399,30 +1291,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EntradasTbl_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="EntradasTbl" Type="Self.EntradasTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="ID_Usuario" />
-            </Principal>
-            <Dependent Role="EntradasTbl">
-              <PropertyRef Name="ID_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SalidasTbl_Usuarios">
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
-          <End Role="SalidasTbl" Type="Self.SalidasTbl" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuarios">
-              <PropertyRef Name="ID_Usuario" />
-            </Principal>
-            <Dependent Role="SalidasTbl">
-              <PropertyRef Name="ID_Usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServiciosTbl_Tipo_ServicioTbl">
           <End Role="Tipo_ServicioTbl" Type="Self.Tipo_ServicioTbl" Multiplicity="1" />
           <End Role="ServiciosTbl" Type="Self.ServiciosTbl" Multiplicity="*" />
@@ -1432,18 +1300,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             </Principal>
             <Dependent Role="ServiciosTbl">
               <PropertyRef Name="ID_TipoServicio" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Usuarios_TipoUsuario">
-          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
-          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoUsuario">
-              <PropertyRef Name="ID_TipoUsuario" />
-            </Principal>
-            <Dependent Role="Usuarios">
-              <PropertyRef Name="ID_TipoUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1457,43 +1313,17 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <EntitySet Name="DetalleSalidaTbl" EntityType="Self.DetalleSalidaTbl" />
           <EntitySet Name="EntradasTbl" EntityType="Self.EntradasTbl" />
           <EntitySet Name="MarcaTbl" EntityType="Self.MarcaTbl" />
-          <EntitySet Name="ProductosTbl" EntityType="Self.ProductosTbl" />
           <EntitySet Name="ProveedoresTbl" EntityType="Self.ProveedoresTbl" />
           <EntitySet Name="SalidasTbl" EntityType="Self.SalidasTbl" />
           <EntitySet Name="ServiciosTbl" EntityType="Self.ServiciosTbl" />
           <EntitySet Name="Tipo_ServicioTbl" EntityType="Self.Tipo_ServicioTbl" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
-          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
-          <AssociationSet Name="FK_AjustesTbl_ProductosTbl" Association="Self.FK_AjustesTbl_ProductosTbl">
-            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
-            <End Role="AjustesTbl" EntitySet="AjustesTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AjustesTbl_Usuarios" Association="Self.FK_AjustesTbl_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="AjustesTbl" EntitySet="AjustesTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductosTbl_CategoriasTbl" Association="Self.FK_ProductosTbl_CategoriasTbl">
-            <End Role="CategoriasTbl" EntitySet="CategoriasTbl" />
-            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
-          </AssociationSet>
           <AssociationSet Name="FK_CitasTbl_MarcaTbl" Association="Self.FK_CitasTbl_MarcaTbl">
             <End Role="MarcaTbl" EntitySet="MarcaTbl" />
             <End Role="CitasTbl" EntitySet="CitasTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK_CitasTbl_UsuariosTbl" Association="Self.FK_CitasTbl_UsuariosTbl">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="CitasTbl" EntitySet="CitasTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CotizacionTbl_Usuarios" Association="Self.FK_CotizacionTbl_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="CotizacionTbl" EntitySet="CotizacionTbl" />
-          </AssociationSet>
           <AssociationSet Name="FK_DetalleCotizacionTbl_CotizacionTbl" Association="Self.FK_DetalleCotizacionTbl_CotizacionTbl">
             <End Role="CotizacionTbl" EntitySet="CotizacionTbl" />
-            <End Role="DetalleCotizacionTbl" EntitySet="DetalleCotizacionTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DetalleCotizacionTbl_ProductosTbl" Association="Self.FK_DetalleCotizacionTbl_ProductosTbl">
-            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
             <End Role="DetalleCotizacionTbl" EntitySet="DetalleCotizacionTbl" />
           </AssociationSet>
           <AssociationSet Name="FK_DetalleCotizacionTbl_ServiciosTbl" Association="Self.FK_DetalleCotizacionTbl_ServiciosTbl">
@@ -1504,14 +1334,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             <End Role="EntradasTbl" EntitySet="EntradasTbl" />
             <End Role="DetalleEntradaTbl" EntitySet="DetalleEntradaTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK_DetalleEntradaTbl_ProductosTbl" Association="Self.FK_DetalleEntradaTbl_ProductosTbl">
-            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
-            <End Role="DetalleEntradaTbl" EntitySet="DetalleEntradaTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DetalleSalidaTbl_ProductosTbl" Association="Self.FK_DetalleSalidaTbl_ProductosTbl">
-            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
-            <End Role="DetalleSalidaTbl" EntitySet="DetalleSalidaTbl" />
-          </AssociationSet>
           <AssociationSet Name="FK_DetalleSalidaTbl_SalidasTbl" Association="Self.FK_DetalleSalidaTbl_SalidasTbl">
             <End Role="SalidasTbl" EntitySet="SalidasTbl" />
             <End Role="DetalleSalidaTbl" EntitySet="DetalleSalidaTbl" />
@@ -1520,21 +1342,9 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             <End Role="ProveedoresTbl" EntitySet="ProveedoresTbl" />
             <End Role="EntradasTbl" EntitySet="EntradasTbl" />
           </AssociationSet>
-          <AssociationSet Name="FK_EntradasTbl_Usuarios" Association="Self.FK_EntradasTbl_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="EntradasTbl" EntitySet="EntradasTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SalidasTbl_Usuarios" Association="Self.FK_SalidasTbl_Usuarios">
-            <End Role="Usuarios" EntitySet="Usuarios" />
-            <End Role="SalidasTbl" EntitySet="SalidasTbl" />
-          </AssociationSet>
           <AssociationSet Name="FK_ServiciosTbl_Tipo_ServicioTbl" Association="Self.FK_ServiciosTbl_Tipo_ServicioTbl">
             <End Role="Tipo_ServicioTbl" EntitySet="Tipo_ServicioTbl" />
             <End Role="ServiciosTbl" EntitySet="ServiciosTbl" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Usuarios_TipoUsuario" Association="Self.FK_Usuarios_TipoUsuario">
-            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
-            <End Role="Usuarios" EntitySet="Usuarios" />
           </AssociationSet>
           <FunctionImport Name="sp_Elimina_Ajuste">
           <Parameter Name="idAjuste" Mode="In" Type="Int32" />
@@ -1670,20 +1480,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <FunctionImport Name="sp_Inserta_TipoUsuario">
           <Parameter Name="nombreTipoUsuario" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_Inserta_Usuario">
-            <Parameter Name="idTipoUsuario" Mode="In" Type="Int32" />
-            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
-            <Parameter Name="apellido1" Mode="In" Type="String" />
-            <Parameter Name="apellido2" Mode="In" Type="String" />
-            <Parameter Name="direccion" Mode="In" Type="String" />
-            <Parameter Name="correo" Mode="In" Type="String" />
-            <Parameter Name="telefono" Mode="In" Type="String" />
-            <Parameter Name="clave" Mode="In" Type="String" />
-            <Parameter Name="usuarioIngreso" Mode="In" Type="String" />
-            <Parameter Name="estadoU" Mode="In" Type="String" />
-            <Parameter Name="fechaCreado" Mode="In" Type="DateTime" />
-            <Parameter Name="ultimaVez" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="sp_Modifica_Ajuste">
             <Parameter Name="idAjuste" Mode="In" Type="Int32" />
             <Parameter Name="idProd" Mode="In" Type="Int32" />
@@ -1787,21 +1583,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             <Parameter Name="idTipousuario" Mode="In" Type="Int32" />
             <Parameter Name="nombreTipoUsuario" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="sp_Modifica_Usuario">
-            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
-            <Parameter Name="idTipoUsuario" Mode="In" Type="Int32" />
-            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
-            <Parameter Name="apellido1" Mode="In" Type="String" />
-            <Parameter Name="apellido2" Mode="In" Type="String" />
-            <Parameter Name="direccion" Mode="In" Type="String" />
-            <Parameter Name="correo" Mode="In" Type="String" />
-            <Parameter Name="telefono" Mode="In" Type="String" />
-            <Parameter Name="clave" Mode="In" Type="String" />
-            <Parameter Name="usuarioIngreso" Mode="In" Type="String" />
-            <Parameter Name="estadoU" Mode="In" Type="String" />
-            <Parameter Name="fechaCreado" Mode="In" Type="DateTime" />
-            <Parameter Name="ultimaVez" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="sp_Retorna_AjusteID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_AjusteID_Result)">
           <Parameter Name="idAjuste" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1879,45 +1660,13 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <FunctionImport Name="sp_Retorna_TipoUsuario_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_TipoUsuario_ID_Result)">
           <Parameter Name="idTipousuario" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_Retorna_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Usuario_Result)">
-            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
-            <Parameter Name="apellido1" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Retorna_UsuarioID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_UsuarioID_Result)">
-            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
-            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
-            <Parameter Name="apellido1" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_Elimina_Products">
-          <Parameter Name="idPROD" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Inserta_Products">
-            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
-            <Parameter Name="nombrePRO" Mode="In" Type="String" />
-            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
-            <Parameter Name="descripPRO" Mode="In" Type="String" />
-            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Modifica_Products">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
-            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
-            <Parameter Name="nombrePRO" Mode="In" Type="String" />
-            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
-            <Parameter Name="descripPRO" Mode="In" Type="String" />
-            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Retorna_Productos" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Productos_Result)">
-            <Parameter Name="nombrePROD" Mode="In" Type="String" />
-            <Parameter Name="descripPROD" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_Retorna_Products_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result)">
           <Parameter Name="idPROD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Verifica_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Verifica_Usuario_Result)">
             <Parameter Name="nombreU" Mode="In" Type="String" />
             <Parameter Name="claveU" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Entradas_DesgloseView" EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" />
           <FunctionImport Name="sp_Retorna_Detalle_Entradas" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Detalle_Entradas_Result)">
           <Parameter Name="idDetalleEntr" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1943,7 +1692,119 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Parameter Name="idCot" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_DetalleCotID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_DetalleCotID_Result)">
-            <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
+          <Parameter Name="idCotizacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Usuarios" EntityType="MotoRepuestosMakoModel.Usuarios" />
+          <EntitySet Name="ImagenesTbl" EntityType="MotoRepuestosMakoModel.ImagenesTbl" />
+          <AssociationSet Name="FK_AjustesTbl_Usuarios" Association="MotoRepuestosMakoModel.FK_AjustesTbl_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="AjustesTbl" EntitySet="AjustesTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CitasTbl_UsuariosTbl" Association="MotoRepuestosMakoModel.FK_CitasTbl_UsuariosTbl">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="CitasTbl" EntitySet="CitasTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CotizacionTbl_Usuarios" Association="MotoRepuestosMakoModel.FK_CotizacionTbl_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="CotizacionTbl" EntitySet="CotizacionTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EntradasTbl_Usuarios" Association="MotoRepuestosMakoModel.FK_EntradasTbl_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="EntradasTbl" EntitySet="EntradasTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SalidasTbl_Usuarios" Association="MotoRepuestosMakoModel.FK_SalidasTbl_Usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="SalidasTbl" EntitySet="SalidasTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_TipoUsuario" Association="MotoRepuestosMakoModel.FK_Usuarios_TipoUsuario">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <FunctionImport Name="sp_Inserta_Usuario">
+            <Parameter Name="idTipoUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+            <Parameter Name="apellido2" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="clave" Mode="In" Type="String" />
+            <Parameter Name="usuarioIngreso" Mode="In" Type="String" />
+            <Parameter Name="estadoU" Mode="In" Type="String" />
+            <Parameter Name="fechaCreado" Mode="In" Type="DateTime" />
+            <Parameter Name="ultimaVez" Mode="In" Type="DateTime" />
+            <Parameter Name="cedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Modifica_Usuario">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idTipoUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+            <Parameter Name="apellido2" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="clave" Mode="In" Type="String" />
+            <Parameter Name="usuarioIngreso" Mode="In" Type="String" />
+            <Parameter Name="estadoU" Mode="In" Type="String" />
+            <Parameter Name="fechaCreado" Mode="In" Type="DateTime" />
+            <Parameter Name="ultimaVez" Mode="In" Type="DateTime" />
+            <Parameter Name="cedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Usuario" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Usuario_Result)">
+            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_UsuarioID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_UsuarioID_Result)">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="apellido1" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ProductosTbl" EntityType="MotoRepuestosMakoModel.ProductosTbl" />
+          <AssociationSet Name="FK_AjustesTbl_ProductosTbl" Association="MotoRepuestosMakoModel.FK_AjustesTbl_ProductosTbl">
+            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
+            <End Role="AjustesTbl" EntitySet="AjustesTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductosTbl_CategoriasTbl" Association="MotoRepuestosMakoModel.FK_ProductosTbl_CategoriasTbl">
+            <End Role="CategoriasTbl" EntitySet="CategoriasTbl" />
+            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleCotizacionTbl_ProductosTbl" Association="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_ProductosTbl">
+            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
+            <End Role="DetalleCotizacionTbl" EntitySet="DetalleCotizacionTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleEntradaTbl_ProductosTbl" Association="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_ProductosTbl">
+            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
+            <End Role="DetalleEntradaTbl" EntitySet="DetalleEntradaTbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetalleSalidaTbl_ProductosTbl" Association="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_ProductosTbl">
+            <End Role="ProductosTbl" EntitySet="ProductosTbl" />
+            <End Role="DetalleSalidaTbl" EntitySet="DetalleSalidaTbl" />
+          </AssociationSet>
+          <EntitySet Name="Entradas_DesgloseView" EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" />
+          <FunctionImport Name="sp_Inserta_Products">
+            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="nombrePRO" Mode="In" Type="String" />
+            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
+            <Parameter Name="descripPRO" Mode="In" Type="String" />
+            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
+            <Parameter Name="CantDisponible" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Modifica_Products">
+            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="nombrePRO" Mode="In" Type="String" />
+            <Parameter Name="precioPRO" Mode="In" Type="Decimal" />
+            <Parameter Name="descripPRO" Mode="In" Type="String" />
+            <Parameter Name="estadoPRO" Mode="In" Type="Boolean" />
+            <Parameter Name="CantidadDisponible" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Productos" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Productos_Result)">
+            <Parameter Name="nombrePROD" Mode="In" Type="String" />
+            <Parameter Name="descripPROD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Products_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result)">
+            <Parameter Name="idPROD" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -2124,51 +1985,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
           <Property Type="String" Name="Nombre_TipoUsuario" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <ComplexType Name="sp_Retorna_Usuario_Result">
-          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
-          <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
-          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Direccion_U" Nullable="false" MaxLength="400" />
-          <Property Type="String" Name="Correo_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Telefono_U" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Estado_U" Nullable="false" MaxLength="50" />
-          <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
-          <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_Retorna_UsuarioID_Result">
-          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
-          <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
-          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Direccion_U" Nullable="false" MaxLength="400" />
-          <Property Type="String" Name="Correo_U" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Telefono_U" Nullable="false" MaxLength="15" />
-          <Property Type="String" Name="Clave_U" Nullable="false" MaxLength="10" />
-          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Estado_U" Nullable="false" MaxLength="50" />
-          <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
-          <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_Retorna_Productos_Result">
-          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
-          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
-          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
-          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="sp_Retorna_Products_ID_Result">
-          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
-          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
-          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
-          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
-          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
-        </ComplexType>
         <ComplexType Name="sp_Verifica_Usuario_Result">
           <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
           <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
@@ -2176,28 +1992,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <EntityType Name="Entradas_DesgloseView">
-          <Key>
-            <PropertyRef Name="ID_Entrada" />
-            <PropertyRef Name="ID_DetalleEntrada" />
-            <PropertyRef Name="ID_Producto" />
-            <PropertyRef Name="ID_Proveedor" />
-            <PropertyRef Name="Precio_PROD" />
-            <PropertyRef Name="Cant_Adquirida_PROD" />
-            <PropertyRef Name="PrecioXCant" />
-            <PropertyRef Name="Nombre_PROV" />
-            <PropertyRef Name="Nombre_PROD" />
-          </Key>
-          <Property Name="ID_Entrada" Type="Int32" Nullable="false" />
-          <Property Name="ID_DetalleEntrada" Type="Int32" Nullable="false" />
-          <Property Name="ID_Producto" Type="Int32" Nullable="false" />
-          <Property Name="ID_Proveedor" Type="Int32" Nullable="false" />
-          <Property Name="Precio_PROD" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Cant_Adquirida_PROD" Type="Int32" Nullable="false" />
-          <Property Name="PrecioXCant" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Nombre_PROV" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Nombre_PROD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <ComplexType Name="sp_Retorna_Detalle_Entradas_Result">
           <Property Type="Int32" Name="ID_DetalleEntrada" Nullable="false" />
           <Property Type="Int32" Name="ID_Entrada" Nullable="false" />
@@ -2325,6 +2119,263 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="Int32" Name="Cant_AdquiPROD" Nullable="false" />
           <Property Type="Decimal" Name="PrecioXCant" Nullable="false" Precision="18" Scale="2" />
         </ComplexType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Nombre_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido1_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido2_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion_U" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Correo_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono_U" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Clave_U" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Ingreso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Creado" Type="DateTime" Precision="0" />
+          <Property Name="UltimaVezConectado" Type="DateTime" Precision="0" />
+          <Property Name="Cedula_U" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AjustesTbl" Relationship="MotoRepuestosMakoModel.FK_AjustesTbl_Usuarios" FromRole="Usuarios" ToRole="AjustesTbl" />
+          <NavigationProperty Name="CitasTbl" Relationship="MotoRepuestosMakoModel.FK_CitasTbl_UsuariosTbl" FromRole="Usuarios" ToRole="CitasTbl" />
+          <NavigationProperty Name="CotizacionTbl" Relationship="MotoRepuestosMakoModel.FK_CotizacionTbl_Usuarios" FromRole="Usuarios" ToRole="CotizacionTbl" />
+          <NavigationProperty Name="EntradasTbl" Relationship="MotoRepuestosMakoModel.FK_EntradasTbl_Usuarios" FromRole="Usuarios" ToRole="EntradasTbl" />
+          <NavigationProperty Name="SalidasTbl" Relationship="MotoRepuestosMakoModel.FK_SalidasTbl_Usuarios" FromRole="Usuarios" ToRole="SalidasTbl" />
+          <NavigationProperty Name="TipoUsuario" Relationship="MotoRepuestosMakoModel.FK_Usuarios_TipoUsuario" FromRole="Usuarios" ToRole="TipoUsuario" />
+        </EntityType>
+        <EntityType Name="ImagenesTbl">
+          <Key>
+            <PropertyRef Name="ID_Imagen" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="Url_Imagen" />
+            <PropertyRef Name="Descripcion_Imagen" />
+          </Key>
+          <Property Name="ID_Imagen" Type="Int32" Nullable="false" />
+          <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+          <Property Name="Url_Imagen" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion_Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_AjustesTbl_Usuarios">
+          <End Type="MotoRepuestosMakoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.AjustesTbl" Role="AjustesTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="AjustesTbl">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CitasTbl_UsuariosTbl">
+          <End Type="MotoRepuestosMakoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.CitasTbl" Role="CitasTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="CitasTbl">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CotizacionTbl_Usuarios">
+          <End Type="MotoRepuestosMakoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.CotizacionTbl" Role="CotizacionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="CotizacionTbl">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EntradasTbl_Usuarios">
+          <End Type="MotoRepuestosMakoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.EntradasTbl" Role="EntradasTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="EntradasTbl">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SalidasTbl_Usuarios">
+          <End Type="MotoRepuestosMakoModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.SalidasTbl" Role="SalidasTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="ID_Usuario" />
+            </Principal>
+            <Dependent Role="SalidasTbl">
+              <PropertyRef Name="ID_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_TipoUsuario">
+          <End Type="MotoRepuestosMakoModel.TipoUsuario" Role="TipoUsuario" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoUsuario">
+              <PropertyRef Name="ID_TipoUsuario" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="ID_TipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_Retorna_Usuario_Result">
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Direccion_U" Nullable="false" MaxLength="400" />
+          <Property Type="String" Name="Correo_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Telefono_U" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Estado_U" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
+          <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
+          <Property Type="String" Name="Cedula_U" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_UsuarioID_Result">
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Direccion_U" Nullable="false" MaxLength="400" />
+          <Property Type="String" Name="Correo_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Telefono_U" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="Clave_U" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Estado_U" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
+          <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
+          <Property Type="String" Name="Cedula_U" Nullable="true" MaxLength="25" />
+        </ComplexType>
+        <EntityType Name="ProductosTbl">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+          </Key>
+          <Property Name="ID_Producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Nombre_PROD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Precio_PROD" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Descripcion_PROD" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado_PROD" Type="Boolean" Nullable="false" />
+          <Property Name="Cantidad_PROD" Type="Int32" />
+          <NavigationProperty Name="AjustesTbl" Relationship="MotoRepuestosMakoModel.FK_AjustesTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="AjustesTbl" />
+          <NavigationProperty Name="CategoriasTbl" Relationship="MotoRepuestosMakoModel.FK_ProductosTbl_CategoriasTbl" FromRole="ProductosTbl" ToRole="CategoriasTbl" />
+          <NavigationProperty Name="DetalleCotizacionTbl" Relationship="MotoRepuestosMakoModel.FK_DetalleCotizacionTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="DetalleCotizacionTbl" />
+          <NavigationProperty Name="DetalleEntradaTbl" Relationship="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="DetalleEntradaTbl" />
+          <NavigationProperty Name="DetalleSalidaTbl" Relationship="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_ProductosTbl" FromRole="ProductosTbl" ToRole="DetalleSalidaTbl" />
+        </EntityType>
+        <Association Name="FK_AjustesTbl_ProductosTbl">
+          <End Type="MotoRepuestosMakoModel.ProductosTbl" Role="ProductosTbl" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.AjustesTbl" Role="AjustesTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="AjustesTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductosTbl_CategoriasTbl">
+          <End Type="MotoRepuestosMakoModel.CategoriasTbl" Role="CategoriasTbl" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.ProductosTbl" Role="ProductosTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriasTbl">
+              <PropertyRef Name="ID_Categoria" />
+            </Principal>
+            <Dependent Role="ProductosTbl">
+              <PropertyRef Name="ID_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleCotizacionTbl_ProductosTbl">
+          <End Type="MotoRepuestosMakoModel.ProductosTbl" Role="ProductosTbl" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.DetalleCotizacionTbl" Role="DetalleCotizacionTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="DetalleCotizacionTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleEntradaTbl_ProductosTbl">
+          <End Type="MotoRepuestosMakoModel.ProductosTbl" Role="ProductosTbl" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.DetalleEntradaTbl" Role="DetalleEntradaTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="DetalleEntradaTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetalleSalidaTbl_ProductosTbl">
+          <End Type="MotoRepuestosMakoModel.ProductosTbl" Role="ProductosTbl" Multiplicity="1" />
+          <End Type="MotoRepuestosMakoModel.DetalleSalidaTbl" Role="DetalleSalidaTbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductosTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Principal>
+            <Dependent Role="DetalleSalidaTbl">
+              <PropertyRef Name="ID_Producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Entradas_DesgloseView">
+          <Key>
+            <PropertyRef Name="ID_Entrada" />
+            <PropertyRef Name="ID_DetalleEntrada" />
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="ID_Proveedor" />
+            <PropertyRef Name="Precio_PROD" />
+            <PropertyRef Name="Cant_Adquirida_PROD" />
+            <PropertyRef Name="PrecioXCant" />
+            <PropertyRef Name="Nombre_PROV" />
+            <PropertyRef Name="Nombre_PROD" />
+          </Key>
+          <Property Name="ID_Entrada" Type="Int32" Nullable="false" />
+          <Property Name="ID_DetalleEntrada" Type="Int32" Nullable="false" />
+          <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+          <Property Name="ID_Proveedor" Type="Int32" Nullable="false" />
+          <Property Name="Precio_PROD" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Cant_Adquirida_PROD" Type="Int32" Nullable="false" />
+          <Property Name="PrecioXCant" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Nombre_PROV" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_PROD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_Retorna_Productos_Result">
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
+          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
+          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
+          <Property Type="Int32" Name="Cantidad_PROD" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_Products_ID_Result">
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
+          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
+          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
+          <Property Type="Int32" Name="Cantidad_PROD" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2441,18 +2492,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductosTbl">
-            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ProductosTbl">
-              <MappingFragment StoreEntitySet="ProductosTbl">
-                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
-                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
-                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
-                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
-                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
-                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProveedoresTbl">
             <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ProveedoresTbl">
               <MappingFragment StoreEntitySet="ProveedoresTbl">
@@ -2502,25 +2541,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
-            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.Usuarios">
-              <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
-                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
-                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
-                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
-                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
-                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
-                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
-                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
-                <ScalarProperty Name="Clave_U" ColumnName="Clave_U" />
-                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
-                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
-                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
-                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_Elimina_Ajuste" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Ajuste" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Categorias" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Categorias" />
           <FunctionImportMapping FunctionImportName="sp_Elimina_Citas" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Citas" />
@@ -2550,7 +2570,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="sp_Inserta_Servicio" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Servicio" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_TipoSERV" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_TipoSERV" />
           <FunctionImportMapping FunctionImportName="sp_Inserta_TipoUsuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_TipoUsuario" />
-          <FunctionImportMapping FunctionImportName="sp_Inserta_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Usuario" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Ajuste" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Ajuste" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Categorias" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Categorias" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_Citas" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Citas" />
@@ -2565,7 +2584,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <FunctionImportMapping FunctionImportName="sp_Modifica_Servicio" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Servicio" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_TipoSERV" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_TipoSERV" />
           <FunctionImportMapping FunctionImportName="sp_Modifica_TipoUsuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_TipoUsuario" />
-          <FunctionImportMapping FunctionImportName="sp_Modifica_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Usuario" />
           <FunctionImportMapping FunctionImportName="sp_Retorna_AjusteID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_AjusteID">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_AjusteID_Result">
@@ -2840,70 +2858,7 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Retorna_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Usuario">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Usuario_Result">
-                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
-                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
-                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
-                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
-                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
-                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
-                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
-                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
-                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
-                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
-                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
-                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Retorna_UsuarioID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_UsuarioID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_UsuarioID_Result">
-                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
-                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
-                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
-                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
-                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
-                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
-                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
-                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
-                <ScalarProperty Name="Clave_U" ColumnName="Clave_U" />
-                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
-                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
-                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
-                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Elimina_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Elimina_Products" />
-          <FunctionImportMapping FunctionImportName="sp_Inserta_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Products" />
-          <FunctionImportMapping FunctionImportName="sp_Modifica_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Products" />
-          <FunctionImportMapping FunctionImportName="sp_Retorna_Productos" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Productos">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Productos_Result">
-                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
-                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
-                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
-                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
-                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
-                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_Retorna_Products_ID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Products_ID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result">
-                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
-                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
-                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
-                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
-                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
-                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Verifica_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Verifica_Usuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Verifica_Usuario_Result">
@@ -2915,21 +2870,6 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Entradas_DesgloseView">
-            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.Entradas_DesgloseView">
-              <MappingFragment StoreEntitySet="Entradas_DesgloseView">
-                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
-                <ScalarProperty Name="Nombre_PROV" ColumnName="Nombre_PROV" />
-                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
-                <ScalarProperty Name="Cant_Adquirida_PROD" ColumnName="Cant_Adquirida_PROD" />
-                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
-                <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
-                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
-                <ScalarProperty Name="ID_DetalleEntrada" ColumnName="ID_DetalleEntrada" />
-                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_Retorna_Detalle_Entradas" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Detalle_Entradas">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Detalle_Entradas_Result">
@@ -3067,6 +3007,133 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
                 <ScalarProperty Name="ID_Servicio" ColumnName="ID_Servicio" />
                 <ScalarProperty Name="Cant_AdquiPROD" ColumnName="Cant_AdquiPROD" />
                 <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Cedula_U" ColumnName="Cedula_U" />
+                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
+                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
+                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+                <ScalarProperty Name="Clave_U" ColumnName="Clave_U" />
+                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
+                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
+                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImagenesTbl">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ImagenesTbl">
+              <MappingFragment StoreEntitySet="ImagenesTbl">
+                <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
+                <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Imagen" ColumnName="ID_Imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Inserta_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Usuario" />
+          <FunctionImportMapping FunctionImportName="sp_Modifica_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Usuario" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Usuario" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Usuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Usuario_Result">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
+                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
+                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
+                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
+                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
+                <ScalarProperty Name="Cedula_U" ColumnName="Cedula_U" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_UsuarioID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_UsuarioID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_UsuarioID_Result">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
+                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
+                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
+                <ScalarProperty Name="Clave_U" ColumnName="Clave_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
+                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
+                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
+                <ScalarProperty Name="Cedula_U" ColumnName="Cedula_U" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ProductosTbl">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ProductosTbl">
+              <MappingFragment StoreEntitySet="ProductosTbl">
+                <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entradas_DesgloseView">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.Entradas_DesgloseView">
+              <MappingFragment StoreEntitySet="Entradas_DesgloseView">
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Nombre_PROV" ColumnName="Nombre_PROV" />
+                <ScalarProperty Name="PrecioXCant" ColumnName="PrecioXCant" />
+                <ScalarProperty Name="Cant_Adquirida_PROD" ColumnName="Cant_Adquirida_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="ID_Proveedor" ColumnName="ID_Proveedor" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_DetalleEntrada" ColumnName="ID_DetalleEntrada" />
+                <ScalarProperty Name="ID_Entrada" ColumnName="ID_Entrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Inserta_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Products" />
+          <FunctionImportMapping FunctionImportName="sp_Modifica_Products" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Products" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Productos" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Productos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Productos_Result">
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+                <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Products_ID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Products_ID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result">
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+                <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -101,7 +101,8 @@ namespace PracticaIIICO.Controllers.Sesion
             string pApellido1,
             string pApellido2,
             string pCorreo,
-            string pContrasenia)
+            string pContrasenia,
+            string pCedula)
         {
             ///Variable Que Registra La Cantidad De Registros Afectados
             ///Si Un Procedimiento Que Ejecuta Insert, Update o Delete
@@ -154,7 +155,8 @@ namespace PracticaIIICO.Controllers.Sesion
                         usuarioFinal,
                         estadoUsuario,
                         fechaCreado,
-                        fechaUltimaVes
+                        fechaUltimaVes,
+                        pCedula
                   );
 
 

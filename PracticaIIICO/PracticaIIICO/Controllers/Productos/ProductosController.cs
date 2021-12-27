@@ -49,7 +49,8 @@ namespace PracticaIIICO.Controllers
                     collection.Nombre_PROD,
                     collection.Precio_PROD,
                     collection.Descripcion_PROD,
-                    estadoPROD
+                    estadoPROD,
+                    collection.Cantidad_PROD
                     );
                 return RedirectToAction("ListaProductos");
             }
@@ -99,7 +100,8 @@ namespace PracticaIIICO.Controllers
                     collection.Nombre_PROD,
                     collection.Precio_PROD,
                     collection.Descripcion_PROD,
-                    collection.Estado_PROD
+                    collection.Estado_PROD,
+                    collection.Cantidad_PROD
                     );
                 return RedirectToAction("ListaProductos");
             }

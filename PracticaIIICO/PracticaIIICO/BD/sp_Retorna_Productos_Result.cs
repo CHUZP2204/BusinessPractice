@@ -19,5 +19,6 @@ namespace PracticaIIICO.BD
         public decimal Precio_PROD { get; set; }
         public string Descripcion_PROD { get; set; }
         public bool Estado_PROD { get; set; }
+        public Nullable<int> Cantidad_PROD { get; set; }
     }
 }

@@ -159,6 +159,9 @@
     <Compile Include="BD\Entradas_DesgloseView.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\ImagenesTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\MarcaTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>

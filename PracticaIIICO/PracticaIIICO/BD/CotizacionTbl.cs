@@ -29,7 +29,7 @@ namespace PracticaIIICO.BD
         public System.TimeSpan Hora_Cotizacion { get; set; }
         public decimal Costo { get; set; }
     
-        public virtual Usuarios Usuarios { get; set; }
         public virtual ICollection<DetalleCotizacionTbl> DetalleCotizacionTbl { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

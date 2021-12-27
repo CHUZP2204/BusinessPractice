@@ -26,6 +26,10 @@ function creaValidaciones() {
                 required: true,
                 email: true
             },
+            Cedula_U: {
+                required: true
+
+            },
             contrasenaVal1: {
                 required: true,
                 minlength: 5,
@@ -86,7 +90,8 @@ function RegistraDatosCLiente() {
         pApellido1: $("#Apellido1_U").val(),
         pApellido2: $("#Apellido2_U").val(),
         pCorreo: $("#Correo_U").val(),
-        pContrasenia: $("#contrasenaVal1").val()
+        pContrasenia: $("#contrasenaVal1").val(),
+        pCedula: $("#Cedula_U").val()
     };
 
     var funcion = cargaMensaje;

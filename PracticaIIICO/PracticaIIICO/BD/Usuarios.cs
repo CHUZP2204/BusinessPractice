@@ -36,6 +36,7 @@ namespace PracticaIIICO.BD
         public string Estado_U { get; set; }
         public Nullable<System.DateTime> Fecha_Creado { get; set; }
         public Nullable<System.DateTime> UltimaVezConectado { get; set; }
+        public string Cedula_U { get; set; }
     
         public virtual ICollection<AjustesTbl> AjustesTbl { get; set; }
         public virtual ICollection<CitasTbl> CitasTbl { get; set; }

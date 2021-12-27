@@ -89,7 +89,8 @@ namespace PracticaIIICO.Controllers.Usuarios
                     usuarioFinal,
                     estadoUsuario,//dato en string
                     fechaCreado,
-                    fechaUltimaVes
+                    fechaUltimaVes,
+                    collection.Cedula_U
                     );
 
                 return RedirectToAction("ListaUsuarios");
@@ -156,7 +157,8 @@ namespace PracticaIIICO.Controllers.Usuarios
                     collectionView.Usuario_Ingreso,
                     datosObtenidos.Estado_U,//dato en string
                     datosObtenidos.Fecha_Creado,
-                    fechaUltimaVes
+                    fechaUltimaVes,
+                    collectionView.Cedula_U
                     );
 
                 return RedirectToAction("ListaUsuarios");

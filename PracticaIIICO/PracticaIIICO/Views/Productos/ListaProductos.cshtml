@@ -39,6 +39,7 @@
             <th scope="col">Producto</th>
             <th scope="col">Precio</th>
             <th scope="col">Estado</th>
+            <th scope="col">STOCK</th>
 
             <th scope="col">Acciones</th>
         </tr>
@@ -72,11 +73,11 @@
                         }
                     }
 
-
+                    <td>@PosicionModelo.Cantidad_PROD</td>
 
                     <td>
-                        <a href="~/Productos/ModificaPROD?id_prod=@PosicionModelo.ID_Categoria" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Productos/MostrarPROD?id_prod=@PosicionModelo.ID_Categoria" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        <a href="~/Productos/ModificaPROD?id_prod=@PosicionModelo.ID_Producto" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                        <a href="~/Productos/MostrarPROD?id_prod=@PosicionModelo.ID_Producto" class="btn btn-success"><i class="fas fa-eye"></i></a>
                     </td>
                 </tr>
             }

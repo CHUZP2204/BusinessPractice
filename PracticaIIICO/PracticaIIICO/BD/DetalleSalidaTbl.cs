@@ -19,7 +19,7 @@ namespace PracticaIIICO.BD
         public int ID_Producto { get; set; }
         public int Cant_Salida_PROD { get; set; }
     
-        public virtual ProductosTbl ProductosTbl { get; set; }
         public virtual SalidasTbl SalidasTbl { get; set; }
+        public virtual ProductosTbl ProductosTbl { get; set; }
     }
 }
