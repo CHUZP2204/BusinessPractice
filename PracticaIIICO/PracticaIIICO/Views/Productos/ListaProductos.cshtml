@@ -3,13 +3,25 @@
     ViewBag.Title = "ListaProductos";
 }
 
+@section css{
+    <link href="~/Content/Busqueda.css" rel="stylesheet" />
+}
 <h2 style="text-align:center">Lista Productos</h2>
 
 <a href="~/Home/Index" class="btn btn-success">Home</a>
+<br />
+<br />
 <!---->
-<input type="text" id="myInputPROD" onkeyup="myFunction()" placeholder="Ejemplo: Tornillo" title="Type in a name">
-<!---->
+<div class="boxBus">
+    <div class="container-1">
+        <span class="icon">
+            <i class="fa fa-search"></i>
 
+        </span>
+        <input type="search" id="myInputPROD" onkeyup="myFunction()" placeholder=" Ejem: Tornillo" />
+    </div>
+</div>
+<!---->
 <div id="alertVerde" class="alert alert-success" style="display:none;">
 
     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
@@ -31,6 +43,9 @@
     </div>
 
 </div>
+
+<br />
+<br />
 <!---->
 <table id="myTablePROD" class="table table-hover table-bordered table-success table-striped">
     <thead>
@@ -85,11 +100,100 @@
         }
     </tbody>
 </table>
-<a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>
 
-<a href="~/Marca/ListaMarcas" class="btn btn-primary">Marcas</a>
+<div id="pager" class="pager">
+    <form>
+        <img src="~/Iconos/PageSorter/first.png" class="first"/>
+        <img src="~/Iconos/PageSorter/prev.png" class="prev" />
+        <input type="text" class="pagedisplay" />
+        <img src="~/Iconos/PageSorter/next.png" class="next" />
+        <img src="~/Iconos/PageSorter/last.png" class="last" />
+        <select class="pagesize">
+            <option selected="selected" value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+        </select>
+    </form>
+</div>
+<a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>
 <a href="~/Categorias/ListaCategorias" class="btn btn-primary">Categorias</a>
+
+
+<!--Pruebas Modal-->
+
+<a href="" data-bs-toggle="modal" data-bs-target="#ModalProductos">Nuevo</a>
+
+<a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+
+
+
+
+<div class="modal" id="ModalProductos" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloID">Pantalla De Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="form-control" id="frmRegistroProductosModal">
+
+                    <div class="form-group">
+                        <label>Categoria:</label>
+                        <select name="pID_Categoria" id="pID_Categoria" class="form-control">
+                            @{
+
+                                foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategorias in this.ViewBag.ListaCategorias)
+                                {
+                                    <option value="@ModeloCategorias.ID_Categoria">@ModeloCategorias.Nombre_Categoria </option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Producto:</label>
+                        <input type="text" name="pNombre_PROD" id="pNombre_PROD" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio:</label>
+                        <input type="number" name="pPrecio_PROD" id="pPrecio_PROD" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Descripcion:</label>
+                        <input type="text" name="pDescripcion_PROD" id="pDescripcion_PROD" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Cantidad:</label>
+                        <input type="text" name="pCantidad_PROD" id="pCantidad_PROD" class="form-control" />
+                    </div>
+                </form>
+
+                <div class="row g-3 align-items-center">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ModalRegistroPROD"></div>
+
+
+<!--Final Pruebas-->
 
 @section scripts{
     <script src="~/Scripts/Busqueda/BusquedaPROD.js"></script>
+    <script src="~/Scripts/Recargar.js"></script>
+    @*Registro De Prodcuto Por El Modal*@
+    <script src="~/Scripts/Productos/RegistraProducto.js"></script>
+    <script src="~/Scripts/scriptGenerico.js"></script>
+    @*Paginacion De Tabla*@
+>
 }

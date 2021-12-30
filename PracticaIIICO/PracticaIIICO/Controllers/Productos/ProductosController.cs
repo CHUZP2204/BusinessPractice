@@ -1,22 +1,26 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PagedList;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers
 {
     public class ProductosController : Controller
     {
-        MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();   
+
+        MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();
         // GET: Productos
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Productos/Details/5
+
         public ActionResult ListaProductos()
         {
             List<sp_Retorna_Productos_Result> datosObtenidos = new List<sp_Retorna_Productos_Result>();
@@ -25,6 +29,27 @@ namespace PracticaIIICO.Controllers
             this.agregaCategorias();
             return View(datosObtenidos);
         }
+
+        //Paginacion
+        public ActionResult Listado2(int pagina = 1)
+        {
+            var cantidadRegistroPorPagina = 5; //parametro
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var productos = db.sp_Retorna_Productos(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+                var totalRegistros = db.sp_Retorna_Productos(null, null).Count();
+
+                var modelo = new IndexViewModel();
+                modelo.Productos = productos;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+        }
+        //Paginacion FIN
 
         // GET: Productos/Create
         public ActionResult NuevoPROD()
@@ -155,9 +180,80 @@ namespace PracticaIIICO.Controllers
             }
         }
 
+        /// <summary>
+        /// Registrar Producto Desde un Modal
+        /// </summary>
+
+        //Registrar Usuario Desde Login
+        [HttpPost]
+        public ActionResult RegistrarProducto(
+            int pID_Categoria,
+            string pNombre_PROD,
+            decimal pPrecio_PROD,
+            string pDescripcion_PROD,
+            int pCantidad_PROD)
+        {
+            ///Variable Que Registra La Cantidad De Registros Afectados
+            ///Si Un Procedimiento Que Ejecuta Insert, Update o Delete
+            ///No Afecta Registros Implica Que Hubo Un Error
+
+
+            bool pEstadoPROD = true;
+
+            int cantRegistrosAfectados = 0;
+
+            //Mensajes para JSON
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+            try
+            {
+
+                cantRegistrosAfectados = this.ModeloBD.sp_Inserta_Products(
+                     pID_Categoria,
+                     pNombre_PROD,
+                     pPrecio_PROD,
+                     pDescripcion_PROD,
+                     pEstadoPROD,
+                     pCantidad_PROD
+                     );
+
+
+
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistrosAfectados > 0)
+                {
+                    MensajeFinal = "El Producto " + pNombre_PROD + " Se Regitro Exitosamente";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar El producto";
+                    estadoRegistro = 0;
+                }
+            }
+
+            //return Json(resultado);
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
+        }
+
         void agregaCategorias()
         {
             this.ViewBag.ListaCategorias = this.ModeloBD.sp_Retorna_Categorias(null, null).ToList();
         }
+
     }
+
 }
+

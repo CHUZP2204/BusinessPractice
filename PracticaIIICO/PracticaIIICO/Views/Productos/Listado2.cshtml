@@ -1,0 +1,29 @@
+﻿@model PracticaIIICO.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Listado2";
+}
+
+<h2>Listado Con Paginacion</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var productos in Model.Productos)
+        {
+            <tr>
+                <td>@productos.ID_Producto</td>
+                <td>@productos.Nombre_PROD</td>
+                <td>@productos.Precio_PROD</td>
+                <td>@productos.Cantidad_PROD</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@{ Html.RenderPartial("_paginador", Model);}

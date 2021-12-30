@@ -28,10 +28,11 @@
         <tr>
             <th scope="col"># Detalle</th>
             <th scope="col">Producto</th>
+            <th scope="col">Proveedor</th>
             <th scope="col">Precio/U</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Precio/Cant</th>
-            <th scope="col">Proveedor</th>
+            
 
         </tr>
     </thead>
@@ -43,38 +44,48 @@
 
                     <td>@PosicionDetalle.ID_DetalleEntrada</td>
                     <td>@PosicionDetalle.Nombre_PROD</td>
+                    <td>@PosicionDetalle.Nombre_PROV</td>
                     <td>@PosicionDetalle.Precio_PROD</td>
                     <td>@PosicionDetalle.Cant_Adquirida_PROD</td>
                     <td>@PosicionDetalle.PrecioXCant</td>
-                    <td>@PosicionDetalle.Nombre_PROV</td>
+                    
                 </tr>
             }
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class='text'>
+                Base Imponible <br />
+                <span>Descuento</span>
+                <br>IVA 13%<br>
+                <span class="bold">Total</span>
+            </td>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+                {
+                    <td class='text'>
+                        <div class="base">@PosicionEntrada.Monto_Bruto</div>
+                        <div class="descuento">@PosicionEntrada.Monto_Descuento</div>
+                        <div class="iva">@PosicionEntrada.Monto_IVA</div>
+                        <div class="total bold">@PosicionEntrada.Monto_Final</div>
+                    </td>
+                }
+            }
+
+        </tr>
+    </tfoot>
 </table>
 
-@{
-    foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
-    {
-        <div>
-            <label>Monto Bruto:</label>
-            <p>@PosicionEntrada.Monto_Bruto</p>
-        </div>
-        <div>
-            <label>IVA:</label>
-            <p>@PosicionEntrada.Monto_IVA</p>
-        </div>
-        <div>
-            <label>Descuento:</label>
-            <p>@PosicionEntrada.Monto_Descuento</p>
-        </div>
-        <div>
-            <label>Monto A Pagar:</label>
-            <p>@PosicionEntrada.Monto_Final</p>
-        </div>
-
-    }
-}
 <br />
 <a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+
+
+<!--Prueba Table Dinamica-->
+
+
 

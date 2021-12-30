@@ -1,0 +1,64 @@
+﻿@model PracticaIIICO.Models.BaseModelo
+
+@{
+    var cantidadPaginas = (int)Math.Ceiling((double)Model.TotalRegistros / Model.RegistrosPorPagina);
+}
+
+<!--Funcionalidad: Anterior y Siguiente-->
+
+<ul class="pagination">
+    @if (Model.PaginaActual == 1)
+    {
+        <li class="disabled">@Html.ActionLink("Anterior", null, new { pagina = 1 })</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Anterior", null, new { pagina = Model.PaginaActual - 1 })</li>
+    }
+
+    @if (Model.PaginaActual == cantidadPaginas)
+    {
+        <li class="disabled">@Html.ActionLink("Siguiente", null, new { pagina = cantidadPaginas })</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Siguiente", null, new { pagina = Model.PaginaActual + 1 })</li>
+    }
+</ul>
+
+<!--Funcionalidad: Paginas-->
+
+@{
+    int inicial = 1;
+    var radio = 2;
+    var cantidadMaximaPaginas = radio * 2 + 1;
+    int Final = (cantidadPaginas > cantidadMaximaPaginas) ? cantidadMaximaPaginas : cantidadPaginas;
+    if (Model.PaginaActual > radio + 1)
+    {
+        inicial = Model.PaginaActual - radio;
+        if (cantidadPaginas > Model.PaginaActual + radio)
+        {
+            Final = Model.PaginaActual + radio;
+        }
+        else
+        {
+            Final = cantidadPaginas;
+        }
+    }
+}
+
+<ul class="pagination">
+    <li>@Html.ActionLink("Primera", null, new { pagina = 1 })</li>
+    @for (int i = inicial; i <= Final; i++)
+    {
+        if (i == Model.PaginaActual)
+        {
+            <li class="active">@Html.ActionLink(i.ToString(), null, new { pagina = i }, new { @class = "form-control",@style="color:blue;background-color:aqua"})</li>
+        }
+        else
+        {
+            <li>@Html.ActionLink(i.ToString(),null,new { pagina = i}, new { @class = "form-control" })</li>
+        }
+    }
+    <li>@Html.ActionLink("Ultima",null, new { pagina = cantidadPaginas })</li>
+</ul>
