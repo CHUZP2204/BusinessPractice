@@ -21,13 +21,36 @@ namespace PracticaIIICO.Controllers
         }
 
 
-        public ActionResult ListaProductos()
+        public ActionResult ListaProductos(int pagina = 1)
         {
+            //Sin Paginador
             List<sp_Retorna_Productos_Result> datosObtenidos = new List<sp_Retorna_Productos_Result>();
             datosObtenidos = this.ModeloBD.sp_Retorna_Productos(null, null).ToList();
 
             this.agregaCategorias();
-            return View(datosObtenidos);
+            //Parte Con Paginador
+
+            var cantidadRegistroPorPagina = 5; //parametro
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var productos = db.sp_Retorna_Productos(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Productos(null, null).Count();
+
+                var modelo = new IndexViewModel();
+
+                modelo.Productos = productos;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+            //
+
+            //Return en caso De No Usar Paginador
+            //return View(datosObtenidos);
         }
 
         //Paginacion
@@ -38,9 +61,11 @@ namespace PracticaIIICO.Controllers
             {
                 var productos = db.sp_Retorna_Productos(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
                     .Take(cantidadRegistroPorPagina).ToList();
+
                 var totalRegistros = db.sp_Retorna_Productos(null, null).Count();
 
                 var modelo = new IndexViewModel();
+
                 modelo.Productos = productos;
                 modelo.PaginaActual = pagina;
                 modelo.TotalRegistros = totalRegistros;

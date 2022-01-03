@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewCotizacionModel
 @{
     ViewBag.Title = "ListaCotizacion";
 }
@@ -22,7 +22,7 @@
     </thead>
     <tbody>
         @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Cotizacion_Result PosicionCotizacion in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_Cotizacion_Result PosicionCotizacion in Model.ListaCotizacion)
             {
                 <tr>
 
@@ -59,4 +59,7 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Cotizacion/NuevaCotizacion" class="btn btn-success">Nuevo</a>

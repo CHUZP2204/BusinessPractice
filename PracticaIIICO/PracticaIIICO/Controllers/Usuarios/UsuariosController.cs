@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
 using PracticaIIICO.Filters;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers.Usuarios
 {
@@ -29,13 +30,32 @@ namespace PracticaIIICO.Controllers.Usuarios
 
         // GET: Usuarios/Details/5
         [AuthorizeUser]
-        public ActionResult ListaUsuarios()
+        public ActionResult ListaUsuarios(int pagina = 1)
         {
             List<sp_Retorna_Usuario_Result> datosObtenidos = new List<sp_Retorna_Usuario_Result>();
             datosObtenidos = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
 
             this.AgregTipoUsuariosViewBag();
-            return View(datosObtenidos);
+
+            //Con Paginador
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var usuariosObtenidos = db.sp_Retorna_Usuario(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Usuario(null, null).Count();
+
+                var modelo = new ViewUsuariosModel();
+
+                modelo.ListaUsuarios = usuariosObtenidos;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+            //return View(datosObtenidos);
         }
 
         // GET: Usuarios/Create

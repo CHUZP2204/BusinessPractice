@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers.Cotizacion
 {
@@ -17,13 +18,35 @@ namespace PracticaIIICO.Controllers.Cotizacion
         }
 
         // GET: Cotizacion/Details/5
-        public ActionResult ListaCotizacion()
+        public ActionResult ListaCotizacion(int pagina = 1)
         {
             List<sp_Retorna_Cotizacion_Result> vistaObtenida = new List<sp_Retorna_Cotizacion_Result>();
             vistaObtenida = this.ModeloBD.sp_Retorna_Cotizacion(null, null).ToList();
 
             this.agregaUsuarios();
-            return View(vistaObtenida);
+
+            //Con Paginador
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var cotizacionesObtenidas = db.sp_Retorna_Cotizacion(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Cotizacion(null, null).Count();
+
+                var modelo = new ViewCotizacionModel();
+
+                modelo.ListaCotizacion = cotizacionesObtenidas;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+            //
+
+            //Usar sin paginador
+            //return View(vistaObtenida);
         }
 
         // GET: Cotizacion/Create

@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewCitasModel
 @{
     ViewBag.Title = "ListaCitas";
 }
@@ -25,7 +25,7 @@
     <tbody>
         @{
 
-            foreach (PracticaIIICO.BD.sp_Retorna_Citas_Result PosicionModelo in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_Citas_Result PosicionModelo in Model.ListaCitas)
             {
                 <tr>
                     <td>@PosicionModelo.ID_Cita</td>
@@ -62,6 +62,9 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Citas/NuevaCita" class="btn btn-success">Nuevo Dato</a>
 
 

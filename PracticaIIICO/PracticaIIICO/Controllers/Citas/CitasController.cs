@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.ViewModels;
+
 namespace PracticaIIICO.Controllers.Citas
 {
     public class CitasController : Controller
@@ -17,15 +19,35 @@ namespace PracticaIIICO.Controllers.Citas
         }
 
         // GET: Citas/Details/5
-        public ActionResult ListaCitas()
+        public ActionResult ListaCitas(int pagina = 1)
         {
             List<sp_Retorna_Citas_Result> listaCitas = new List<sp_Retorna_Citas_Result>();
             listaCitas = this.ModeloBD.sp_Retorna_Citas(null, null).ToList();
 
-
             this.agregaMarcas();
             this.agregaUsuarios();
-            return View(listaCitas);
+
+            //Con Paginador
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var citasObtenidas = db.sp_Retorna_Citas(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Citas(null, null).Count();
+
+                var modelo = new ViewCitasModel();
+
+                modelo.ListaCitas = citasObtenidas;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+            //
+
+            //Usar sin paginador return View(listaCitas);
         }
 
         // GET: Citas/Create

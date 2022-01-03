@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewServiciosModel
 @{
     ViewBag.Title = "ListaServicios";
 }
@@ -20,13 +20,13 @@
     </thead>
     <tbody>
         @{
-                
-            foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result PosicionModelo in this.Model)
-                {
+
+            foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result PosicionModelo in Model.ListaServicios)
+            {
                 <tr>
                     <td>@PosicionModelo.ID_Servicio</td>
 
-                    @foreach(PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
+                    @foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
                     {
 
                         if (PosicionModelo.ID_TipoServicio == ModeloTipoS.ID_TipoServicio)
@@ -47,5 +47,8 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Servicios/NuevoSERV" class="btn btn-success">Nuevo</a>
 <a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Tipos Servicios</a>

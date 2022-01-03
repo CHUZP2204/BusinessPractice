@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers.Ajustes
 {
@@ -17,15 +18,36 @@ namespace PracticaIIICO.Controllers.Ajustes
         }
 
         // GET: Ajustes/Details/5
-        public ActionResult ListAjustes()
+        public ActionResult ListAjustes(int pagina = 1)
         {
+            //Sin Paginador
             List<sp_Retorna_Ajustes_Result> modelObtenido = new List<sp_Retorna_Ajustes_Result>();
             modelObtenido = this.ModeloBD.sp_Retorna_Ajustes(null).ToList();
 
             this.agregaProductos();
             this.agregaUsuarios();
 
-            return View(modelObtenido);
+            //Con Paginador
+
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var ajustesObtenidos = db.sp_Retorna_Ajustes(null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Ajustes(null).Count();
+
+                var modelo = new ViewAjustesModel();
+
+                modelo.ListaAjustes = ajustesObtenidos;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+
+           //Sin Paginador / return View(modelObtenido);
         }
 
         // GET: Ajustes/Create
@@ -141,7 +163,7 @@ namespace PracticaIIICO.Controllers.Ajustes
             }
             //
 
-           
+
 
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers.Categorias
 {
@@ -17,12 +18,33 @@ namespace PracticaIIICO.Controllers.Categorias
         }
 
         // GET: Categorias/Details/5
-        public ActionResult ListaCategorias()
+        public ActionResult ListaCategorias(int pagina = 1)
         {
+            //Sin Paginador
             List<sp_Retorna_Categorias_Result> datosObtenidos = new List<sp_Retorna_Categorias_Result>();
-            datosObtenidos = this.ModeloBD.sp_Retorna_Categorias(null, null).ToList(); 
+            datosObtenidos = this.ModeloBD.sp_Retorna_Categorias(null, null).ToList();
 
-            return View(datosObtenidos);
+            //Con Pagiandor
+
+
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var categoriasObtenidas = db.sp_Retorna_Categorias(null,null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Categorias(null,null).Count();
+
+                var modelo = new ViewCategoriasModel();
+
+                modelo.ListaCategorias = categoriasObtenidas;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+           //Usar Sin Paginador return View(datosObtenidos);
         }
 
         // GET: Categorias/Create

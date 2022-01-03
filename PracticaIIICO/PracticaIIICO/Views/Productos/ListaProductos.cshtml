@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.IndexViewModel
 @{
     ViewBag.Title = "ListaProductos";
 }
@@ -46,7 +46,7 @@
 
 <br />
 <br />
-<!---->
+<!--TABLA-->
 <table id="myTablePROD" class="table table-hover table-bordered table-success table-striped">
     <thead>
         <tr>
@@ -63,7 +63,7 @@
     <tbody>
         @{
 
-            foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result PosicionModelo in this.Model)
+            foreach (var PosicionModelo in Model.Productos)
             {
                 <tr>
                     <td>@PosicionModelo.ID_Producto</td>
@@ -101,21 +101,9 @@
     </tbody>
 </table>
 
-<div id="pager" class="pager">
-    <form>
-        <img src="~/Iconos/PageSorter/first.png" class="first"/>
-        <img src="~/Iconos/PageSorter/prev.png" class="prev" />
-        <input type="text" class="pagedisplay" />
-        <img src="~/Iconos/PageSorter/next.png" class="next" />
-        <img src="~/Iconos/PageSorter/last.png" class="last" />
-        <select class="pagesize">
-            <option selected="selected" value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="40">40</option>
-        </select>
-    </form>
-</div>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>
 <a href="~/Categorias/ListaCategorias" class="btn btn-primary">Categorias</a>
 
@@ -195,5 +183,5 @@
     <script src="~/Scripts/Productos/RegistraProducto.js"></script>
     <script src="~/Scripts/scriptGenerico.js"></script>
     @*Paginacion De Tabla*@
->
+    >
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers.Proveedores
 {
@@ -12,12 +13,31 @@ namespace PracticaIIICO.Controllers.Proveedores
         MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();
 
         // GET: Proveedores
-        public ActionResult ListaProveedores()
+        public ActionResult ListaProveedores(int pagina = 1)
         {
             List<sp_Retorna_Proveedores_Result> listaProveedores = new List<sp_Retorna_Proveedores_Result>();
             listaProveedores = this.ModeloBD.sp_Retorna_Proveedores(null).ToList();
 
-            return View(listaProveedores);
+            //Con Paginador
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var proveedoresObtenidos = db.sp_Retorna_Proveedores(null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Proveedores(null).Count();
+
+                var modelo = new ViewProveedoresModel();
+
+                modelo.ListaProveedores = proveedoresObtenidos;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+            //Usar Sin Paginador
+            //return View(listaProveedores);
         }
 
         // GET: Proveedores/Details/5

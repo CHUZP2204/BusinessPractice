@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PracticaIIICO.BD;
+using PracticaIIICO.ViewModels;
 
 namespace PracticaIIICO.Controllers.Marca
 {
@@ -19,13 +20,32 @@ namespace PracticaIIICO.Controllers.Marca
         }
 
         // GET: Marca/Details/5
-        public ActionResult ListaMarcas()
+        public ActionResult ListaMarcas(int pagina = 1)
         {
             List<sp_Retorna_Marcas_Result> modeloVista = new List<sp_Retorna_Marcas_Result>();
 
             modeloVista = this.ModelBD.sp_Retorna_Marcas(null, null).ToList();
 
-            return View(modeloVista);
+            //Con Paginador
+            var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var marcasObtenidas = db.sp_Retorna_Marcas(null,null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_Marcas(null,null).Count();
+
+                var modelo = new ViewMarcaModel();
+
+                modelo.ListaMarcas = marcasObtenidas;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+            //Usar Sin Paginador
+            //return View(modeloVista);
         }
 
         // GET: Marca/Create

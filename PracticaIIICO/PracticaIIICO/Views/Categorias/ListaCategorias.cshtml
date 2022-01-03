@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewCategoriasModel
 @{
     ViewBag.Title = "ListaCategorias";
 }
@@ -19,7 +19,7 @@
     <tbody>
         @{
 
-            foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result PosicionModelo in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result PosicionModelo in Model.ListaCategorias)
             {
                 <tr>
                     <td>@PosicionModelo.ID_Categoria</td>
@@ -35,4 +35,8 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!--Paginador-->
+
 <a href="~/Categorias/NuevoCAT" class="btn btn-success">Nuevo</a>

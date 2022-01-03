@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewSalidasModel
 @{
     ViewBag.Title = "ListaSalidas";
 }
@@ -25,7 +25,7 @@
     </thead>
     <tbody>
         @{
-            foreach (PracticaIIICO.BD.sp_Retorna_SalidaID_Result PosicionSalidas in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_SalidaID_Result PosicionSalidas in Model.ListaSalidas)
             {
                 <tr>
 
@@ -62,4 +62,7 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Salidas/NuevaSalida" class="btn btn-success">Nuevo</a>

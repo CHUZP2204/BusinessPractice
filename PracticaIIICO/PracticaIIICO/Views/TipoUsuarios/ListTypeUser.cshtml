@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewTipoUsuarioModel
 @{
     ViewBag.Title = "ListTypeUser";
 }
@@ -16,7 +16,7 @@
     </thead>
     <tbody>
         @{
-            foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result PosicionModelo in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result PosicionModelo in Model.ListaTipoUsuario)
             {
                 <tr>
 
@@ -31,4 +31,8 @@
         }
     </tbody>
 </table>
+
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/TipoUsuarios/NuevoTipoUsuario" class="btn btn-success">Nuevo Dato</a>

@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewProveedoresModel
 @{
     ViewBag.Title = "ListaProveedores";
 }
@@ -24,7 +24,7 @@
     </thead>
     <tbody>
         @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result PosicionModelo in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result PosicionModelo in Model.ListaProveedores)
             {
                 <tr>
 
@@ -54,4 +54,7 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Proveedores/NuevoProveedor" class="btn btn-success">Nuevo</a>

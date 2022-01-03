@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewEntradasModel
 @{
     ViewBag.Title = "ListaEntradas";
 }
@@ -25,7 +25,7 @@
     </thead>
     <tbody>
         @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Entradas_Result PosicionEntradas in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_Entradas_Result PosicionEntradas in Model.ListaEntradas)
             {
                 <tr>
 
@@ -43,7 +43,7 @@
                         }
 
                     }
-                    
+
 
 
                     <td>@PosicionEntradas.Fecha_Factura.ToShortDateString()</td>
@@ -62,4 +62,7 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/Entradas/NuevaEntrada" class="btn btn-success">Nuevo</a>

@@ -1,4 +1,4 @@
-﻿
+﻿@model PracticaIIICO.ViewModels.ViewTiposervicioModel
 @{
     ViewBag.Title = "ListTypeServices";
 }
@@ -18,13 +18,13 @@
     </thead>
     <tbody>
         @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result PosicionModelo in this.Model)
+            foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result PosicionModelo in Model.ListaTipoServicio)
             {
                 <tr>
                     <td>@PosicionModelo.ID_TipoServicio</td>
                     <td>@PosicionModelo.Nombre_TipoServicio</td>
                     <td>@PosicionModelo.Descripcion_TipoServicio</td>
-                    
+
                     <td>
                         <a href="~/TipoServicios/ModificaTipoS?id_TipoS=@PosicionModelo.ID_TipoServicio" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                         <a href="~/TipoServicios/MostrarTipoS?id_TipoS=@PosicionModelo.ID_TipoServicio" class="btn btn-success"><i class="fas fa-eye"></i></a>
@@ -34,4 +34,7 @@
         }
     </tbody>
 </table>
+<!--Paginador-->
+@{ Html.RenderPartial("_paginador", Model);}
+<!---->
 <a href="~/TipoServicios/NuevoTipoS" class="btn btn-success">Nuevo Dato</a>
