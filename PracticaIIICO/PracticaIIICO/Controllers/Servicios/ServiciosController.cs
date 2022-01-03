@@ -92,6 +92,49 @@ namespace PracticaIIICO.Controllers.Servicios
             return View();
         }
 
+        [HttpPost]
+        public ActionResult NuevoServicioModal(int pIdTipoServicio,string pNombreServicio,decimal pPrecioServicio)
+        {
+            int cantRegistroAfectado = 0;
+            //Mensajes para JSON
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Servicio(
+                    pIdTipoServicio,
+                    pNombreServicio,
+                    pPrecioServicio
+                    );
+
+                
+            }
+            catch (Exception errorObtenido)
+            {
+                MensajeFinal = "Ocurrio Un Error " + errorObtenido.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "El Servicio "+pNombreServicio+" Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar";
+                    estadoRegistro = 0;
+                }
+            }
+            
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
+        }
         // GET: Servicios/Edit/5
         public ActionResult ModificaSERV(int id_Serv)
         {

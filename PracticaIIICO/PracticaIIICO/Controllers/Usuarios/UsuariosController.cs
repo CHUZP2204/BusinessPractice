@@ -239,6 +239,100 @@ namespace PracticaIIICO.Controllers.Usuarios
             }
         }
 
+        //Registrar Usuario Por Medio De Un modal
+        [HttpPost]
+        public ActionResult RegistrarUsuarioModal(
+            string pNombreC,
+            string pApellido1,
+            string pApellido2,
+            string pCorreo,
+            string pContrasenia,
+            string pCedula)
+        {
+            ///Variable Que Registra La Cantidad De Registros Afectados
+            ///Si Un Procedimiento Que Ejecuta Insert, Update o Delete
+            ///No Afecta Registros Implica Que Hubo Un Error
+            int cantRegistrosAfectados = 0;
+
+            string parteUnaNombre = "";
+            string parteDosNombre = "";
+            string usuarioFinal = "";
+            ///Crear Un Usuario de Logueo a partir del nombre y apellido 
+            parteUnaNombre = pNombreC.Substring(0, 3);
+            parteDosNombre = pApellido1.Substring(0, 3);
+            ///Concatenar los datos obtnidos y unirlos
+            ///Asi Se obtnedra el Nombre Usuario Final
+            usuarioFinal = parteUnaNombre + parteDosNombre;
+
+            ViewBag.NombreUsuario = usuarioFinal;
+
+            int idTipoUsuario = 2; //2 por defecto Va Ser Cliente
+            string direccion = "";
+            string pTelefono = "";
+            string estadoUsuario = "ACTIVO";
+
+            ////
+            DateTime fechaCreado;
+            DateTime fechaUltimaVes;
+
+            ///Asignar fechas
+
+            fechaCreado = DateTime.Now;
+            fechaUltimaVes = DateTime.Now;
+
+            //Mensajes para JSON
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+            try
+            {
+
+                cantRegistrosAfectados = this.ModeloBD.sp_Inserta_Usuario(
+                        idTipoUsuario,
+                        pNombreC,
+                        pApellido1,
+                        pApellido2,
+                        direccion,
+                        pCorreo,
+                        pTelefono,
+                        pContrasenia,
+                        usuarioFinal,
+                        estadoUsuario,
+                        fechaCreado,
+                        fechaUltimaVes,
+                        pCedula
+                  );
+
+
+
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistrosAfectados > 0)
+                {
+                    MensajeFinal = "El Usuario Se Regitro Exitosamente, Su Usuario Es:" + usuarioFinal;
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar";
+                    estadoRegistro = 0;
+                }
+            }
+
+            //return Json(resultado);
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
+        }
+
         /// <summary>
         /// Agregar Tipos De Roles
         /// </summary>

@@ -89,6 +89,47 @@ namespace PracticaIIICO.Controllers.TipoUsuarios
             return View();
         }
 
+        //Modal Registro
+        [HttpPost]
+        public ActionResult NuevoTipoUSERModal(string pNombreTUsuario)
+        {
+            int cantRegistroAfectado = 0;
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_TipoUsuario(
+                    pNombreTUsuario
+                    );
+
+            }
+            catch (Exception errorObtenido)
+            {
+                MensajeFinal = "Ocurrio Un Error " + errorObtenido.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "El Tipo Usuario " + pNombreTUsuario + " Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
+        }
+
         // GET: TipoUsuarios/Edit/5
         [AuthorizeUser]
         public ActionResult ModificaTipoUsuario(int id_TipoU)

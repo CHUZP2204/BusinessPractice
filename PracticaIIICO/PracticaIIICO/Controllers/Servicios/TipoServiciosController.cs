@@ -11,7 +11,7 @@ namespace PracticaIIICO.Controllers.TipoServicios
     public class TipoServiciosController : Controller
     {
         MotoRepuestosMakoEntities ModeloBD = new MotoRepuestosMakoEntities();
-        
+
         // GET: TipoServicios
         public ActionResult Index()
         {
@@ -28,14 +28,14 @@ namespace PracticaIIICO.Controllers.TipoServicios
             var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
             using (var db = new MotoRepuestosMakoEntities())
             {
-                var TserviciosObtenidos = db.sp_Retorna_Tipo_Servicio(null,null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                var TserviciosObtenidos = db.sp_Retorna_Tipo_Servicio(null, null).Skip((pagina - 1) * cantidadRegistroPorPagina)
                     .Take(cantidadRegistroPorPagina).ToList();
 
-                var totalRegistros = db.sp_Retorna_Tipo_Servicio(null,null).Count();
+                var totalRegistros = db.sp_Retorna_Tipo_Servicio(null, null).Count();
 
                 var modelo = new ViewTiposervicioModel();
 
-                modelo.ListaTipoServicio= TserviciosObtenidos;
+                modelo.ListaTipoServicio = TserviciosObtenidos;
                 modelo.PaginaActual = pagina;
                 modelo.TotalRegistros = totalRegistros;
                 modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
@@ -84,8 +84,49 @@ namespace PracticaIIICO.Controllers.TipoServicios
                 }
             }
             Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
-            
+
             return View();
+        }
+
+        // POST: TipoServicios/Create Modal
+        [HttpPost]
+        public ActionResult NuevoTipoSERVModal(string pNombreTipoSERV, string pDescripcionTSERV)
+        {
+            int cantRegistroAfectado = 0;
+            //Mensajes para JSON
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_TipoSERV(
+                    pNombreTipoSERV,
+                    pDescripcionTSERV
+                    );
+            }
+            catch (Exception errorObtenido)
+            {
+                MensajeFinal = "Ocurrio Un Error " + errorObtenido.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "El Tipo Servicio " + pNombreTipoSERV + " Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
 
         // GET: TipoServicios/Edit/5
@@ -140,7 +181,7 @@ namespace PracticaIIICO.Controllers.TipoServicios
             datosObtenidos = this.ModeloBD.sp_Retorna_Tipo_SERV_ID(id_TipoS).FirstOrDefault();
 
             return View(datosObtenidos);
-            
+
         }
 
         // GET: TipoServicios/Delete/5

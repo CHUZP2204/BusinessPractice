@@ -2169,10 +2169,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\ModalMensaje.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Productos\RegistraProducto.js" />
     <Content Include="Scripts\Recargar.js" />
     <Content Include="Scripts\scriptGenerico.js" />
+    <Content Include="Scripts\Servicios\RegistroServicio.js" />
+    <Content Include="Scripts\Servicios\RegistroTipoSERV.js" />
     <Content Include="Scripts\Sesion\HoraActual.js" />
     <Content Include="Scripts\Sesion\InicioSesion.js" />
     <Content Include="Scripts\Sesion\llamarModal.js" />
@@ -2181,6 +2184,9 @@
     <Content Include="Scripts\Sesion\Validaciones.js" />
     <Content Include="Scripts\Sidebar\estadoSidebar.js" />
     <Content Include="Scripts\Sidebar\sideBar.js" />
+    <Content Include="Scripts\Usuarios\RegistraUsuarioModal.js" />
+    <Content Include="Scripts\Usuarios\RegistroTipoUSER.js" />
+    <Content Include="Scripts\ValidacionesMensajes.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

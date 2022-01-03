@@ -1,45 +1,20 @@
 ﻿$(function () {
     EstableceMensajesJqueryValidate();
-    creaValidacionesProductos();
-    creaEventosRegistrarProducto();
+    creaValidacionesTUSER();
+    creaEventosRegistroTUSER();
     abriModal();
 
 });
 
 
 ///frmRegistraUsuario
-function creaValidacionesProductos() {
-    $("#frmRegistroProductosModal").validate({
+function creaValidacionesTUSER() {
+    $("#frmRegistroTUSERM").validate({
         ///objeto que contiene "las condiciones" que el formulario
         ///debe cumplir para ser considerado válido
         rules: {
-            Nombre_U: {
+            pNombreTUsuario: {
                 required: true
-            },
-            Apellido1_U: {
-                required: true
-            },
-            Apellido2_U: {
-                required: true
-            },
-            Correo_U: {
-                required: true,
-                email: true
-            },
-            Cedula_U: {
-                required: true
-
-            },
-            contrasenaVal1: {
-                required: true,
-                minlength: 5,
-                maxlength: 8
-            },
-            contrasenaVal: {
-                required: true,
-                equalTo: "#contrasenaVal1",
-                minlength: 5,
-                maxlength: 8
             },
         }
     });
@@ -57,18 +32,18 @@ function abriModal() {
     });
 }
 
-function creaEventosRegistrarProducto() {
+function creaEventosRegistroTUSER() {
     $("#registrar").on("click", function () {
         ///Asignar a la variable formulario
         //$("#exampleModalCenteredScrollabl").modal('hide');
         ///el resultado del selector
-        var formulario = $("#frmRegistroProductosModal");
+        var formulario = $("#frmRegistroTUSERM");
         ///Ejecutar El MEtodo De Validacion
         formulario.validate();
         ///Si El Formulario Es Valido
         ///Ejecutar la funcion invocaMetodosPost
         if (formulario.valid()) {
-            RegistraDatosProducto();
+            RegistraDatosTUSERM();
         }
 
         // RegistraDatosCLiente();
@@ -81,31 +56,27 @@ function creaEventosRegistrarProducto() {
 
 
 
-function RegistraDatosProducto() {
+function RegistraDatosTUSERM() {
     ///dirección a donde se enviarán los datos
-    var urlMetodo = '/Productos/RegistrarProducto';
+    var urlMetodo = '/TipoUsuarios/NuevoTipoUSERModal';
     ///parámetros del método, es CASE-SENSITIVE
     var parametros = {
-        pID_Categoria: $("#pID_Categoria").val(),
-        pNombre_PROD: $("#pNombre_PROD").val(),
-        pPrecio_PROD: $("#pPrecio_PROD").val(),
-        pDescripcion_PROD: $("#pDescripcion_PROD").val(),
-        pCantidad_PROD: $("#pCantidad_PROD").val()
+        pNombreTUsuario: $("#pNombreTUsuario").val()
     };
 
-    var funcion = cargaMensaje;
+    var funcion = cargaMensajeModalTUSER;
 
     ///Llamar al Metodo Que Se Comunica con el servidor
     ejecutaAjax(urlMetodo, parametros, funcion)
 }
 
-function cargaMensaje(data) {
+function cargaMensajeModalTUSER(data) {
     var resultadoFuncion = data.resultado;
     //$("#exampleModalCenteredScrollable").dialog("close");
     var estadoFuncion = data.estado;
 
     if (estadoFuncion === 1) {
-        $("#ModalProductos").modal('hide');
+        $("#ModalTUSER").modal('hide');
     }
 
     //showMessageRegistrarse(resultadoFuncion);

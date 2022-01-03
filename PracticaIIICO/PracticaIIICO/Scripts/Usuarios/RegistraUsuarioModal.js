@@ -1,15 +1,15 @@
 ﻿$(function () {
     EstableceMensajesJqueryValidate();
-    creaValidacionesProductos();
-    creaEventosRegistrarProducto();
+    creaValidacionesUser();
+    creaEventosRegistrarUser();
     abriModal();
 
 });
 
 
 ///frmRegistraUsuario
-function creaValidacionesProductos() {
-    $("#frmRegistroProductosModal").validate({
+function creaValidacionesUser() {
+    $("#frmRegistroUsuarioM").validate({
         ///objeto que contiene "las condiciones" que el formulario
         ///debe cumplir para ser considerado válido
         rules: {
@@ -57,18 +57,18 @@ function abriModal() {
     });
 }
 
-function creaEventosRegistrarProducto() {
+function creaEventosRegistrarUser() {
     $("#registrar").on("click", function () {
         ///Asignar a la variable formulario
         //$("#exampleModalCenteredScrollabl").modal('hide');
         ///el resultado del selector
-        var formulario = $("#frmRegistroProductosModal");
+        var formulario = $("#frmRegistroUsuarioM");
         ///Ejecutar El MEtodo De Validacion
         formulario.validate();
         ///Si El Formulario Es Valido
         ///Ejecutar la funcion invocaMetodosPost
         if (formulario.valid()) {
-            RegistraDatosProducto();
+            RegistraDatosUsuarioM();
         }
 
         // RegistraDatosCLiente();
@@ -81,31 +81,32 @@ function creaEventosRegistrarProducto() {
 
 
 
-function RegistraDatosProducto() {
+function RegistraDatosUsuarioM() {
     ///dirección a donde se enviarán los datos
-    var urlMetodo = '/Productos/RegistrarProducto';
+    var urlMetodo = '/Usuarios/RegistrarUsuarioModal';
     ///parámetros del método, es CASE-SENSITIVE
     var parametros = {
-        pID_Categoria: $("#pID_Categoria").val(),
-        pNombre_PROD: $("#pNombre_PROD").val(),
-        pPrecio_PROD: $("#pPrecio_PROD").val(),
-        pDescripcion_PROD: $("#pDescripcion_PROD").val(),
-        pCantidad_PROD: $("#pCantidad_PROD").val()
+        pNombreC: $("#Nombre_U").val(),
+        pApellido1: $("#Apellido1_U").val(),
+        pApellido2: $("#Apellido2_U").val(),
+        pCorreo: $("#Correo_U").val(),
+        pContrasenia: $("#contrasenaVal1").val(),
+        pCedula: $("#Cedula_U").val()
     };
 
-    var funcion = cargaMensaje;
+    var funcion = cargaMensajeModalU;
 
     ///Llamar al Metodo Que Se Comunica con el servidor
     ejecutaAjax(urlMetodo, parametros, funcion)
 }
 
-function cargaMensaje(data) {
+function cargaMensajeModalU(data) {
     var resultadoFuncion = data.resultado;
     //$("#exampleModalCenteredScrollable").dialog("close");
     var estadoFuncion = data.estado;
 
     if (estadoFuncion === 1) {
-        $("#ModalProductos").modal('hide');
+        $("#ModalUsuarios").modal('hide');
     }
 
     //showMessageRegistrarse(resultadoFuncion);

@@ -38,3 +38,51 @@
 @{ Html.RenderPartial("_paginador", Model);}
 <!---->
 <a href="~/TipoServicios/NuevoTipoS" class="btn btn-success">Nuevo Dato</a>
+
+<a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+
+<a href="" data-bs-toggle="modal" data-bs-target="#ModalTServicios">Nuevo</a>
+
+<!--Modal De Registro-->
+<div class="modal" id="ModalTServicios" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloID">Pantalla De Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="form-control" id="frmRegistroTServicioM">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Tipo Servicio:</label>
+                            <input type="text" class="form-control" name="pNombreTipoSERV" id="pNombreTipoSERV" placeholder="Nombre Servicio">
+                        </div>
+                        <div class="form-group">
+                            <label>Descripcion:</label>
+                            <input type="text" class="form-control" name="pDescripcionTSERV" id="pDescripcionTSERV" placeholder="Descripcion">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row g-3 align-items-center">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIN-->
+
+
+@section scripts{
+
+    <script src="~/Scripts/Recargar.js"></script>
+    <!--Modal Registro-->
+    <script src="~/Scripts/Servicios/RegistroTipoSERV.js"></script>
+
+}
