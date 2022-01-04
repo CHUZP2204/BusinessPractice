@@ -3,66 +3,78 @@
     ViewBag.Title = "ListaSalidas";
 }
 
-<h2>ListaSalidas</h2>
+@section css{
 
-<a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
+<div class="Principal">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">ListaSalidas</h2>
 
-<br />
-<br />
+        <a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col"># Salida</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Fecha Regsitro</th>
-            <th scope="col">Hora Registro</th>
+        <br />
+        <br />
 
-            <th scope="col">Acciones</th>
-            <th scope="col">Detalle</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_SalidaID_Result PosicionSalidas in Model.ListaSalidas)
-            {
-                <tr>
+    </div>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col"># Salida</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Fecha Regsitro</th>
+                <th scope="col">Hora Registro</th>
 
-                    <td>@PosicionSalidas.ID_Salida</td>
+                <th scope="col">Acciones</th>
+                <th scope="col">Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_SalidaID_Result PosicionSalidas in Model.ListaSalidas)
+                {
+                    <tr>
 
-                    @{
+                        <td>@PosicionSalidas.ID_Salida</td>
 
-                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                        {
-                            bool esIdUser = ModeloUSER.ID_Usuario == PosicionSalidas.ID_Usuario;
-                            if (esIdUser)
+                        @{
+
+                            foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
                             {
-                                <td>@ModeloUSER.Nombre_U</td>
+                                bool esIdUser = ModeloUSER.ID_Usuario == PosicionSalidas.ID_Usuario;
+                                if (esIdUser)
+                                {
+                                    <td>@ModeloUSER.Nombre_U</td>
+                                }
                             }
+
                         }
 
-                    }
 
 
+                        <td>@PosicionSalidas.Fecha_Registro.ToShortDateString()</td>
+                        <td>@PosicionSalidas.Hora_Orden</td>
 
-                    <td>@PosicionSalidas.Fecha_Registro.ToShortDateString()</td>
-                    <td>@PosicionSalidas.Hora_Orden</td>
-
-                    <td>
-                        <a href="~/Salidas/ModificaSalida?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Salidas/MostrarSalida?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                    </td>
-                    <td>
-                        <a href="~/DetalleSalidas/MostrarDetSal?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                        <a href="~/DetalleSalidas/AgregaDetSal?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-success"><i class="fas fa-plus"></i></a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href="~/Salidas/ModificaSalida?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/Salidas/MostrarSalida?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                        </td>
+                        <td>
+                            <a href="~/DetalleSalidas/MostrarDetSal?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                            <a href="~/DetalleSalidas/AgregaDetSal?id_Sal=@PosicionSalidas.ID_Salida" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!---->
-<a href="~/Salidas/NuevaSalida" class="btn btn-success">Nuevo</a>
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/Salidas/NuevaSalida" class="btn btn-success">Nuevo</a>
+    </div>
+</div>
+
+

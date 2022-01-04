@@ -6,59 +6,146 @@
 
 <!--Funcionalidad: Anterior y Siguiente-->
 
-<ul class="pagination">
-    @if (Model.PaginaActual == 1)
-    {
-        <li class="disabled">@Html.ActionLink("Anterior", null, new { pagina = 1 })</li>
-    }
-    else
-    {
-        <li>@Html.ActionLink("Anterior", null, new { pagina = Model.PaginaActual - 1 })</li>
-    }
+<div class="container">
+    <div class="row">
+        <div class="col">
 
-    @if (Model.PaginaActual == cantidadPaginas)
-    {
-        <li class="disabled">@Html.ActionLink("Siguiente", null, new { pagina = cantidadPaginas })</li>
-    }
-    else
-    {
-        <li>@Html.ActionLink("Siguiente", null, new { pagina = Model.PaginaActual + 1 })</li>
-    }
-</ul>
+            <!--Funcionalidad: Paginas-->
 
-<!--Funcionalidad: Paginas-->
+            @{
+                int inicial = 1;
+                var radio = 2;
+                var cantidadMaximaPaginas = radio * 2 + 1;
+                int Final = (cantidadPaginas > cantidadMaximaPaginas) ? cantidadMaximaPaginas : cantidadPaginas;
+                if (Model.PaginaActual > radio + 1)
+                {
+                    inicial = Model.PaginaActual - radio;
+                    if (cantidadPaginas > Model.PaginaActual + radio)
+                    {
+                        Final = Model.PaginaActual + radio;
+                    }
+                    else
+                    {
+                        Final = cantidadPaginas;
+                    }
+                }
+            }
 
-@{
-    int inicial = 1;
-    var radio = 2;
-    var cantidadMaximaPaginas = radio * 2 + 1;
-    int Final = (cantidadPaginas > cantidadMaximaPaginas) ? cantidadMaximaPaginas : cantidadPaginas;
-    if (Model.PaginaActual > radio + 1)
-    {
-        inicial = Model.PaginaActual - radio;
-        if (cantidadPaginas > Model.PaginaActual + radio)
-        {
-            Final = Model.PaginaActual + radio;
-        }
-        else
-        {
-            Final = cantidadPaginas;
-        }
-    }
-}
+            <ul class="pagination">
+                <!--Primer Pagina-->
+                <li>
+                    @*Html.ActionLink("Primera", null, new { pagina = 1 })*@
+                    <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = 1})">
+                        <i class="fa fa-fast-backward"></i>
+                    </a>
+                </li>
+                <!--Fin Primer Pagina-->
+                <!--Boton Anterior Pagina-->
+                @if (Model.PaginaActual == 1)
+                {
+                    <li class="disabled">
+                        @*Html.ActionLink("Anterior", null, new { pagina = 1 })*@
+                        <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = 1})">
+                            <i class="fa fa-backward"></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @*Html.ActionLink("Anterior", null, new { pagina = Model.PaginaActual - 1 })*@
+                        <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = Model.PaginaActual - 1})">
+                            <i class="fa fa-backward"></i>
+                        </a>
+                    </li>
+                }
+                <!--Fin Boton Anterior Pagina-->
+                <!--Numeracion-->
+                @for (int i = inicial; i <= Final; i++)
+                {
+                    if (i == Model.PaginaActual)
+                    {
+                        <li class="active">@Html.ActionLink(i.ToString(), null, new { pagina = i }, new { @class = "form-control", @style = "color:blue;background-color:aqua" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink(i.ToString(), null, new { pagina = i }, new { @class = "form-control" })</li>
+                    }
+                }
+                <!--Fin Numeracion-->
+                <!--Inicio Boton Siguiente-->
+                @if (Model.PaginaActual == cantidadPaginas)
+                {
+                    <li class="disabled">
+                        @*Html.ActionLink("Siguiente", null, new { pagina = cantidadPaginas })*@
+                        <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = cantidadPaginas})">
+                            <i class="fa fa-forward"></i>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @*Html.ActionLink("Siguiente", null, new { pagina = Model.PaginaActual + 1 })*@
+                        <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = Model.PaginaActual + 1})">
+                            <i class="fa fa-forward"></i>
+                        </a>
+                    </li>
+                }
+                <!--Fin Boton Siguiente-->
+                <li>
+                    @*Html.ActionLink("Ultima", null, new { pagina = cantidadPaginas })*@
+                    <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = cantidadPaginas})">
+                        <i class="fa fa-fast-forward"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--Botones Para Avanzar o Retroceder-->
+        @*<div class="col">
+                <ul class="pagination">
+                    if (Model.PaginaActual == 1)
+                    {
+                        <li class="disabled">
+                            @*Html.ActionLink("Anterior", null, new { pagina = 1 })*
+                            <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = 1})">
+                                <i class="fa fa-backward"></i>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @*Html.ActionLink("Anterior", null, new { pagina = Model.PaginaActual - 1 })@
+                            <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = Model.PaginaActual - 1})">
+                                <i class="fa fa-backward"></i>
+                            </a>
+                        </li>
+                    }
 
-<ul class="pagination">
-    <li>@Html.ActionLink("Primera", null, new { pagina = 1 })</li>
-    @for (int i = inicial; i <= Final; i++)
-    {
-        if (i == Model.PaginaActual)
-        {
-            <li class="active">@Html.ActionLink(i.ToString(), null, new { pagina = i }, new { @class = "form-control",@style="color:blue;background-color:aqua"})</li>
-        }
-        else
-        {
-            <li>@Html.ActionLink(i.ToString(),null,new { pagina = i}, new { @class = "form-control" })</li>
-        }
-    }
-    <li>@Html.ActionLink("Ultima",null, new { pagina = cantidadPaginas })</li>
-</ul>
+                    @if (Model.PaginaActual == cantidadPaginas)
+                    {
+                        <li class="disabled">
+                            @*Html.ActionLink("Siguiente", null, new { pagina = cantidadPaginas })@
+                            <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = cantidadPaginas})">
+                                <i class="fa fa-forward"></i>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @*Html.ActionLink("Siguiente", null, new { pagina = Model.PaginaActual + 1 })@
+                            <a class="btn btn-sm btn-secondary" href="@Url.Action(null,new { pagina = Model.PaginaActual + 1})">
+                                <i class="fa fa-forward"></i>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        *@
+    </div>
+
+</div>
+
+

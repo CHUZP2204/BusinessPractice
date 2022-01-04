@@ -3,44 +3,57 @@
     ViewBag.Title = "ListTypeUser";
 }
 
-<h2>Tipos De Usuario</h2>
+@section css{
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col"># ID</th>
-            <th scope="col">Tipo Usuario</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result PosicionModelo in Model.ListaTipoUsuario)
-            {
-                <tr>
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-                    <td>@PosicionModelo.ID_TipoUsuario</td>
-                    <td>@PosicionModelo.Nombre_TipoUsuario</td>
-                    <td>
-                        <a href="~/TipoUsuarios/ModificaTipoUsuario?id_TipoU=@PosicionModelo.ID_TipoUsuario" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/TipoUsuarios/MostrarTipoUsuario?id_TipoU=@PosicionModelo.ID_TipoUsuario" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+<div class="Principal">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">Tipos De Usuario</h2>
+        <br />
+    </div>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col"># ID</th>
+                <th scope="col">Tipo Usuario</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result PosicionModelo in Model.ListaTipoUsuario)
+                {
+                    <tr>
+
+                        <td>@PosicionModelo.ID_TipoUsuario</td>
+                        <td>@PosicionModelo.Nombre_TipoUsuario</td>
+                        <td>
+                            <a href="~/TipoUsuarios/ModificaTipoUsuario?id_TipoU=@PosicionModelo.ID_TipoUsuario" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/TipoUsuarios/MostrarTipoUsuario?id_TipoU=@PosicionModelo.ID_TipoUsuario" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!---->
-<a href="~/TipoUsuarios/NuevoTipoUsuario" class="btn btn-success">Nuevo Dato</a>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/TipoUsuarios/NuevoTipoUsuario" class="btn btn-success">Nuevo Dato</a>
 
 
-<a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+        <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
 
-<a href="" data-bs-toggle="modal" data-bs-target="#ModalTUSER">Nuevo</a>
+        <a href="" data-bs-toggle="modal" data-bs-target="#ModalTUSER">Nuevo</a>
+
+    </div>
+</div>
+
 
 <!--Modal De Registro-->
 <div class="modal" id="ModalTUSER" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
@@ -82,3 +95,5 @@
     <script src="~/Scripts/Usuarios/RegistroTipoUSER.js"></script>
 
 }
+
+<!---->

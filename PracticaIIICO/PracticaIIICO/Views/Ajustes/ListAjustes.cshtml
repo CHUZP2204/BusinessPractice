@@ -3,67 +3,79 @@
     ViewBag.Title = "ListAjustes";
 }
 
-<h2>Lista Ajustes</h2>
+@section css{
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-<br />
-<a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
-<br />
 
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Tipo</th>
+<div id="ContenedorDatos">
+    <div class="CabeceraTable">
+        <h2>Lista Ajustes</h2>
+        <br />
+        <a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
+        <br />
+    </div>
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Tipo</th>
 
-            <th scope="col">Acciones</th>
+                <th scope="col">Acciones</th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Ajustes_Result PosicionAjuste in Model.ListaAjustes)
-            {
-                <tr>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_Ajustes_Result PosicionAjuste in Model.ListaAjustes)
+                {
+                    <tr>
 
-                    <td>@PosicionAjuste.ID_Ajuste</td>
+                        <td>@PosicionAjuste.ID_Ajuste</td>
 
-                    @{
-                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
-                        {
-                            bool esIdPROD = ModeloPROD.ID_Producto == PosicionAjuste.ID_Producto;
-                            if (esIdPROD)
+                        @{
+                            foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
                             {
-                                <td>@ModeloPROD.Nombre_PROD</td>
+                                bool esIdPROD = ModeloPROD.ID_Producto == PosicionAjuste.ID_Producto;
+                                if (esIdPROD)
+                                {
+                                    <td>@ModeloPROD.Nombre_PROD</td>
+                                }
                             }
                         }
-                    }
-                    @{
-                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                        {
-                            bool esIdUSER = ModeloUSER.ID_Usuario == PosicionAjuste.ID_Usuario;
-                            if (esIdUSER)
+                        @{
+                            foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
                             {
-                                <td>@ModeloUSER.Nombre_U</td>
+                                bool esIdUSER = ModeloUSER.ID_Usuario == PosicionAjuste.ID_Usuario;
+                                if (esIdUSER)
+                                {
+                                    <td>@ModeloUSER.Nombre_U</td>
+                                }
                             }
                         }
-                    }
 
 
-                    <td>@PosicionAjuste.Tipo_Ajuste</td>
+                        <td>@PosicionAjuste.Tipo_Ajuste</td>
 
-                    <td>
-                        <a href="~/Ajustes/ModificaAjuste?id_Aju=@PosicionAjuste.ID_Ajuste" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Ajustes/MostrarAjuste?id_Aju=@PosicionAjuste.ID_Ajuste" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                    </td>
+                        <td>
+                            <a href="~/Ajustes/ModificaAjuste?id_Aju=@PosicionAjuste.ID_Ajuste" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/Ajustes/MostrarAjuste?id_Aju=@PosicionAjuste.ID_Ajuste" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                        </td>
 
-                </tr>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!---->
-<a href="~/Ajustes/NuevoAjuste" class="btn btn-success">Nuevo</a>
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/Ajustes/NuevoAjuste" class="btn btn-success">Nuevo</a>
+    </div>
+
+</div>
+
+

@@ -5,117 +5,124 @@
 
 @section css{
     <link href="~/Content/Busqueda.css" rel="stylesheet" />
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
 }
-<h2 style="text-align:center">Lista Productos</h2>
 
-<a href="~/Home/Index" class="btn btn-success">Home</a>
-<br />
-<br />
-<!---->
-<div class="boxBus">
-    <div class="container-1">
-        <span class="icon">
-            <i class="fa fa-search"></i>
+<div class="principal">
+    <div class="CabeceraTable">
+        <!---->
+        <h2 style="text-align:center">Lista Productos</h2>
 
-        </span>
-        <input type="search" id="myInputPROD" onkeyup="myFunction()" placeholder=" Ejem: Tornillo" />
+        <a href="~/Home/Index" class="btn btn-success">Home</a>
+        <br />
+        <br />
+
+        <div class="boxBus">
+            <div class="container-1">
+                <span class="icon">
+                    <i class="fa fa-search"></i>
+
+                </span>
+                <input type="search" id="myInputPROD" onkeyup="myFunction()" placeholder=" Ejem: Tornillo" />
+            </div>
+        </div>
+        <!---->
+        <div id="alertVerde" class="alert alert-success" style="display:none;">
+
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            <div c id="mensajeAlertVerde">
+                <!--Aqui va el mensaje, escrito desde JS-->
+            </div>
+        </div>
+        <!---->
+        <!---->
+        <div id="alertRoja" class="alert alert-danger align-items-center"
+             style="display: none; flex-direction: row;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                 class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+                 aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+            </svg>
+            <div id="mensajeAlertaRoja">
+                <!--Mensaje de Erro Va Aqui-->
+            </div>
+
+        </div>
+
+        <br />
+        <br />
     </div>
-</div>
-<!---->
-<div id="alertVerde" class="alert alert-success" style="display:none;">
+    <!--TABLA-->
+    <table id="myTablePROD" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Estado</th>
+                <th scope="col">STOCK</th>
 
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-    <div c id="mensajeAlertVerde">
-        <!--Aqui va el mensaje, escrito desde JS-->
-    </div>
-</div>
-<!---->
-<!---->
-<div id="alertRoja" class="alert alert-danger align-items-center"
-     style="display: none; flex-direction: row;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-         class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
-         aria-label="Warning:">
-        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-    </svg>
-    <div id="mensajeAlertaRoja">
-        <!--Mensaje de Erro Va Aqui-->
-    </div>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
 
-</div>
-
-<br />
-<br />
-<!--TABLA-->
-<table id="myTablePROD" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Estado</th>
-            <th scope="col">STOCK</th>
-
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-
-            foreach (var PosicionModelo in Model.Productos)
-            {
-                <tr>
-                    <td>@PosicionModelo.ID_Producto</td>
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategoria in this.ViewBag.ListaCategorias)
-                    {
-
-                        if (PosicionModelo.ID_Categoria == ModeloCategoria.ID_Categoria)
+                foreach (var PosicionModelo in Model.Productos)
+                {
+                    <tr>
+                        <td>@PosicionModelo.ID_Producto</td>
+                        @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategoria in this.ViewBag.ListaCategorias)
                         {
-                            <td>@ModeloCategoria.Nombre_Categoria</td>
+
+                            if (PosicionModelo.ID_Categoria == ModeloCategoria.ID_Categoria)
+                            {
+                                <td>@ModeloCategoria.Nombre_Categoria</td>
+                            }
+
+                        }
+                        <td>@PosicionModelo.Nombre_PROD</td>
+                        <td>@PosicionModelo.Precio_PROD</td>
+
+                        @{ if (PosicionModelo.Estado_PROD)
+                            {
+                                <td>ACTIVO</td>
+                            }
+                            else
+                            {
+                                <td>INACTIVO</td>
+                            }
                         }
 
-                    }
-                    <td>@PosicionModelo.Nombre_PROD</td>
-                    <td>@PosicionModelo.Precio_PROD</td>
+                        <td>@PosicionModelo.Cantidad_PROD</td>
 
-                    @{ if (PosicionModelo.Estado_PROD)
-                        {
-                            <td>ACTIVO</td>
-                        }
-                        else
-                        {
-                            <td>INACTIVO</td>
-                        }
-                    }
-
-                    <td>@PosicionModelo.Cantidad_PROD</td>
-
-                    <td>
-                        <a href="~/Productos/ModificaPROD?id_prod=@PosicionModelo.ID_Producto" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Productos/MostrarPROD?id_prod=@PosicionModelo.ID_Producto" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href="~/Productos/ModificaPROD?id_prod=@PosicionModelo.ID_Producto" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/Productos/MostrarPROD?id_prod=@PosicionModelo.ID_Producto" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!---->
-<a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>
-<a href="~/Categorias/ListaCategorias" class="btn btn-primary">Categorias</a>
-
-
-<!--Pruebas Modal-->
-
-<a href="" data-bs-toggle="modal" data-bs-target="#ModalProductos">Nuevo</a>
-
-<a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>
+        <a href="~/Categorias/ListaCategorias" class="btn btn-primary">Categorias</a>
 
 
+        <!--Pruebas Modal-->
 
+        <a href="" data-bs-toggle="modal" data-bs-target="#ModalProductos">Nuevo</a>
+
+        <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+    </div>
+</div>
+
+<!--Modales-->
 
 <div class="modal" id="ModalProductos" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -183,5 +190,5 @@
     <script src="~/Scripts/Productos/RegistraProducto.js"></script>
     <script src="~/Scripts/scriptGenerico.js"></script>
     @*Paginacion De Tabla*@
-    >
+    
 }

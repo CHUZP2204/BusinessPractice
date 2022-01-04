@@ -3,68 +3,78 @@
     ViewBag.Title = "ListaCitas";
 }
 
-<h2>Lista Citas</h2>
+@section css{
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-<br />
-<a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
-<br />
+<div id="ContenedorPr">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">Lista Citas</h2>
+        <br />
+        <a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
+        <br />
+    </div>
+    <table id="myTablePROD" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Placa</th>
+                <th scope="col">Fecha Cita</th>
 
-<table id="myTablePROD" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Placa</th>
-            <th scope="col">Fecha Cita</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
 
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-
-            foreach (PracticaIIICO.BD.sp_Retorna_Citas_Result PosicionModelo in Model.ListaCitas)
-            {
-                <tr>
-                    <td>@PosicionModelo.ID_Cita</td>
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                    {
-
-                        if (PosicionModelo.ID_Usuario == ModeloUSER.ID_Usuario)
+                foreach (PracticaIIICO.BD.sp_Retorna_Citas_Result PosicionModelo in Model.ListaCitas)
+                {
+                    <tr>
+                        <td>@PosicionModelo.ID_Cita</td>
+                        @foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
                         {
-                            <td>@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</td>
+
+                            if (PosicionModelo.ID_Usuario == ModeloUSER.ID_Usuario)
+                            {
+                                <td>@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</td>
+                            }
+
                         }
 
-                    }
-
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result ModeloMARK in this.ViewBag.ListaMarcas)
-                    {
-                        if (PosicionModelo.ID_Marca == ModeloMARK.ID_Marca)
+                        @foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result ModeloMARK in this.ViewBag.ListaMarcas)
                         {
-                            <td>@ModeloMARK.Nombre_Marca</td>
+                            if (PosicionModelo.ID_Marca == ModeloMARK.ID_Marca)
+                            {
+                                <td>@ModeloMARK.Nombre_Marca</td>
+                            }
                         }
-                    }
-                    <td>@PosicionModelo.Nombre_Cliente</td>
-                    <td>@PosicionModelo.Placa_Moto</td>
+                        <td>@PosicionModelo.Nombre_Cliente</td>
+                        <td>@PosicionModelo.Placa_Moto</td>
 
-                    <td>@PosicionModelo.Fecha_Cita.Value.ToShortDateString() @PosicionModelo.Hora_Cita</td>
-
+                        <td>@PosicionModelo.Fecha_Cita.Value.ToShortDateString() @PosicionModelo.Hora_Cita</td>
 
 
-                    <td>
-                        <a href="~/Citas/ModificaCita?id_Cita=@PosicionModelo.ID_Cita" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Citas/MostrarCita?id_Cita=@PosicionModelo.ID_Cita" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+
+                        <td>
+                            <a href="~/Citas/ModificaCita?id_Cita=@PosicionModelo.ID_Cita" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/Citas/MostrarCita?id_Cita=@PosicionModelo.ID_Cita" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!---->
-<a href="~/Citas/NuevaCita" class="btn btn-success">Nuevo Dato</a>
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/Citas/NuevaCita" class="btn btn-success">Nuevo Dato</a>
+    </div>
+</div>
+
+
 
 

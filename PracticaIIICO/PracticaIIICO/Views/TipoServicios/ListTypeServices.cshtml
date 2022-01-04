@@ -3,45 +3,59 @@
     ViewBag.Title = "ListTypeServices";
 }
 
-<h2>Lista Tipos De Servicios</h2>
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Servicio</th>
-            <th scope="col">Descripcion</th>
+@section css{
 
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result PosicionModelo in Model.ListaTipoServicio)
-            {
-                <tr>
-                    <td>@PosicionModelo.ID_TipoServicio</td>
-                    <td>@PosicionModelo.Nombre_TipoServicio</td>
-                    <td>@PosicionModelo.Descripcion_TipoServicio</td>
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-                    <td>
-                        <a href="~/TipoServicios/ModificaTipoS?id_TipoS=@PosicionModelo.ID_TipoServicio" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/TipoServicios/MostrarTipoS?id_TipoS=@PosicionModelo.ID_TipoServicio" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+<div class="Principal">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">Lista Tipos De Servicios</h2>
+        <br />
+    </div>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Servicio</th>
+                <th scope="col">Descripcion</th>
+
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result PosicionModelo in Model.ListaTipoServicio)
+                {
+                    <tr>
+                        <td>@PosicionModelo.ID_TipoServicio</td>
+                        <td>@PosicionModelo.Nombre_TipoServicio</td>
+                        <td>@PosicionModelo.Descripcion_TipoServicio</td>
+
+                        <td>
+                            <a href="~/TipoServicios/ModificaTipoS?id_TipoS=@PosicionModelo.ID_TipoServicio" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/TipoServicios/MostrarTipoS?id_TipoS=@PosicionModelo.ID_TipoServicio" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!---->
-<a href="~/TipoServicios/NuevoTipoS" class="btn btn-success">Nuevo Dato</a>
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/TipoServicios/NuevoTipoS" class="btn btn-success">Nuevo Dato</a>
 
-<a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+        <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
 
-<a href="" data-bs-toggle="modal" data-bs-target="#ModalTServicios">Nuevo</a>
+        <a href="" data-bs-toggle="modal" data-bs-target="#ModalTServicios">Nuevo</a>
+    </div>
+</div>
+
+
 
 <!--Modal De Registro-->
 <div class="modal" id="ModalTServicios" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">

@@ -2,44 +2,52 @@
 @{
     ViewBag.Title = "ListaMarcas";
 }
+@section css{
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-<h2>Lista Marcas</h2>
+<div class="Principal">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">Lista Marcas</h2>
 
-<a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
+        <a href="~/Home/Index" class="btn btn-success">Pagina Inicial</a>
 
-<br />
-<br />
+        <br />
+        <br />
+    </div>
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col"># Marca</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result PosicionModeloMarca in Model.ListaMarcas)
+                {
+                    <tr>
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col"># Marca</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result PosicionModeloMarca in Model.ListaMarcas)
-            {
-                <tr>
+                        <td>@PosicionModeloMarca.ID_Marca</td>
+                        <td>@PosicionModeloMarca.Nombre_Marca</td>
+                        <td>@PosicionModeloMarca.Descripcion_Marca</td>
 
-                    <td>@PosicionModeloMarca.ID_Marca</td>
-                    <td>@PosicionModeloMarca.Nombre_Marca</td>
-                    <td>@PosicionModeloMarca.Descripcion_Marca</td>
-
-                    <td>
-                        <a href="~/Marca/ModificaMarca?id_Marca=@PosicionModeloMarca.ID_Marca" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/listaCitas/eliminarCita?id_Marca=@PosicionModeloMarca.ID_Marca" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href="~/Marca/ModificaMarca?id_Marca=@PosicionModeloMarca.ID_Marca" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/listaCitas/eliminarCita?id_Marca=@PosicionModeloMarca.ID_Marca" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/Marca/NuevaMarca" class="btn btn-success">Nuevo Dato</a>
+    </div>
+</div>
 <!---->
-<a href="~/Marca/NuevaMarca" class="btn btn-success">Nuevo Dato</a>

@@ -1,0 +1,27 @@
+﻿
+.CabeceraTable {
+    display: block;
+    position: relative;
+    padding: 6px 7px 1px;
+    width: 100%;
+    float: left;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background: #fafafa
+}
+
+.PieTable {
+    margin-top:-16px;
+    background: #fafafa;
+    font-size: 11px;
+    overflow: hidden;
+    padding: 5px 10px;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px #fff;
+    -moz-box-shadow: inset 0 1px #fff;
+    -ms-box-shadow: inset 0 1px #fff;
+    box-shadow: inset 0 1px #fff
+}

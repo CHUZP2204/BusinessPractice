@@ -3,60 +3,71 @@
     ViewBag.Title = "ListaServicios";
 }
 
-<h2 style="text-align:center">Lista Servicios</h2>
+@section css{
 
-<a href="~/Home/Index" class="btn btn-success">Home</a>
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Tipo Servicio</th>
-            <th scope="col">Servicio</th>
-            <th scope="col">Precio</th>
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
+<div class="Principal">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">Lista Servicios</h2>
 
-            foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result PosicionModelo in Model.ListaServicios)
-            {
-                <tr>
-                    <td>@PosicionModelo.ID_Servicio</td>
+        <a href="~/Home/Index" class="btn btn-success">Home</a>
+    </div>
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tipo Servicio</th>
+                <th scope="col">Servicio</th>
+                <th scope="col">Precio</th>
 
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
-                    {
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
 
-                        if (PosicionModelo.ID_TipoServicio == ModeloTipoS.ID_TipoServicio)
+                foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result PosicionModelo in Model.ListaServicios)
+                {
+                    <tr>
+                        <td>@PosicionModelo.ID_Servicio</td>
+
+                        @foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoS in this.ViewBag.ListaTipoServicios)
                         {
-                            <td>@ModeloTipoS.Nombre_TipoServicio</td>
+
+                            if (PosicionModelo.ID_TipoServicio == ModeloTipoS.ID_TipoServicio)
+                            {
+                                <td>@ModeloTipoS.Nombre_TipoServicio</td>
+                            }
+
                         }
+                        <td>@PosicionModelo.Nombre_Servicio</td>
+                        <td>@PosicionModelo.Precio_Servicio</td>
 
-                    }
-                    <td>@PosicionModelo.Nombre_Servicio</td>
-                    <td>@PosicionModelo.Precio_Servicio</td>
-
-                    <td>
-                        <a href="~/Servicios/ModificaSERV?id_Serv=@PosicionModelo.ID_Servicio" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Servicios/MostrarSERV?id_Serv=@PosicionModelo.ID_Servicio" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href="~/Servicios/ModificaSERV?id_Serv=@PosicionModelo.ID_Servicio" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/Servicios/MostrarSERV?id_Serv=@PosicionModelo.ID_Servicio" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!---->
+        <a href="~/Servicios/NuevoSERV" class="btn btn-success">Nuevo</a>
+        <a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Tipos Servicios</a>
+
+        <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+
+        <a href="" data-bs-toggle="modal" data-bs-target="#ModalServicios">Nuevo</a>
+    </div>
+</div>
+
 <!---->
-<a href="~/Servicios/NuevoSERV" class="btn btn-success">Nuevo</a>
-<a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Tipos Servicios</a>
-
-<a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
-
-<a href="" data-bs-toggle="modal" data-bs-target="#ModalServicios">Nuevo</a>
-
 <!--Modal De Registro-->
 <div class="modal" id="ModalServicios" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -81,14 +92,14 @@
                                 }
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Servicio:</label>
                             <input type="text" class="form-control" name="pNombreServicio" id="pNombreServicio" placeholder="Nombre Servicio">
                         </div>
                         <div class="form-group">
                             <label>Precio:</label>
-                            <input type="number" class="form-control" name="pPrecioServicio" id="pPrecioServicio" >
+                            <input type="number" class="form-control" name="pPrecioServicio" id="pPrecioServicio">
                         </div>
                     </div>
                 </form>
@@ -107,7 +118,7 @@
 <!--Fin-->
 
 @section scripts{
-    
+
     <script src="~/Scripts/Recargar.js"></script>
     <!--Modal Registro-->
     <script src="~/Scripts/Servicios/RegistroServicio.js"></script>

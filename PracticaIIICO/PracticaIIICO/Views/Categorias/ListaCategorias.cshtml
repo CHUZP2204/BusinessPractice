@@ -3,40 +3,52 @@
     ViewBag.Title = "ListaCategorias";
 }
 
-<h2>Lista Categorias</h2>
+@section css{
+    <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
+}
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Categoria</th>
-            <th scope="col">Descripcion</th>
+<div id="Contenedor">
+    <div class="CabeceraTable">
+        <h2 style="text-align:center">Lista Categorias</h2>
+        <br />
+        <br />
+    </div>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Descripcion</th>
 
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
 
-            foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result PosicionModelo in Model.ListaCategorias)
-            {
-                <tr>
-                    <td>@PosicionModelo.ID_Categoria</td>
-                    <td>@PosicionModelo.Nombre_Categoria</td>
-                    <td>@PosicionModelo.Descripcion_Categoria</td>
+                foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result PosicionModelo in Model.ListaCategorias)
+                {
+                    <tr>
+                        <td>@PosicionModelo.ID_Categoria</td>
+                        <td>@PosicionModelo.Nombre_Categoria</td>
+                        <td>@PosicionModelo.Descripcion_Categoria</td>
 
-                    <td>
-                        <a href="~/Categorias/ModificaCAT?id_cat=@PosicionModelo.ID_Categoria" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                        <a href="~/Categorias/MostrarCAT?id_cat=@PosicionModelo.ID_Categoria" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
+                        <td>
+                            <a href="~/Categorias/ModificaCAT?id_cat=@PosicionModelo.ID_Categoria" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="~/Categorias/MostrarCAT?id_cat=@PosicionModelo.ID_Categoria" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-<!--Paginador-->
-@{ Html.RenderPartial("_paginador", Model);}
-<!--Paginador-->
+        </tbody>
+    </table>
+    <div class="PieTable">
+        <!--Paginador-->
+        @{ Html.RenderPartial("_paginador", Model);}
+        <!--Paginador-->
 
-<a href="~/Categorias/NuevoCAT" class="btn btn-success">Nuevo</a>
+        <a href="~/Categorias/NuevoCAT" class="btn btn-success">Nuevo</a>
+    </div>
+</div>
+
