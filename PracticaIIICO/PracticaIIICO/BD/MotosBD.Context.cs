@@ -1433,5 +1433,83 @@ namespace PracticaIIICO.BD
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Products_ID_Result>("sp_Retorna_Products_ID", idPRODParameter);
         }
+    
+        public virtual int sp_Inserta_Imagenes(Nullable<int> idproducto, string urlImagen, string descripImagen)
+        {
+            var idproductoParameter = idproducto.HasValue ?
+                new ObjectParameter("idproducto", idproducto) :
+                new ObjectParameter("idproducto", typeof(int));
+    
+            var urlImagenParameter = urlImagen != null ?
+                new ObjectParameter("urlImagen", urlImagen) :
+                new ObjectParameter("urlImagen", typeof(string));
+    
+            var descripImagenParameter = descripImagen != null ?
+                new ObjectParameter("descripImagen", descripImagen) :
+                new ObjectParameter("descripImagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_Imagenes", idproductoParameter, urlImagenParameter, descripImagenParameter);
+        }
+    
+        public virtual int sp_Modifica_Imagenes(Nullable<int> idImagen, Nullable<int> idproducto, string urlImagen, string descripImagen)
+        {
+            var idImagenParameter = idImagen.HasValue ?
+                new ObjectParameter("idImagen", idImagen) :
+                new ObjectParameter("idImagen", typeof(int));
+    
+            var idproductoParameter = idproducto.HasValue ?
+                new ObjectParameter("idproducto", idproducto) :
+                new ObjectParameter("idproducto", typeof(int));
+    
+            var urlImagenParameter = urlImagen != null ?
+                new ObjectParameter("urlImagen", urlImagen) :
+                new ObjectParameter("urlImagen", typeof(string));
+    
+            var descripImagenParameter = descripImagen != null ?
+                new ObjectParameter("descripImagen", descripImagen) :
+                new ObjectParameter("descripImagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Modifica_Imagenes", idImagenParameter, idproductoParameter, urlImagenParameter, descripImagenParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_Imagenes_Result> sp_Retorna_Imagenes(string urlImagen, string descripImagen)
+        {
+            var urlImagenParameter = urlImagen != null ?
+                new ObjectParameter("urlImagen", urlImagen) :
+                new ObjectParameter("urlImagen", typeof(string));
+    
+            var descripImagenParameter = descripImagen != null ?
+                new ObjectParameter("descripImagen", descripImagen) :
+                new ObjectParameter("descripImagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_Imagenes_Result>("sp_Retorna_Imagenes", urlImagenParameter, descripImagenParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_ImagenesID_Result> sp_Retorna_ImagenesID(Nullable<int> idImagen)
+        {
+            var idImagenParameter = idImagen.HasValue ?
+                new ObjectParameter("idImagen", idImagen) :
+                new ObjectParameter("idImagen", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_ImagenesID_Result>("sp_Retorna_ImagenesID", idImagenParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_ImagenesIDPROD_Result> sp_Retorna_ImagenesIDPROD(Nullable<int> idProducto)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("idProducto", idProducto) :
+                new ObjectParameter("idProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_ImagenesIDPROD_Result>("sp_Retorna_ImagenesIDPROD", idProductoParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_ProductsImages_Result> sp_Retorna_ProductsImages(string nombrePROD)
+        {
+            var nombrePRODParameter = nombrePROD != null ?
+                new ObjectParameter("nombrePROD", nombrePROD) :
+                new ObjectParameter("nombrePROD", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_ProductsImages_Result>("sp_Retorna_ProductsImages", nombrePRODParameter);
+        }
     }
 }

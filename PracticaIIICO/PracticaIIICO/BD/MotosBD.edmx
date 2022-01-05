@@ -98,16 +98,11 @@
           <Property Name="Monto_IVA" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Monto_Final" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.ImagenesTbl' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="ImagenesTbl">
           <Key>
             <PropertyRef Name="ID_Imagen" />
-            <PropertyRef Name="ID_Producto" />
-            <PropertyRef Name="Url_Imagen" />
-            <PropertyRef Name="Descripcion_Imagen" />
           </Key>
-          <Property Name="ID_Imagen" Type="int" Nullable="false" />
+          <Property Name="ID_Imagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_Producto" Type="int" Nullable="false" />
           <Property Name="Url_Imagen" Type="varchar" MaxLength="450" Nullable="false" />
           <Property Name="Descripcion_Imagen" Type="varchar" MaxLength="250" Nullable="false" />
@@ -602,6 +597,11 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="montoIVA" Type="decimal" Mode="In" />
           <Parameter Name="montoFinal" Type="decimal" Mode="In" />
         </Function>
+        <Function Name="sp_Inserta_Imagenes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idproducto" Type="int" Mode="In" />
+          <Parameter Name="urlImagen" Type="varchar" Mode="In" />
+          <Parameter Name="descripImagen" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_Inserta_Marcas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreMarca" Type="varchar" Mode="In" />
           <Parameter Name="descripcionMarca" Type="varchar" Mode="In" />
@@ -721,6 +721,12 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="montoDescuento" Type="decimal" Mode="In" />
           <Parameter Name="montoIVA" Type="decimal" Mode="In" />
           <Parameter Name="montoFinal" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="sp_Modifica_Imagenes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idImagen" Type="int" Mode="In" />
+          <Parameter Name="idproducto" Type="int" Mode="In" />
+          <Parameter Name="urlImagen" Type="varchar" Mode="In" />
+          <Parameter Name="descripImagen" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_Modifica_Marcas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMarca" Type="int" Mode="In" />
@@ -844,6 +850,16 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
         <Function Name="sp_Retorna_FacturaID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idEntr" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Retorna_Imagenes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="urlImagen" Type="varchar" Mode="In" />
+          <Parameter Name="descripImagen" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_ImagenesID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idImagen" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_ImagenesIDPROD" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idProducto" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Retorna_Marcas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreMarca" Type="varchar" Mode="In" />
           <Parameter Name="descripcion" Type="varchar" Mode="In" />
@@ -857,6 +873,9 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
         </Function>
         <Function Name="sp_Retorna_Products_ID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idPROD" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_ProductsImages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombrePROD" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_Retorna_Proveedores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreProv" Type="varchar" Mode="In" />
@@ -912,6 +931,7 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <EntitySet Name="DetalleEntradaTbl" EntityType="Self.DetalleEntradaTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleSalidaTbl" EntityType="Self.DetalleSalidaTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntradasTbl" EntityType="Self.EntradasTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImagenesTbl" EntityType="Self.ImagenesTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarcaTbl" EntityType="Self.MarcaTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductosTbl" EntityType="Self.ProductosTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProveedoresTbl" EntityType="Self.ProveedoresTbl" Schema="dbo" store:Type="Tables" />
@@ -920,14 +940,6 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <EntitySet Name="Tipo_ServicioTbl" EntityType="Self.Tipo_ServicioTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ImagenesTbl" EntityType="Self.ImagenesTbl" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ImagenesTbl].[ID_Imagen] AS [ID_Imagen], 
-[ImagenesTbl].[ID_Producto] AS [ID_Producto], 
-[ImagenesTbl].[Url_Imagen] AS [Url_Imagen], 
-[ImagenesTbl].[Descripcion_Imagen] AS [Descripcion_Imagen]
-FROM [dbo].[ImagenesTbl] AS [ImagenesTbl]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="CotizacionDesgloseView" EntityType="Self.CotizacionDesgloseView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
 [CotizacionDesgloseView].[ID_Cotizacion] AS [ID_Cotizacion], 
@@ -1804,7 +1816,31 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
             <Parameter Name="descripPROD" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_Products_ID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Products_ID_Result)">
-            <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          <Parameter Name="idPROD" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Inserta_Imagenes">
+            <Parameter Name="idproducto" Mode="In" Type="Int32" />
+            <Parameter Name="urlImagen" Mode="In" Type="String" />
+            <Parameter Name="descripImagen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Modifica_Imagenes">
+            <Parameter Name="idImagen" Mode="In" Type="Int32" />
+            <Parameter Name="idproducto" Mode="In" Type="Int32" />
+            <Parameter Name="urlImagen" Mode="In" Type="String" />
+            <Parameter Name="descripImagen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_Imagenes" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_Imagenes_Result)">
+            <Parameter Name="urlImagen" Mode="In" Type="String" />
+            <Parameter Name="descripImagen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_ImagenesID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_ImagenesID_Result)">
+          <Parameter Name="idImagen" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_ImagenesIDPROD" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_ImagenesIDPROD_Result)">
+          <Parameter Name="idProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_ProductsImages" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_ProductsImages_Result)">
+            <Parameter Name="nombrePROD" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -2375,6 +2411,36 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
           <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
           <Property Type="Int32" Name="Cantidad_PROD" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_Imagenes_Result">
+          <Property Type="Int32" Name="ID_Imagen" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="String" Name="Url_Imagen" Nullable="false" MaxLength="450" />
+          <Property Type="String" Name="Descripcion_Imagen" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_ImagenesID_Result">
+          <Property Type="Int32" Name="ID_Imagen" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="String" Name="Url_Imagen" Nullable="false" MaxLength="450" />
+          <Property Type="String" Name="Descripcion_Imagen" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_ImagenesIDPROD_Result">
+          <Property Type="Int32" Name="ID_Imagen" Nullable="false" />
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="String" Name="Url_Imagen" Nullable="false" MaxLength="450" />
+          <Property Type="String" Name="Descripcion_Imagen" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_ProductsImages_Result">
+          <Property Type="Int32" Name="ID_Producto" Nullable="false" />
+          <Property Type="Int32" Name="ID_Imagen" Nullable="false" />
+          <Property Type="Int32" Name="ID_Categoria" Nullable="false" />
+          <Property Type="String" Name="Nombre_PROD" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Precio_PROD" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Descripcion_PROD" Nullable="false" MaxLength="250" />
+          <Property Type="Boolean" Name="Estado_PROD" Nullable="false" />
+          <Property Type="Int32" Name="Cantidad_PROD" Nullable="true" />
+          <Property Type="String" Name="Url_Imagen" Nullable="false" MaxLength="450" />
+          <Property Type="String" Name="Descripcion_Imagen" Nullable="false" MaxLength="250" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3134,6 +3200,54 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
                 <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
                 <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
                 <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Inserta_Imagenes" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_Imagenes" />
+          <FunctionImportMapping FunctionImportName="sp_Modifica_Imagenes" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_Imagenes" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_Imagenes" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_Imagenes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_Imagenes_Result">
+                <ScalarProperty Name="ID_Imagen" ColumnName="ID_Imagen" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
+                <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_ImagenesID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_ImagenesID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_ImagenesID_Result">
+                <ScalarProperty Name="ID_Imagen" ColumnName="ID_Imagen" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
+                <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_ImagenesIDPROD" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_ImagenesIDPROD">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_ImagenesIDPROD_Result">
+                <ScalarProperty Name="ID_Imagen" ColumnName="ID_Imagen" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
+                <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_ProductsImages" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_ProductsImages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_ProductsImages_Result">
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+                <ScalarProperty Name="ID_Imagen" ColumnName="ID_Imagen" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+                <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
+                <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
+                <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

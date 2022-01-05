@@ -27,6 +27,11 @@ namespace PracticaIIICO.Controllers
             List<sp_Retorna_Productos_Result> datosObtenidos = new List<sp_Retorna_Productos_Result>();
             datosObtenidos = this.ModeloBD.sp_Retorna_Productos(null, null).ToList();
 
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"].ToString();
+            }
+
             this.agregaCategorias();
             //Parte Con Paginador
 
@@ -75,6 +80,14 @@ namespace PracticaIIICO.Controllers
             }
         }
         //Paginacion FIN
+
+        public ActionResult CatalogoProductos()
+        {
+            List<sp_Retorna_ProductsImages_Result> modeloVista = new List<sp_Retorna_ProductsImages_Result>();
+            modeloVista = this.ModeloBD.sp_Retorna_ProductsImages(null).ToList();
+
+            return View(modeloVista);
+        }
 
         // GET: Productos/Create
         public ActionResult NuevoPROD()
@@ -129,6 +142,8 @@ namespace PracticaIIICO.Controllers
         {
             sp_Retorna_Products_ID_Result vistObtenida = new sp_Retorna_Products_ID_Result();
             vistObtenida = this.ModeloBD.sp_Retorna_Products_ID(id_prod).FirstOrDefault();
+
+            
 
             this.agregaCategorias();
             return View(vistObtenida);

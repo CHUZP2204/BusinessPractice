@@ -8,6 +8,13 @@
     <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
 }
 
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.Message
+    </div>
+}
+
 <div class="principal">
     <div class="CabeceraTable">
         <!---->
@@ -180,7 +187,7 @@
 
 <div id="ModalRegistroPROD"></div>
 
-
+<!--<img src="~/Files/PruebaChuzPROD.png" alt="" width="110" height="30">-->
 <!--Final Pruebas-->
 
 @section scripts{
@@ -190,5 +197,5 @@
     <script src="~/Scripts/Productos/RegistraProducto.js"></script>
     <script src="~/Scripts/scriptGenerico.js"></script>
     @*Paginacion De Tabla*@
-    
+
 }

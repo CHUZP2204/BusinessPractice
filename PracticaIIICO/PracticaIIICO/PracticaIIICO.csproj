@@ -258,6 +258,15 @@
     <Compile Include="BD\sp_Retorna_FacturaID_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_Retorna_ImagenesIDPROD_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_ImagenesID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_Imagenes_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Retorna_Marcas_ID_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -265,6 +274,9 @@
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Productos_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_ProductsImages_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\sp_Retorna_Products_ID_Result.cs">
@@ -335,6 +347,7 @@
     <Compile Include="Controllers\Servicios\ServiciosController.cs" />
     <Compile Include="Controllers\Servicios\TipoServiciosController.cs" />
     <Compile Include="Controllers\Sesion\SesionController.cs" />
+    <Compile Include="Controllers\SubirArchivos\SubirArchivoController.cs" />
     <Compile Include="Controllers\Usuarios\TipoUsuariosController.cs" />
     <Compile Include="Controllers\Usuarios\UsuariosController.cs" />
     <Compile Include="Filters\AuthorizeUser.cs" />
@@ -357,6 +370,7 @@
     <Compile Include="ViewModels\ViewProveedoresModel.cs" />
     <Compile Include="ViewModels\ViewSalidasModel.cs" />
     <Compile Include="ViewModels\ViewServiciosModel.cs" />
+    <Compile Include="ViewModels\ViewSubidaModel.cs" />
     <Compile Include="ViewModels\ViewTiposervicioModel.cs" />
     <Compile Include="ViewModels\ViewTipoUsuarioModel.cs" />
     <Compile Include="ViewModels\ViewUsuariosModel.cs" />
@@ -393,6 +407,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Busqueda.css" />
+    <Content Include="Content\Card\Card.css" />
     <Content Include="Content\MiPerfil.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Sesion\loginFinal.css" />
@@ -2269,9 +2284,12 @@
     <Content Include="Views\Usuarios\ListaNueva.cshtml" />
     <Content Include="Views\Productos\Listado2.cshtml" />
     <Content Include="Views\Shared\_paginador.cshtml" />
+    <Content Include="Views\SubirArchivo\IndexCarga.cshtml" />
+    <Content Include="Views\Productos\CatalogoProductos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
