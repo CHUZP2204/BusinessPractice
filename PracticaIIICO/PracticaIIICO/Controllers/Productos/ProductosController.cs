@@ -81,12 +81,30 @@ namespace PracticaIIICO.Controllers
         }
         //Paginacion FIN
 
-        public ActionResult CatalogoProductos()
+        public ActionResult CatalogoProductos(int pagina = 1)
         {
             List<sp_Retorna_ProductsImages_Result> modeloVista = new List<sp_Retorna_ProductsImages_Result>();
             modeloVista = this.ModeloBD.sp_Retorna_ProductsImages(null).ToList();
 
-            return View(modeloVista);
+            var cantidadRegistroPorPagina = 4; //parametro
+            using (var db = new MotoRepuestosMakoEntities())
+            {
+                var productos = db.sp_Retorna_ProductsImages(null).Skip((pagina - 1) * cantidadRegistroPorPagina)
+                    .Take(cantidadRegistroPorPagina).ToList();
+
+                var totalRegistros = db.sp_Retorna_ProductsImages(null).Count();
+
+                var modelo = new ViewImagenesModel();
+
+                modelo.ModeloImagensPROD = productos;
+                modelo.PaginaActual = pagina;
+                modelo.TotalRegistros = totalRegistros;
+                modelo.RegistrosPorPagina = cantidadRegistroPorPagina;
+
+                return View(modelo);
+            }
+
+            //return View(modeloVista);
         }
 
         // GET: Productos/Create

@@ -4,22 +4,42 @@
     outline: none;
 }
 
+.scroll_vertical {
+    height: 114px;
+    width: 114px;
+    overflow: auto;
+    border: 1px solid #666;
+    /*background-color: #ccc;*/
+    padding: 8px;
+}
 
+.scroll_horizontal {
+    width: 400px;
+    overflow: auto;
+    border: 1px solid #666;
+    /*background-color: #ccc;*/
+    padding: 8px;
+}
 
-.container {
-    width: 280px;
-    height: 500px;
-    margin: 30px auto;
+.containerCard {
+    padding: 10px;
+    width: auto;
+    height: 506px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap;
 }
 
 .card {
     border-radius: 25px;
     box-shadow: -11px 11px 1px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    width: 250px;
 }
 
 .card-head {
     position: relative;
-    height: 252px;
+    height: 200px;
     background: #fa782e;
     /* Old browsers */
     background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
@@ -38,20 +58,40 @@
     margin: 20px;
 }
 
+.TituloCard {
+    padding: 20px;
+}
+
+
+    .TituloCard h4 {
+        text-align:center;
+    }
+
+
+.pictureSize {
+    float: right;
+    width: 190px;
+    height: 134px;
+    padding: 0px;
+    border-radius: 12px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
 .product-img {
-    position: absolute;
-    left: 0;
-    margin-top: -16px;
-    margin-left: 50px;
+    width: 150px;
+    height: 120px;
+    margin: 10px;
 }
 
 .product-detail {
     padding: 0 20px;
     font-size: 11px;
     color: #fff;
+    margin-top: -22px;
 }
 
-    .product-detail h2 {
+    .product-detail h4 {
         font-size: 18px;
         font-weight: 500;
         letter-spacing: 2px;
@@ -209,7 +249,6 @@
             }
 
 .product-price {
-    position: absolute;
     background: #11e95b;
     padding: 7px 20px;
     text-align: center;
@@ -218,9 +257,9 @@
     font-weight: 200;
     color: #fff;
     border-radius: 7px;
-    margin-top: -13px;
-    margin-left: -5px;
-    box-shadow: -10px 20px 15px -10px rgba(17, 233, 91, 0.3);
+    margin-top: 30px;
+    margin-left: 5px;
+    box-shadow: -10px 20px 15px -10px rgb(17 233 91 / 30%);
 }
 
     .product-price b {

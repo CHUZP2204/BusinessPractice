@@ -49,7 +49,7 @@ namespace PracticaIIICO.Controllers.SubirArchivos
                 this.ModeloBD.sp_Inserta_Imagenes(idProductoAEditar,urlImagen,descripImg);
             }
 
-            model.Archivo1.SaveAs(PathArchivo1);
+            model.Archivo1.SaveAs(PathArchivo1);//Almacena La Imagen en la direccion dada
 
             @TempData["Message"] = "Se Cargaron Los Archivos Al Sistema"; //Es Parecido al ViewBag Pero Vive mas
             return RedirectToAction("ListaProductos","Productos");

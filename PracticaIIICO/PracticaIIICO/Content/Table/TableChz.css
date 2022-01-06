@@ -25,3 +25,20 @@
     -ms-box-shadow: inset 0 1px #fff;
     box-shadow: inset 0 1px #fff
 }
+
+.scroll_vertical {
+    height: 114px;
+    width: 114px;
+    overflow: auto;
+    border: 1px solid #666;
+    /*background-color: #ccc;*/
+    padding: 8px;
+}
+
+.scroll_horizontal {
+    width:auto;
+    overflow: auto;
+    
+    /*background-color: #ccc;*/
+    padding: 1px;
+}

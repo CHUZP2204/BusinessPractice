@@ -366,6 +366,7 @@
     <Compile Include="ViewModels\ViewCitasModel.cs" />
     <Compile Include="ViewModels\ViewCotizacionModel.cs" />
     <Compile Include="ViewModels\ViewEntradasModel.cs" />
+    <Compile Include="ViewModels\ViewImagenesModel.cs" />
     <Compile Include="ViewModels\ViewMarcaModel.cs" />
     <Compile Include="ViewModels\ViewProveedoresModel.cs" />
     <Compile Include="ViewModels\ViewSalidasModel.cs" />
