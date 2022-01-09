@@ -7,6 +7,12 @@
     <link href="~/Content/Table/TableChz.css" rel="stylesheet" />
 }
 
+@if (ViewBag.MensajeStock != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.MensajeStock
+    </div>
+}
 
 <div id="ContenedorDatos">
     <div class="CabeceraTable">

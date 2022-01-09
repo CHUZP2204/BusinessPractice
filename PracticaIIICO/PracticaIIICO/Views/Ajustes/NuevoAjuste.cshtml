@@ -15,23 +15,43 @@
                 {
                     <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD</option>
                 }
+
+
             }
         </select>
     </div>
-    <div class="form-group">
-        <label>Usuario:</label>
-        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-            @{
-                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                {
-                    <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+    @if (ViewBag.UsuarioActual == "Empleado")
+    {
+        <div class="form-group">
+            <label>Usuario:</label>
+            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                @{
+                    foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuarioID)
+                    {
+                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                    }
                 }
-            }
-        </select>
-    </div>
+            </select>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label>Usuario:</label>
+            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                @{
+                    foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                    {
+                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                    }
+                }
+            </select>
+        </div>
+    }
+
     <div class="form-group">
         <label>Tipo Ajuste:</label>
-        
+
         <select name="Tipo_Ajuste" id="Tipo_Ajuste" class="form-control">
             <option value="Entrada">Entrada</option>
             <option value="Salida">Salida</option>
@@ -51,4 +71,4 @@
     </div>
 </form>
 
-<a href="~/Ajuste/ListAjuste" class="btn btn-primary">Ver Lista</a>
+<a href="~/Ajustes/ListAjustes" class="btn btn-primary">Ver Lista</a>

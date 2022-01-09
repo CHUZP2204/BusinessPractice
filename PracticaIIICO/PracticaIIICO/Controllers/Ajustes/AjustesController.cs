@@ -24,6 +24,11 @@ namespace PracticaIIICO.Controllers.Ajustes
             List<sp_Retorna_Ajustes_Result> modelObtenido = new List<sp_Retorna_Ajustes_Result>();
             modelObtenido = this.ModeloBD.sp_Retorna_Ajustes(null).ToList();
 
+            if (TempData["MensajeStock"] != null)
+            {
+                ViewBag.MensajeStock = TempData["MensajeStock"].ToString();
+            }
+
             this.agregaProductos();
             this.agregaUsuarios();
 
@@ -47,14 +52,20 @@ namespace PracticaIIICO.Controllers.Ajustes
                 return View(modelo);
             }
 
-           //Sin Paginador / return View(modelObtenido);
+            //Sin Paginador / return View(modelObtenido);
         }
 
         // GET: Ajustes/Create
         public ActionResult NuevoAjuste()
         {
+
+            string tipoUsuarioActual = Session["RoleUsuario"].ToString();
+
+            this.ViewBag.UsuarioActual = tipoUsuarioActual;
+
             this.agregaProductos();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
             return View();
         }
 
@@ -64,9 +75,35 @@ namespace PracticaIIICO.Controllers.Ajustes
         {
 
             int cantRegistroAfectado = 0;
+            int estadoStock = 0;
             string resultado = "";
+
+
+            sp_Retorna_Products_ID_Result productoActual = new sp_Retorna_Products_ID_Result();
+            productoActual = this.ModeloBD.sp_Retorna_Products_ID(modeloVista.ID_Producto).FirstOrDefault();
+
+            //Calculos
+
+            int stockActual = 0;
+            int stockVista = 0;
+            int stockFinal = 0;
+
+            stockVista = modeloVista.Cantida_Ajustar;
+            stockActual = (int)productoActual.Cantidad_PROD;
+
+            if (modeloVista.Tipo_Ajuste.Equals("Entrada"))
+            {
+                stockFinal = stockActual + stockVista;
+            }
+            else if (modeloVista.Tipo_Ajuste.Equals("Salida"))
+            {
+                stockFinal = stockActual - stockVista;
+            }
+
             DateTime fechaIngreso;
             fechaIngreso = DateTime.Now;
+
+
 
             try
             {
@@ -79,6 +116,28 @@ namespace PracticaIIICO.Controllers.Ajustes
                     fechaIngreso,
                     modeloVista.Descripcion_Ajsute
                     );
+                //Actualizar el Inventario el campo STOCK
+
+                estadoStock = this.ModeloBD.sp_Modifica_Products(
+                 productoActual.ID_Producto,
+                 productoActual.ID_Categoria,
+                 productoActual.Nombre_PROD,
+                 productoActual.Precio_PROD,
+                 productoActual.Descripcion_PROD,
+                 productoActual.Estado_PROD,
+                 stockFinal
+               );
+                if (modeloVista.Tipo_Ajuste == "Entrada")
+                {
+                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                    " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                }
+                else if (modeloVista.Tipo_Ajuste == "Salida")
+                {
+                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                    " Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                }
+
 
                 return RedirectToAction("ListAjustes");
             }
@@ -101,6 +160,7 @@ namespace PracticaIIICO.Controllers.Ajustes
             Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
 
             this.agregaUsuarios();
+            this.agregaUsuariosID();
             this.agregaProductos();
             return View();
         }
@@ -114,6 +174,7 @@ namespace PracticaIIICO.Controllers.Ajustes
 
             this.agregaProductos();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
             return View(datosObtenidos);
         }
@@ -144,6 +205,7 @@ namespace PracticaIIICO.Controllers.Ajustes
             catch (Exception errorObtenido)
             {
                 resultado = "Ocurrio Un Error: " + errorObtenido.Message;
+                this.agregaUsuariosID();
                 this.agregaUsuarios();
                 this.agregaProductos();
                 Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
@@ -200,8 +262,16 @@ namespace PracticaIIICO.Controllers.Ajustes
             }
         }
 
+        void agregaUsuariosID()
+        {
+            string idConvertido = Session["IdUsuario"].ToString();
+            int idUsuarioActual = int.Parse(idConvertido);
+            this.ViewBag.ListaUsuarioID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+        }
+
         void agregaUsuarios()
         {
+
             this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
         }
 

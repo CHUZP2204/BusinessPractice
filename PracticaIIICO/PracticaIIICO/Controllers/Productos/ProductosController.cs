@@ -174,6 +174,7 @@ namespace PracticaIIICO.Controllers
             int cantidadRegistrosAfectados = 0;
             string resultado = " ";
 
+
             try
             {
                 cantidadRegistrosAfectados =

@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Alertas";
+}
+
+<h2>Alertas</h2>
+
+
+<div class="alertasInventario">
+    @foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ListaAgotados in this.Model)
+    {
+        if (ListaAgotados == null)
+        {
+            <div class="alert alert-success" role="alert">
+                <h3>El inventario Actual de produstos se encuentra solvente</h3>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.MessageAgotados<h5>@ListaAgotados.Nombre_PROD</h5>
+                <h3>Cantidad Actual En Inventario @ListaAgotados.Cantidad_PROD</h3>
+                <p>Por Favor Agregar Mas Producto al inventario</p>
+
+
+
+            </div>
+        }
+
+    }
+</div>
+
+
+<div class="AlertaMisDatos">
+    @if (ViewBag.EstadoAlertaDatos == 0)
+    {
+        <div class="alert alert-success" role="alert">
+            <h3>Su Informacion Se Encuentra Actualizada</h3>
+            
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            <h3>Alerta Verifique Sus Datos Faltantes</h3>
+            <strong>@ViewBag.AlertaMisdatos</strong>
+        </div>
+    }
+
+</div>
+
+<div class="alertasEntradas">
+
+</div>
+
+<div class="alertasSalidas">
+
+</div>
+
+

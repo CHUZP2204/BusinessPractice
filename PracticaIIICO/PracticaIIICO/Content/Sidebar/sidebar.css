@@ -145,7 +145,7 @@ body {
     display: inline-block;
     width: 100%;
     padding-left: 0px;
-    padding-top: 20px;
+    padding-top: 0px; /*Altura del content 20px*/
 }
 
     .page-wrapper .page-content > div {
