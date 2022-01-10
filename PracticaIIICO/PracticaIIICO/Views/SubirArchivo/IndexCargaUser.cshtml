@@ -1,0 +1,55 @@
+﻿@model PracticaIIICO.ViewModels.ViewSubidaUser
+
+@{
+    ViewBag.Title = "IndexCargaUser";
+}
+
+<h2>Index Carga User</h2>
+
+@using (Html.BeginForm("SaveFileUSER", "SubirArchivo", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>View Subida Imagen Usuario</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label>Codigo Usuario</label>
+            <input type="number" name="ID_Usuario" id="ID_Usuario" class="form-control" readonly value="@Model.ID_Usuario" />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(d => d.Archivo1)
+            @Html.TextBoxFor(d => d.Archivo1, new { @class = "form-control", type = "file", accept = ".jpg" })
+            @Html.ValidationMessageFor(d => d.Archivo1, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CadenaNombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CadenaNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CadenaNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DescripcionImg, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DescripcionImg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DescripcionImg, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Lista Usuarios", "ListaUsuarios","Usuarios")
+</div>

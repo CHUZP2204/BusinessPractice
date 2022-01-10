@@ -42,12 +42,27 @@ namespace PracticaIIICO.Controllers.Sesion
                     sp_Retorna_TipoUsuario_ID_Result tipoUsuarioActual = new sp_Retorna_TipoUsuario_ID_Result();
                     tipoUsuarioActual = this.ModeloBD.sp_Retorna_TipoUsuario_ID(usuarioActual.ID_TipoUsuario).FirstOrDefault();
                     ///
+                    sp_Retorna_UsuariosViewInfoID_Result modeloCompleto = new sp_Retorna_UsuariosViewInfoID_Result();
+                    modeloCompleto = this.ModeloBD.sp_Retorna_UsuariosViewInfoID(datosObtenidos.ID_Usuario).FirstOrDefault();
+
                     Session["UsuarioActual"] = usuarioActual;
                     //
                     Session["NombreUsuario"] = usuarioActual.Nombre_U;
                     Session["ApellidosUsuario"] = usuarioActual.Apellido1_U + " " + usuarioActual.Apellido2_U;
                     Session["IdUsuario"] = usuarioActual.ID_Usuario;
                     Session["RoleUsuario"] = tipoUsuarioActual.Nombre_TipoUsuario;
+                    //FOTO
+                    if (modeloCompleto != null)
+                    {
+                        Session["URlFoto"] = modeloCompleto.urlImagenPerfil;
+                    }
+                    else
+                    {
+                        Session["URlFoto"] = "/Images/User.jpg";
+                    }
+
+
+
                     FormsAuthentication.SetAuthCookie(datosObtenidos.Nombre_U, true);
                     return this.RedirectToAction("Index", "Home");
                     //return this.RedirectToAction("Index", "tbl_Usuarios", new { Area = "Admin" });
@@ -201,7 +216,7 @@ namespace PracticaIIICO.Controllers.Sesion
             string cadena1 = "";
             string cadena2 = "";
 
-            
+
 
 
             sp_VerificaDatos_Usuario_Result busquedaDatos = new sp_VerificaDatos_Usuario_Result();

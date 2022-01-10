@@ -168,6 +168,9 @@
     <Compile Include="BD\ImagenesTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\ImgUsers.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\MarcaTbl.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -187,6 +190,9 @@
       <DependentUpon>MotosBD.edmx</DependentUpon>
     </Compile>
     <Compile Include="BD\ProductosTbl.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\ProductsImagesView.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\ProveedoresTbl.cs">
@@ -312,6 +318,12 @@
     <Compile Include="BD\sp_Retorna_UsuarioID_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="BD\sp_Retorna_UsuariosViewInfoID_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\sp_Retorna_UsuariosViewInfo_Result.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
     <Compile Include="BD\sp_Retorna_Usuario_Result.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
@@ -328,6 +340,9 @@
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="BD\Usuarios.cs">
+      <DependentUpon>MotosBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BD\ViewUsuariosINFO.cs">
       <DependentUpon>MotosBD.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Ajustes\AjustesController.cs" />
@@ -373,6 +388,7 @@
     <Compile Include="ViewModels\ViewSalidasModel.cs" />
     <Compile Include="ViewModels\ViewServiciosModel.cs" />
     <Compile Include="ViewModels\ViewSubidaModel.cs" />
+    <Compile Include="ViewModels\ViewSubidaUser.cs" />
     <Compile Include="ViewModels\ViewTiposervicioModel.cs" />
     <Compile Include="ViewModels\ViewTipoUsuarioModel.cs" />
     <Compile Include="ViewModels\ViewUsuariosModel.cs" />
@@ -2289,10 +2305,12 @@
     <Content Include="Views\SubirArchivo\IndexCarga.cshtml" />
     <Content Include="Views\Productos\CatalogoProductos.cshtml" />
     <Content Include="Views\Home\Alertas.cshtml" />
+    <Content Include="Views\SubirArchivo\IndexCargaUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="UserImg\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

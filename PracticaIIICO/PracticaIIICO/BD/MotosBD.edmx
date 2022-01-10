@@ -107,6 +107,15 @@
           <Property Name="Url_Imagen" Type="varchar" MaxLength="450" Nullable="false" />
           <Property Name="Descripcion_Imagen" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="ImgUsers">
+          <Key>
+            <PropertyRef Name="ID_ImgPerfil" />
+          </Key>
+          <Property Name="ID_ImgPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="urlImagenPerfil" Type="varchar(max)" Nullable="false" />
+          <Property Name="descripImg" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="MarcaTbl">
           <Key>
             <PropertyRef Name="ID_Marca" />
@@ -271,6 +280,67 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Property Name="PrecioXCant" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Nombre_PROV" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Nombre_PROD" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.ProductsImagesView' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ProductsImagesView">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="ID_Imagen" />
+            <PropertyRef Name="ID_Categoria" />
+            <PropertyRef Name="Nombre_PROD" />
+            <PropertyRef Name="Precio_PROD" />
+            <PropertyRef Name="Descripcion_PROD" />
+            <PropertyRef Name="Estado_PROD" />
+            <PropertyRef Name="Url_Imagen" />
+            <PropertyRef Name="Descripcion_Imagen" />
+          </Key>
+          <Property Name="ID_Producto" Type="int" Nullable="false" />
+          <Property Name="ID_Imagen" Type="int" Nullable="false" />
+          <Property Name="ID_Categoria" Type="int" Nullable="false" />
+          <Property Name="Nombre_PROD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Precio_PROD" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Descripcion_PROD" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Estado_PROD" Type="bit" Nullable="false" />
+          <Property Name="Cantidad_PROD" Type="int" />
+          <Property Name="Url_Imagen" Type="varchar" MaxLength="450" Nullable="false" />
+          <Property Name="Descripcion_Imagen" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.ViewUsuariosINFO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="ViewUsuariosINFO">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_TipoUsuario" />
+            <PropertyRef Name="ID_ImgPerfil" />
+            <PropertyRef Name="Estado_U" />
+            <PropertyRef Name="Usuario_Ingreso" />
+            <PropertyRef Name="Nombre_U" />
+            <PropertyRef Name="Apellido1_U" />
+            <PropertyRef Name="Apellido2_U" />
+            <PropertyRef Name="Direccion_U" />
+            <PropertyRef Name="Correo_U" />
+            <PropertyRef Name="Telefono_U" />
+            <PropertyRef Name="urlImagenPerfil" />
+            <PropertyRef Name="Nombre_TipoUsuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="int" Nullable="false" />
+          <Property Name="ID_TipoUsuario" Type="int" Nullable="false" />
+          <Property Name="ID_ImgPerfil" Type="int" Nullable="false" />
+          <Property Name="Cedula_U" Type="varchar" MaxLength="25" />
+          <Property Name="Fecha_Creado" Type="date" />
+          <Property Name="UltimaVezConectado" Type="date" />
+          <Property Name="Estado_U" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Usuario_Ingreso" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre_U" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido1_U" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido2_U" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direccion_U" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="Correo_U" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefono_U" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="urlImagenPerfil" Type="varchar(max)" Nullable="false" />
+          <Property Name="descripImg" Type="nchar" MaxLength="10" />
+          <Property Name="Nombre_TipoUsuario" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_AjustesTbl_ProductosTbl">
           <End Role="ProductosTbl" Type="Self.ProductosTbl" Multiplicity="1" />
@@ -602,6 +672,11 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="urlImagen" Type="varchar" Mode="In" />
           <Parameter Name="descripImagen" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_Inserta_ImgPerfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="urlImagenU" Type="varchar" Mode="In" />
+          <Parameter Name="descripImgU" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_Inserta_Marcas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreMarca" Type="varchar" Mode="In" />
           <Parameter Name="descripcionMarca" Type="varchar" Mode="In" />
@@ -727,6 +802,12 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="idproducto" Type="int" Mode="In" />
           <Parameter Name="urlImagen" Type="varchar" Mode="In" />
           <Parameter Name="descripImagen" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Modifica_ImgPerfil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idImgU" Type="int" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="urlImagenU" Type="varchar" Mode="In" />
+          <Parameter Name="descripImgU" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_Modifica_Marcas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idMarca" Type="int" Mode="In" />
@@ -914,6 +995,13 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <Parameter Name="nombreUsuario" Type="varchar" Mode="In" />
           <Parameter Name="apellido1" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_Retorna_UsuariosViewInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombreUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="numCedula" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Retorna_UsuariosViewInfoID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Verifica_Usuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombreU" Type="varchar" Mode="In" />
           <Parameter Name="claveU" Type="varchar" Mode="In" />
@@ -932,6 +1020,7 @@ advertencia 6002: La tabla o vista 'MotoRepuestosMako.dbo.Entradas_DesgloseView'
           <EntitySet Name="DetalleSalidaTbl" EntityType="Self.DetalleSalidaTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntradasTbl" EntityType="Self.EntradasTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImagenesTbl" EntityType="Self.ImagenesTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImgUsers" EntityType="Self.ImgUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MarcaTbl" EntityType="Self.MarcaTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductosTbl" EntityType="Self.ProductosTbl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProveedoresTbl" EntityType="Self.ProveedoresTbl" Schema="dbo" store:Type="Tables" />
@@ -983,6 +1072,41 @@ FROM [dbo].[Desglose_SalidaView] AS [Desglose_SalidaView]</DefiningQuery>
 [Entradas_DesgloseView].[Nombre_PROV] AS [Nombre_PROV], 
 [Entradas_DesgloseView].[Nombre_PROD] AS [Nombre_PROD]
 FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProductsImagesView" EntityType="Self.ProductsImagesView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ProductsImagesView].[ID_Producto] AS [ID_Producto], 
+[ProductsImagesView].[ID_Imagen] AS [ID_Imagen], 
+[ProductsImagesView].[ID_Categoria] AS [ID_Categoria], 
+[ProductsImagesView].[Nombre_PROD] AS [Nombre_PROD], 
+[ProductsImagesView].[Precio_PROD] AS [Precio_PROD], 
+[ProductsImagesView].[Descripcion_PROD] AS [Descripcion_PROD], 
+[ProductsImagesView].[Estado_PROD] AS [Estado_PROD], 
+[ProductsImagesView].[Cantidad_PROD] AS [Cantidad_PROD], 
+[ProductsImagesView].[Url_Imagen] AS [Url_Imagen], 
+[ProductsImagesView].[Descripcion_Imagen] AS [Descripcion_Imagen]
+FROM [dbo].[ProductsImagesView] AS [ProductsImagesView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewUsuariosINFO" EntityType="Self.ViewUsuariosINFO" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ViewUsuariosINFO].[ID_Usuario] AS [ID_Usuario], 
+[ViewUsuariosINFO].[ID_TipoUsuario] AS [ID_TipoUsuario], 
+[ViewUsuariosINFO].[ID_ImgPerfil] AS [ID_ImgPerfil], 
+[ViewUsuariosINFO].[Cedula_U] AS [Cedula_U], 
+[ViewUsuariosINFO].[Fecha_Creado] AS [Fecha_Creado], 
+[ViewUsuariosINFO].[UltimaVezConectado] AS [UltimaVezConectado], 
+[ViewUsuariosINFO].[Estado_U] AS [Estado_U], 
+[ViewUsuariosINFO].[Usuario_Ingreso] AS [Usuario_Ingreso], 
+[ViewUsuariosINFO].[Nombre_U] AS [Nombre_U], 
+[ViewUsuariosINFO].[Apellido1_U] AS [Apellido1_U], 
+[ViewUsuariosINFO].[Apellido2_U] AS [Apellido2_U], 
+[ViewUsuariosINFO].[Direccion_U] AS [Direccion_U], 
+[ViewUsuariosINFO].[Correo_U] AS [Correo_U], 
+[ViewUsuariosINFO].[Telefono_U] AS [Telefono_U], 
+[ViewUsuariosINFO].[urlImagenPerfil] AS [urlImagenPerfil], 
+[ViewUsuariosINFO].[descripImg] AS [descripImg], 
+[ViewUsuariosINFO].[Nombre_TipoUsuario] AS [Nombre_TipoUsuario]
+FROM [dbo].[ViewUsuariosINFO] AS [ViewUsuariosINFO]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_AjustesTbl_ProductosTbl" Association="Self.FK_AjustesTbl_ProductosTbl">
             <End Role="ProductosTbl" EntitySet="ProductosTbl" />
@@ -1840,7 +1964,28 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Parameter Name="idProducto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Retorna_ProductsImages" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_ProductsImages_Result)">
-            <Parameter Name="nombrePROD" Mode="In" Type="String" />
+          <Parameter Name="nombrePROD" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="ImgUsers" EntityType="MotoRepuestosMakoModel.ImgUsers" />
+          <EntitySet Name="ProductsImagesView" EntityType="MotoRepuestosMakoModel.ProductsImagesView" />
+          <EntitySet Name="ViewUsuariosINFO" EntityType="MotoRepuestosMakoModel.ViewUsuariosINFO" />
+          <FunctionImport Name="sp_Inserta_ImgPerfil">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="urlImagenU" Mode="In" Type="String" />
+            <Parameter Name="descripImgU" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Modifica_ImgPerfil">
+            <Parameter Name="idImgU" Mode="In" Type="Int32" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="urlImagenU" Mode="In" Type="String" />
+            <Parameter Name="descripImgU" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_UsuariosViewInfo" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_UsuariosViewInfo_Result)">
+            <Parameter Name="nombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="numCedula" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Retorna_UsuariosViewInfoID" ReturnType="Collection(MotoRepuestosMakoModel.sp_Retorna_UsuariosViewInfoID_Result)">
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_Retorna_AjusteID_Result">
@@ -2441,6 +2586,110 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
           <Property Type="Int32" Name="Cantidad_PROD" Nullable="true" />
           <Property Type="String" Name="Url_Imagen" Nullable="false" MaxLength="450" />
           <Property Type="String" Name="Descripcion_Imagen" Nullable="false" MaxLength="250" />
+        </ComplexType>
+        <EntityType Name="ImgUsers">
+          <Key>
+            <PropertyRef Name="ID_ImgPerfil" />
+          </Key>
+          <Property Name="ID_ImgPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="urlImagenPerfil" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripImg" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductsImagesView">
+          <Key>
+            <PropertyRef Name="ID_Producto" />
+            <PropertyRef Name="ID_Imagen" />
+            <PropertyRef Name="ID_Categoria" />
+            <PropertyRef Name="Nombre_PROD" />
+            <PropertyRef Name="Precio_PROD" />
+            <PropertyRef Name="Descripcion_PROD" />
+            <PropertyRef Name="Estado_PROD" />
+            <PropertyRef Name="Url_Imagen" />
+            <PropertyRef Name="Descripcion_Imagen" />
+          </Key>
+          <Property Name="ID_Producto" Type="Int32" Nullable="false" />
+          <Property Name="ID_Imagen" Type="Int32" Nullable="false" />
+          <Property Name="ID_Categoria" Type="Int32" Nullable="false" />
+          <Property Name="Nombre_PROD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Precio_PROD" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Descripcion_PROD" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado_PROD" Type="Boolean" Nullable="false" />
+          <Property Name="Cantidad_PROD" Type="Int32" />
+          <Property Name="Url_Imagen" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion_Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ViewUsuariosINFO">
+          <Key>
+            <PropertyRef Name="ID_Usuario" />
+            <PropertyRef Name="ID_TipoUsuario" />
+            <PropertyRef Name="ID_ImgPerfil" />
+            <PropertyRef Name="Estado_U" />
+            <PropertyRef Name="Usuario_Ingreso" />
+            <PropertyRef Name="Nombre_U" />
+            <PropertyRef Name="Apellido1_U" />
+            <PropertyRef Name="Apellido2_U" />
+            <PropertyRef Name="Direccion_U" />
+            <PropertyRef Name="Correo_U" />
+            <PropertyRef Name="Telefono_U" />
+            <PropertyRef Name="urlImagenPerfil" />
+            <PropertyRef Name="Nombre_TipoUsuario" />
+          </Key>
+          <Property Name="ID_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_TipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="ID_ImgPerfil" Type="Int32" Nullable="false" />
+          <Property Name="Cedula_U" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha_Creado" Type="DateTime" Precision="0" />
+          <Property Name="UltimaVezConectado" Type="DateTime" Precision="0" />
+          <Property Name="Estado_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario_Ingreso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido1_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido2_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion_U" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Correo_U" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono_U" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="urlImagenPerfil" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="descripImg" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Nombre_TipoUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_Retorna_UsuariosViewInfo_Result">
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_ImgPerfil" Nullable="false" />
+          <Property Type="String" Name="Cedula_U" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
+          <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
+          <Property Type="String" Name="Estado_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Direccion_U" Nullable="false" MaxLength="400" />
+          <Property Type="String" Name="Correo_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Telefono_U" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="urlImagenPerfil" Nullable="false" />
+          <Property Type="String" Name="descripImg" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Nombre_TipoUsuario" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_Retorna_UsuariosViewInfoID_Result">
+          <Property Type="Int32" Name="ID_Usuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_TipoUsuario" Nullable="false" />
+          <Property Type="Int32" Name="ID_ImgPerfil" Nullable="false" />
+          <Property Type="String" Name="Cedula_U" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="Fecha_Creado" Nullable="true" />
+          <Property Type="DateTime" Name="UltimaVezConectado" Nullable="true" />
+          <Property Type="String" Name="Estado_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Usuario_Ingreso" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Nombre_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido1_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Apellido2_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Direccion_U" Nullable="false" MaxLength="400" />
+          <Property Type="String" Name="Correo_U" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Telefono_U" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="urlImagenPerfil" Nullable="false" />
+          <Property Type="String" Name="descripImg" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Nombre_TipoUsuario" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3248,6 +3497,103 @@ FROM [dbo].[Entradas_DesgloseView] AS [Entradas_DesgloseView]</DefiningQuery>
                 <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
                 <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
                 <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ImgUsers">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ImgUsers">
+              <MappingFragment StoreEntitySet="ImgUsers">
+                <ScalarProperty Name="descripImg" ColumnName="descripImg" />
+                <ScalarProperty Name="urlImagenPerfil" ColumnName="urlImagenPerfil" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_ImgPerfil" ColumnName="ID_ImgPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsImagesView">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ProductsImagesView">
+              <MappingFragment StoreEntitySet="ProductsImagesView">
+                <ScalarProperty Name="Descripcion_Imagen" ColumnName="Descripcion_Imagen" />
+                <ScalarProperty Name="Url_Imagen" ColumnName="Url_Imagen" />
+                <ScalarProperty Name="Cantidad_PROD" ColumnName="Cantidad_PROD" />
+                <ScalarProperty Name="Estado_PROD" ColumnName="Estado_PROD" />
+                <ScalarProperty Name="Descripcion_PROD" ColumnName="Descripcion_PROD" />
+                <ScalarProperty Name="Precio_PROD" ColumnName="Precio_PROD" />
+                <ScalarProperty Name="Nombre_PROD" ColumnName="Nombre_PROD" />
+                <ScalarProperty Name="ID_Categoria" ColumnName="ID_Categoria" />
+                <ScalarProperty Name="ID_Imagen" ColumnName="ID_Imagen" />
+                <ScalarProperty Name="ID_Producto" ColumnName="ID_Producto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewUsuariosINFO">
+            <EntityTypeMapping TypeName="MotoRepuestosMakoModel.ViewUsuariosINFO">
+              <MappingFragment StoreEntitySet="ViewUsuariosINFO">
+                <ScalarProperty Name="Nombre_TipoUsuario" ColumnName="Nombre_TipoUsuario" />
+                <ScalarProperty Name="descripImg" ColumnName="descripImg" />
+                <ScalarProperty Name="urlImagenPerfil" ColumnName="urlImagenPerfil" />
+                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
+                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
+                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
+                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
+                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
+                <ScalarProperty Name="Cedula_U" ColumnName="Cedula_U" />
+                <ScalarProperty Name="ID_ImgPerfil" ColumnName="ID_ImgPerfil" />
+                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Inserta_ImgPerfil" FunctionName="MotoRepuestosMakoModel.Store.sp_Inserta_ImgPerfil" />
+          <FunctionImportMapping FunctionImportName="sp_Modifica_ImgPerfil" FunctionName="MotoRepuestosMakoModel.Store.sp_Modifica_ImgPerfil" />
+          <FunctionImportMapping FunctionImportName="sp_Retorna_UsuariosViewInfo" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_UsuariosViewInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_UsuariosViewInfo_Result">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
+                <ScalarProperty Name="ID_ImgPerfil" ColumnName="ID_ImgPerfil" />
+                <ScalarProperty Name="Cedula_U" ColumnName="Cedula_U" />
+                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
+                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
+                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
+                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
+                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
+                <ScalarProperty Name="urlImagenPerfil" ColumnName="urlImagenPerfil" />
+                <ScalarProperty Name="descripImg" ColumnName="descripImg" />
+                <ScalarProperty Name="Nombre_TipoUsuario" ColumnName="Nombre_TipoUsuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Retorna_UsuariosViewInfoID" FunctionName="MotoRepuestosMakoModel.Store.sp_Retorna_UsuariosViewInfoID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MotoRepuestosMakoModel.sp_Retorna_UsuariosViewInfoID_Result">
+                <ScalarProperty Name="ID_Usuario" ColumnName="ID_Usuario" />
+                <ScalarProperty Name="ID_TipoUsuario" ColumnName="ID_TipoUsuario" />
+                <ScalarProperty Name="ID_ImgPerfil" ColumnName="ID_ImgPerfil" />
+                <ScalarProperty Name="Cedula_U" ColumnName="Cedula_U" />
+                <ScalarProperty Name="Fecha_Creado" ColumnName="Fecha_Creado" />
+                <ScalarProperty Name="UltimaVezConectado" ColumnName="UltimaVezConectado" />
+                <ScalarProperty Name="Estado_U" ColumnName="Estado_U" />
+                <ScalarProperty Name="Usuario_Ingreso" ColumnName="Usuario_Ingreso" />
+                <ScalarProperty Name="Nombre_U" ColumnName="Nombre_U" />
+                <ScalarProperty Name="Apellido1_U" ColumnName="Apellido1_U" />
+                <ScalarProperty Name="Apellido2_U" ColumnName="Apellido2_U" />
+                <ScalarProperty Name="Direccion_U" ColumnName="Direccion_U" />
+                <ScalarProperty Name="Correo_U" ColumnName="Correo_U" />
+                <ScalarProperty Name="Telefono_U" ColumnName="Telefono_U" />
+                <ScalarProperty Name="urlImagenPerfil" ColumnName="urlImagenPerfil" />
+                <ScalarProperty Name="descripImg" ColumnName="descripImg" />
+                <ScalarProperty Name="Nombre_TipoUsuario" ColumnName="Nombre_TipoUsuario" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

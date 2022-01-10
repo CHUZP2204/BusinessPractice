@@ -141,6 +141,12 @@ namespace PracticaIIICO.Controllers.Usuarios
             sp_Retorna_UsuarioID_Result datosObtenidos = new sp_Retorna_UsuarioID_Result();
             datosObtenidos = this.ModeloBD.sp_Retorna_UsuarioID(id_User,null,null).FirstOrDefault();
 
+
+            if (TempData["MessageUSER"] != null)
+            {
+                ViewBag.MessageUSER = TempData["MessageUSER"].ToString();
+            }
+
             this.AgregTipoUsuariosViewBag();
 
             return View(datosObtenidos);

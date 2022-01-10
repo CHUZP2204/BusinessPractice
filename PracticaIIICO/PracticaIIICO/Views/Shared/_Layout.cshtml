@@ -24,7 +24,7 @@
         else { b = ""; } /*No esta Vacio*/
     }
     @{ if (b.Equals("fijar")) { a = "page-wrapper chiller-theme"; } else { a = "page-wrapper chiller-theme toggled"; }}
-        
+
     <!---->
     <div class="@a">
         <!--toggled mantiene el sidebar fijo-->
@@ -45,9 +45,10 @@
                     <!--Fin Cerrar Side Bar-->
                 </div>
                 <!--Side Bar Header-->
+                
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="~/Images/20170326_202353.jpg" alt="User picture">
+                        <img class="img-responsive img-rounded" src="@Session["URlFoto"]" alt="User picture">
                     </div>
                     <div class="user-info">
                         <span class="user-name">
@@ -416,7 +417,7 @@
                                 </div>
                                 <div class="content">
                                     <p>Mi Perfil</p>
-                                    
+
                                 </div>
                             </div>
                         </a>
@@ -493,7 +494,7 @@
             <div class="container">
                 <!--Boton Que Venia Por Defecto-->
                 <!--<a class="btn btn-primary" href="#">Toggle Sidebar</a>-->
-                
+
                 <hr />
 
                 <!--Cuerpo De los otros Controllers-->

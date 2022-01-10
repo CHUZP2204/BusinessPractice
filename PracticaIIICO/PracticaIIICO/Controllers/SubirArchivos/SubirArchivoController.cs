@@ -27,6 +27,20 @@ namespace PracticaIIICO.Controllers.SubirArchivos
             return View(VistaNueva);
         }
 
+        public ActionResult IndexCargaUser(int idUsuario)
+        {
+
+
+            ViewSubidaUser VistaNueva = new ViewSubidaUser();
+
+            VistaNueva.ID_Usuario= idUsuario;
+            VistaNueva.Archivo1 = null;
+            VistaNueva.CadenaNombre = "";
+            VistaNueva.CadenaNombre = "";
+
+            return View(VistaNueva);
+        }
+
         [HttpPost]
         public ActionResult SaveFile(ViewSubidaModel model)
         {
@@ -53,6 +67,34 @@ namespace PracticaIIICO.Controllers.SubirArchivos
 
             @TempData["Message"] = "Se Cargaron Los Archivos Al Sistema"; //Es Parecido al ViewBag Pero Vive mas
             return RedirectToAction("ListaProductos","Productos");
+        }
+
+        [HttpPost]
+        public ActionResult SaveFileUSER(ViewSubidaUser model)
+        {
+            string RutaSitio = Server.MapPath("~/");   //Direccion De Nuestro Proyecto
+            int idUsuarioAEditar = model.ID_Usuario; //ID del Producto al cual se le agregara la imagen
+            string nombreArchivo = model.CadenaNombre; //Nombre asignado a la imagen 
+            string PathArchivo1 = Path.Combine(RutaSitio + "/UserImg/" + nombreArchivo + "USER.jpg"); //Ubicacion Donde se almacena la imagenes
+
+            string urlImagen = "/UserImg/" + nombreArchivo + "USER.jpg"; //direccion para utilizar en Vistas
+
+            string descripImg = model.DescripcionImg;  //Descripcion de la imagen
+
+            if (!ModelState.IsValid)
+            {
+                return View("IndexCargaUser", model.ID_Usuario);
+            }
+
+            if (ModelState.IsValid)
+            {
+                this.ModeloBD.sp_Inserta_ImgPerfil(idUsuarioAEditar, urlImagen, descripImg);
+            }
+
+            model.Archivo1.SaveAs(PathArchivo1);//Almacena La Imagen en la direccion dada
+
+            @TempData["MessageUSER"] = "Se Cargaron La Imagen Al Sistema"; //Es Parecido al ViewBag Pero Vive mas
+            return RedirectToAction("ModificaUsuario", "Usuarios",new {id_User = idUsuarioAEditar });
         }
 
         // GET: SubirArchivo/Details/5

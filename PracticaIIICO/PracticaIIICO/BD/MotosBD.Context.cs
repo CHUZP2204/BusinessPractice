@@ -48,6 +48,9 @@ namespace PracticaIIICO.BD
         public DbSet<ImagenesTbl> ImagenesTbl { get; set; }
         public DbSet<ProductosTbl> ProductosTbl { get; set; }
         public DbSet<Entradas_DesgloseView> Entradas_DesgloseView { get; set; }
+        public DbSet<ImgUsers> ImgUsers { get; set; }
+        public DbSet<ProductsImagesView> ProductsImagesView { get; set; }
+        public DbSet<ViewUsuariosINFO> ViewUsuariosINFO { get; set; }
     
         public virtual int sp_Elimina_Ajuste(Nullable<int> idAjuste)
         {
@@ -1510,6 +1513,66 @@ namespace PracticaIIICO.BD
                 new ObjectParameter("nombrePROD", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_ProductsImages_Result>("sp_Retorna_ProductsImages", nombrePRODParameter);
+        }
+    
+        public virtual int sp_Inserta_ImgPerfil(Nullable<int> idUsuario, string urlImagenU, string descripImgU)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(int));
+    
+            var urlImagenUParameter = urlImagenU != null ?
+                new ObjectParameter("urlImagenU", urlImagenU) :
+                new ObjectParameter("urlImagenU", typeof(string));
+    
+            var descripImgUParameter = descripImgU != null ?
+                new ObjectParameter("descripImgU", descripImgU) :
+                new ObjectParameter("descripImgU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Inserta_ImgPerfil", idUsuarioParameter, urlImagenUParameter, descripImgUParameter);
+        }
+    
+        public virtual int sp_Modifica_ImgPerfil(Nullable<int> idImgU, Nullable<int> idUsuario, string urlImagenU, string descripImgU)
+        {
+            var idImgUParameter = idImgU.HasValue ?
+                new ObjectParameter("idImgU", idImgU) :
+                new ObjectParameter("idImgU", typeof(int));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(int));
+    
+            var urlImagenUParameter = urlImagenU != null ?
+                new ObjectParameter("urlImagenU", urlImagenU) :
+                new ObjectParameter("urlImagenU", typeof(string));
+    
+            var descripImgUParameter = descripImgU != null ?
+                new ObjectParameter("descripImgU", descripImgU) :
+                new ObjectParameter("descripImgU", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Modifica_ImgPerfil", idImgUParameter, idUsuarioParameter, urlImagenUParameter, descripImgUParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_UsuariosViewInfo_Result> sp_Retorna_UsuariosViewInfo(string nombreUsuario, string numCedula)
+        {
+            var nombreUsuarioParameter = nombreUsuario != null ?
+                new ObjectParameter("nombreUsuario", nombreUsuario) :
+                new ObjectParameter("nombreUsuario", typeof(string));
+    
+            var numCedulaParameter = numCedula != null ?
+                new ObjectParameter("numCedula", numCedula) :
+                new ObjectParameter("numCedula", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_UsuariosViewInfo_Result>("sp_Retorna_UsuariosViewInfo", nombreUsuarioParameter, numCedulaParameter);
+        }
+    
+        public virtual ObjectResult<sp_Retorna_UsuariosViewInfoID_Result> sp_Retorna_UsuariosViewInfoID(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Retorna_UsuariosViewInfoID_Result>("sp_Retorna_UsuariosViewInfoID", idUsuarioParameter);
         }
     }
 }

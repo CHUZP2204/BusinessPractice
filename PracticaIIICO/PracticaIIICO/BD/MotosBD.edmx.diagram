@@ -43,6 +43,9 @@
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleEntradaTbl_ProductosTbl" />
         <AssociationConnector Association="MotoRepuestosMakoModel.FK_DetalleSalidaTbl_ProductosTbl" />
         <EntityTypeShape EntityType="MotoRepuestosMakoModel.Entradas_DesgloseView" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.ImgUsers" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.ProductsImagesView" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MotoRepuestosMakoModel.ViewUsuariosINFO" Width="1.5" PointX="12.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
