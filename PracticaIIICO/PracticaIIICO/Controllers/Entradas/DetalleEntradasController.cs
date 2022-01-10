@@ -60,6 +60,7 @@ namespace PracticaIIICO.Controllers.Entradas
             int cantRegistroAfectado = 0;
             int cantidadRegistrosAfectados1 = 0;
             string resultado = "";
+            int estadoStock = 0;
 
             //Calcular Precio Por La Cantidad Adquirida
             sp_Retorna_Products_ID_Result productoObtenido = new sp_Retorna_Products_ID_Result();
@@ -77,9 +78,19 @@ namespace PracticaIIICO.Controllers.Entradas
             decimal montoFInalIva;
             decimal montoBruto = 0;
 
+
+            //Calculos
+
+            int stockActual = 0;
+            int stockVista = 0;
+            int stockFinal = 0;
+
+            stockActual = (int)productoObtenido.Cantidad_PROD;
+            stockVista = modeloVista.Cant_Adquirida_PROD;
+
+            stockFinal = stockActual + stockVista;
+
             
-
-
 
             try
             {
@@ -147,6 +158,18 @@ namespace PracticaIIICO.Controllers.Entradas
                     montoFInalIva,
                     montoTotal
                     );
+
+                //Actualizar el Inventario el campo STOCK Sumar al STOCk actual lo que ingreso en detalle entradas
+
+                estadoStock = this.ModeloBD.sp_Modifica_Products(
+                 productoObtenido.ID_Producto,
+                 productoObtenido.ID_Categoria,
+                 productoObtenido.Nombre_PROD,
+                 productoObtenido.Precio_PROD,
+                 productoObtenido.Descripcion_PROD,
+                 productoObtenido.Estado_PROD,
+                 stockFinal
+               );
 
                 return RedirectToAction("ListaEntradas", "Entradas");
             }

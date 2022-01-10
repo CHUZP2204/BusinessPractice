@@ -41,15 +41,47 @@ namespace PracticaIIICO.Controllers.Salidas
         public ActionResult AgregaDetSal(sp_Retorna_Detalle_Salida_Result collection)
         {
             int cantRegistroAfectado = 0;
-            
+            int estadoStock = 0;
             string resultado = "";
+
+            //Obtener Datos Del Producto
+            sp_Retorna_Products_ID_Result productoObtenido = new sp_Retorna_Products_ID_Result();
+            productoObtenido = this.ModeloBD.sp_Retorna_Products_ID(collection.ID_Producto).FirstOrDefault();
+
+
+            //Calculos
+
+            int stockActual = 0;
+            int stockVista = 0;
+            int stockFinal = 0;
+
+            stockActual = (int)productoObtenido.Cantidad_PROD;
+            stockVista = collection.Cant_Salida_PROD;
+
+            stockFinal = stockActual - stockVista;
 
             try
             {
+                // Registrar Detalle Salida
                 cantRegistroAfectado = this.ModeloBD.sp_Inserta_Detalle_Salida(
                     collection.ID_Salida,
                     collection.ID_Producto,
                     collection.Cant_Salida_PROD);
+
+                // Actualizar STOCK Del Producto 
+                //Restar la cantidad ingresada por vista ala cantidad actual
+
+                // Actualizar el Inventario 
+
+                 estadoStock = this.ModeloBD.sp_Modifica_Products(
+                  productoObtenido.ID_Producto,
+                  productoObtenido.ID_Categoria,
+                  productoObtenido.Nombre_PROD,
+                  productoObtenido.Precio_PROD,
+                  productoObtenido.Descripcion_PROD,
+                  productoObtenido.Estado_PROD,
+                  stockFinal
+                );
 
                 return RedirectToAction("ListaSalidas","Salidas");
             }
