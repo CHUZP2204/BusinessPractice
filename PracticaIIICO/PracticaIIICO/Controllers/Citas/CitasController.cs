@@ -53,8 +53,22 @@ namespace PracticaIIICO.Controllers.Citas
         // GET: Citas/Create
         public ActionResult NuevaCita()
         {
+            string tipoUsuarioActual = "";
+
+            if (Session["RoleUsuario"] != null)
+            {
+                tipoUsuarioActual = Session["RoleUsuario"].ToString();
+            }
+            else
+            {
+                tipoUsuarioActual = "Empleado";
+            }
+
+            this.ViewBag.UsuarioActual = tipoUsuarioActual;
+
             this.agregaMarcas();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
 
             return View();
@@ -206,6 +220,12 @@ namespace PracticaIIICO.Controllers.Citas
         void agregaUsuarios()
         {
             this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
+        }
+        void agregaUsuariosID()
+        {
+            string idConvertido = Session["IdUsuario"].ToString();
+            int idUsuarioActual = int.Parse(idConvertido);
+            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual,null, null).ToList();
         }
         void agregaMarcas()
         {

@@ -52,6 +52,21 @@ namespace PracticaIIICO.Controllers.Cotizacion
         // GET: Cotizacion/Create
         public ActionResult NuevaCotizacion()
         {
+            string tipoUsuarioActual = "";
+
+            if (Session["RoleUsuario"] != null)
+            {
+                 tipoUsuarioActual= Session["RoleUsuario"].ToString();
+            }
+            else
+            {
+                tipoUsuarioActual = "Empleado";
+            }
+
+             
+            this.ViewBag.UsuarioActual = tipoUsuarioActual;
+
+            this.agregaUsuariosID();
             this.agregaUsuarios();
             return View();
         }
@@ -99,6 +114,8 @@ namespace PracticaIIICO.Controllers.Cotizacion
                 }
             }
             Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
+
+            this.agregaUsuariosID();
             this.agregaUsuarios();
             return View();
 
@@ -207,6 +224,14 @@ namespace PracticaIIICO.Controllers.Cotizacion
         {
             this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
         }
+
+        void agregaUsuariosID()
+
+        {
+            string idConvertido = Session["IdUsuario"].ToString();
+            int idUsuarioActual = int.Parse(idConvertido);
+            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+        }
         void agregaCotizaciones(int idCot)
         {
             this.ViewBag.ListaCotizaciones = this.ModeloBD.sp_Retorna_CotizacionID(idCot).ToList();
@@ -214,7 +239,7 @@ namespace PracticaIIICO.Controllers.Cotizacion
 
         void agregaProductos()
         {
-            this.ViewBag.ListaProductos = this.ModeloBD.sp_Retorna_Productos(null,null).ToList();
+            this.ViewBag.ListaProductos = this.ModeloBD.sp_Retorna_Productos(null, null).ToList();
         }
 
         void agregaServicios()

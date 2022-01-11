@@ -51,6 +51,21 @@ namespace PracticaIIICO.Controllers.Salidas
         // GET: Salidas/Create
         public ActionResult NuevaSalida()
         {
+            string tipoUsuarioActual = "";
+
+            if (Session["RoleUsuario"] != null)
+            {
+                tipoUsuarioActual = Session["RoleUsuario"].ToString();
+            }
+            else
+            {
+                tipoUsuarioActual = "Empleado";
+            }
+
+
+            this.ViewBag.UsuarioActual = tipoUsuarioActual;
+
+            this.agregaUsuariosID();
             this.agregaUsuarios();
             return View();
         }
@@ -104,6 +119,18 @@ namespace PracticaIIICO.Controllers.Salidas
             sp_Retorna_SalidaID_Result modeloObtenido = new sp_Retorna_SalidaID_Result();
             modeloObtenido = this.ModeloBD.sp_Retorna_SalidaID(id_Sal).FirstOrDefault();
 
+            string tipoUsuarioActual = "";
+
+            if (Session["RoleUsuario"] != null)
+            {
+                tipoUsuarioActual = Session["RoleUsuario"].ToString();
+            }
+            else
+            {
+                tipoUsuarioActual = "Empleado";
+            }
+
+            this.agregaUsuariosID();
             this.agregaUsuarios();
             return View(modeloObtenido);
         }
@@ -197,6 +224,12 @@ namespace PracticaIIICO.Controllers.Salidas
         void agregaUsuarios()
         {
             this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
+        }
+        void agregaUsuariosID()
+        {
+            string idConvertido = Session["IdUsuario"].ToString();
+            int idUsuarioActual = int.Parse(idConvertido);
+            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual,null, null).ToList();
         }
     }
 }

@@ -53,8 +53,23 @@ namespace PracticaIIICO.Controllers.Entradas
         // GET: Entradas/Create
         public ActionResult NuevaEntrada()
         {
+            string tipoUsuarioActual = "";
+
+            if (Session["RoleUsuario"] != null)
+            {
+                tipoUsuarioActual = Session["RoleUsuario"].ToString();
+            }
+            else
+            {
+                tipoUsuarioActual = "Empleado";
+            }
+
+
+            this.ViewBag.UsuarioActual = tipoUsuarioActual;
+
             this.agregaProveedores();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
             return View();
         }
@@ -121,6 +136,7 @@ namespace PracticaIIICO.Controllers.Entradas
             Response.Write("<script languaje=javascript>alert('" + resultado + "');</script>");
             this.agregaProveedores();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
             return View();
         }
@@ -257,6 +273,13 @@ namespace PracticaIIICO.Controllers.Entradas
         void agregaUsuarios()
         {
             this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null,null).ToList();
+        }
+
+        void agregaUsuariosID()
+        {
+            string idConvertido = Session["IdUsuario"].ToString();
+            int idUsuarioActual = int.Parse(idConvertido);
+            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual,null, null).ToList();
         }
     }
 }

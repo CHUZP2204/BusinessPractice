@@ -6,19 +6,40 @@
 <h2>Nueva Cita</h2>
 
 <form id="frmRegistroCitas" method="post">
-    <div class="form-group">
-        <label>Usuario:</label>
-        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-            @{
 
-                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                {
-                    <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+    @if (ViewBag.UsuarioActual == "Empleado")
+    {
+        <div class="form-group">
+            <label>Usuario:</label>
+            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                @{
+
+                    foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuariosID)
+                    {
+                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                    }
+
                 }
+            </select>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label>Usuario:</label>
+            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                @{
 
-            }
-        </select>
-    </div>
+                    foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                    {
+                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                    }
+
+                }
+            </select>
+        </div>
+    }
+
     <div class="form-group">
         <label>Marca:</label>
         <select name="ID_Marca" id="ID_Marca" class="form-control">
@@ -51,7 +72,7 @@
     </div>
     <div class="form-group">
         <label>Hora:</label>
-        <input type="time" name="Hora_Cita" id="Hora_Cita" class="form-control" />
+        <input type="time" name="Hora_Cita" id="Hora_Cita" class="form-control"/>
     </div>
 
     <br />
