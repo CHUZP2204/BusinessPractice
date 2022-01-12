@@ -1,0 +1,66 @@
+﻿
+.text-encabezado {
+    text-align: center !important;
+    font-size:13px;
+}
+
+table .textMontos{
+    font-size:11px;
+    padding-left:10px;
+}
+
+.text-right {
+    font-size: 11px;
+    text-align:right !important;
+}
+
+.tfootChuz tr .text-right2{
+    width:124px;
+    text-align:right !important;
+    font-size:12px;
+}
+
+.cliente_text {
+    text-align: left;
+    font-size: 13px;
+}
+.area_print {
+    border-color: black;
+    border-style: groove;
+    padding: 6px;
+}
+
+table .text-center {
+    text-align: center !important;
+    font-size:13px;
+    width:80px;
+    
+}
+table thead {
+    border-bottom: double;
+    border-bottom-width: 4px;
+    border-top: solid;
+    border-top-width: 1px;
+}
+
+table tfoot {
+    border-top: double;
+    border-top-width: 4px;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+}
+
+table .text-filas{
+    text-align:center;
+    font-size:12px;
+
+}
+
+.ticket_body {
+    margin: auto;
+    padding: 20px;
+}
+
+    .ticket_body table {
+        width: 100%;
+    }

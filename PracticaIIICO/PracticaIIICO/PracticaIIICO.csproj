@@ -426,6 +426,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Busqueda.css" />
     <Content Include="Content\Card\Card.css" />
+    <Content Include="Content\FacturaCss.css" />
     <Content Include="Content\MiPerfil.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Sesion\loginFinal.css" />
@@ -2306,6 +2307,7 @@
     <Content Include="Views\Productos\CatalogoProductos.cshtml" />
     <Content Include="Views\Home\Alertas.cshtml" />
     <Content Include="Views\SubirArchivo\IndexCargaUser.cshtml" />
+    <Content Include="Views\Cotizacion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
