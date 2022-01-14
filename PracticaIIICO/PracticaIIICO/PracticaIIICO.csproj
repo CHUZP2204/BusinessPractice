@@ -2308,6 +2308,7 @@
     <Content Include="Views\Home\Alertas.cshtml" />
     <Content Include="Views\SubirArchivo\IndexCargaUser.cshtml" />
     <Content Include="Views\Cotizacion\Index.cshtml" />
+    <Content Include="Views\Cotizacion\index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,6 +17,27 @@ namespace PracticaIIICO.Controllers.Cotizacion
             return View();
         }
 
+        public ActionResult index2()
+        {
+            List<sp_Retorna_FacturaID_Result> vistaObtenida = new List<sp_Retorna_FacturaID_Result>();
+            vistaObtenida = this.ModeloBD.sp_Retorna_FacturaID(3).ToList();
+
+            string Mensaje = "5";
+            /*Session["Mensaje"]*/
+            ViewBag.NumeroFactura = Mensaje;
+
+            this.agregaUsuarios();
+            this.agregaProductos();
+            this.agregaEntradaMontos(3);
+
+            return View(vistaObtenida);
+            
+        }
+
+        void agregaEntradaMontos(int idEntrada)
+        {
+            this.ViewBag.ListaEntradas = this.ModeloBD.sp_Retorna_EntradaID(idEntrada).ToList();
+        }
         // GET: Cotizacion/Details/5
         public ActionResult ListaCotizacion(int pagina = 1)
         {

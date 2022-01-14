@@ -1,41 +1,54 @@
 ﻿
-.text-encabezado {
-    text-align: center !important;
-    font-size:13px;
+
+.ticket_fae {
+    background: #333;
 }
 
-table .textMontos{
-    font-size:11px;
-    padding-left:10px;
+
+
+.ticket_body {
+    background: #fff;
+    width: 230px;
+    max-width: 240px;
+}
+
+table .textMontos {
+    
+    padding-left: 10px;
 }
 
 .text-right {
-    font-size: 11px;
-    text-align:right !important;
+    
+    text-align: right !important;
 }
 
-.tfootChuz tr .text-right2{
-    width:124px;
-    text-align:right !important;
-    font-size:12px;
+.tfootChuz tr .text-right2 {
+    width: 124px;
+    text-align: right !important;
+    
 }
 
 .cliente_text {
     text-align: left;
-    font-size: 13px;
+    
 }
-.area_print {
+
+/*.area_print {
     border-color: black;
     border-style: groove;
     padding: 6px;
+}*/
+.area_print {
+    font-size: 12px;
+    font-family: 'Times New Roman';
 }
 
 table .text-center {
     text-align: center !important;
-    font-size:13px;
-    width:80px;
     
+    width: 80px;
 }
+
 table thead {
     border-bottom: double;
     border-bottom-width: 4px;
@@ -50,17 +63,19 @@ table tfoot {
     border-bottom-width: 1px;
 }
 
-table .text-filas{
-    text-align:center;
-    font-size:12px;
-
+table .text-filas {
+    text-align: center;
+    
 }
 
 .ticket_body {
     margin: auto;
-    padding: 20px;
+    padding: 10px;
 }
 
     .ticket_body table {
         width: 100%;
     }
+.text-encabezado{
+    text-align: center !important;
+}

@@ -1,0 +1,193 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index2</title>
+    <link href="~/Content/FacturaCss.css" rel="stylesheet" />
+    <style type="text/css" media="print">
+        #imprimirbtn {
+            display: none
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ticket" class="ticket_body">
+        <div class="area_print" style="font-size:12px;font-weight:200;">
+            <div class="text-center">
+                <img style="width:90%" src="~/Images/LogoSinFondo.png">
+            </div>
+            <div class="text-encabezado">
+                <b>REPUESTOS Y LLANTERA MAKO</b>
+            </div>
+            <div class="text-encabezado">
+                <b>MARCO MARTINEZ MENA</b>
+            </div>
+            <div class="text-encabezado">112630999</div>
+            <div class="text-encabezado">QUITIRRISI DE MORA,50 OESTE DEL GIMNASIO</div>
+            <div class="text-encabezado">TELEFONO: 84173048</div>
+            <br>
+            <div>---------------------------------------------------------</div>
+
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result Posicion in this.ViewBag.ListaEntradas)
+                {
+
+                    <div class="cliente_text">FECHA:@Posicion.Fecha_Factura.ToShortDateString() </div>
+                    foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                    {
+                        bool esIdUser = ModeloUSER.ID_Usuario == Posicion.ID_Usuario;
+                        if (esIdUser)
+                        {
+                            <div class="cliente_text">CLIENTE:<b>@ModeloUSER.Nombre_U.ToUpper() @ModeloUSER.Apellido1_U.ToUpper()</b></div>
+                            <div class="cliente_text">CED:@ModeloUSER.Cedula_U</div>
+                        }
+                    }
+                    <div class="cliente_text">TIQUETE ELECTRONICO: @ViewBag.NumeroFactura</div>
+                }
+            }
+
+
+
+
+            <br>
+            <div>---------------------------------------------------------</div>
+            <table>
+                <thead>
+
+                    <tr>
+                        <th class="text-center">CANT.</th>
+                        <th class="text-center">DESC.</th>
+                        <th class="text-center">PRECIO</th>
+                        <th class="text-center">TOTAL</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_FacturaID_Result PosicionDetalle in this.Model)
+                        {
+                            <tr>
+                                <td class="text-filas">@PosicionDetalle.Cant_Adquirida_PROD</td>
+                                <td class="text-filas">@PosicionDetalle.Nombre_PROD</td>
+                                <td class="text-filas">@PosicionDetalle.Precio_PROD</td>
+                                <td class="text-filas">@PosicionDetalle.PrecioXCant</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <table>
+                <tfoot class="tfootChuz">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+                        {
+                            <tr>
+
+                                <td colspan="4" class="text-right2">
+                                    <b>Sub Total</b>
+
+                                </td>
+
+                                <td class="textMontos">
+                                    <b>@PosicionEntrada.Monto_Bruto</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" class="text-right2">
+                                    <b>Descuento</b>
+
+                                </td>
+
+                                <td class="textMontos">
+                                    <b>@PosicionEntrada.Monto_Descuento</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right2">
+                                    <b>IVA</b>
+
+                                </td>
+
+                                <td colspan="4" class="textMontos">
+                                    <b>@PosicionEntrada.Monto_IVA</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td colspan="4" class="text-right2">
+                                    <b>Total</b>
+
+                                </td>
+
+                                <td class="textMontos">
+                                    <b>@PosicionEntrada.Monto_Final</b>
+                                </td>
+
+                            </tr>
+
+
+                        }
+                    }
+
+
+
+                </tfoot>
+            </table>
+            <div>----------------------------UL-------------------------</div>
+            <b>Su Pago: ₡/13000.00 Colones</b>
+            <br />
+            <b>Su Cambio: ₡/344.00</b>
+            <br />
+            <div>Atendio:Marco Mena Martinez</div>
+            <div>---------------------------------------------------------</div>
+
+
+            <div class="text-encabezado">
+                Autorizado mediante Resolución de Tributacion N° 001-001
+                Representación impresa de la Factura Electrónica.
+            </div>
+            <hr>
+
+            <div class="text-encabezado" style="font-size:12px;">
+                <b>HASH: Hb80fKOWgPSw6NcfJUzomi4GF8g=</b>
+            </div>
+            <hr>
+
+            <div class="text-encabezado">
+                TODO CAMBIO SE DEBE REALIZAR DENTRO DE LAS 24 HORAS NO HAY DEVOLUCIONES DE DINERO
+                <br />
+                <p>*** PARA EFECTOS DE GARANTIA SE DEBE PRESENTAR LA FACTURA FISICA Y ORIGINAL ***</p>
+
+                <br />
+                GRACIAS POR SU COMPRA
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function imprimir() {
+
+            hhh.style.visibility = 'hidden';
+            window.print();
+            window.print();
+        }
+    </script>
+    
+
+    <button onclick="window.print()" id="imprimirbtn">Imprimir </button>
+
+
+</body>
+</html>
