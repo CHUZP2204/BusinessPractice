@@ -2192,6 +2192,10 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Busqueda\BusquedaPROD.js" />
     <Content Include="Scripts\Busqueda\BusquedaUSER.js" />
+    <Content Include="Scripts\Cotizacion\RegistroCotizacion.js" />
+    <Content Include="Scripts\Ajustes\RegistroAjustes.js" />
+    <Content Include="Scripts\Salidas\RegistroSalida.js" />
+    <Content Include="Scripts\Entradas\RegistroEntrada.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

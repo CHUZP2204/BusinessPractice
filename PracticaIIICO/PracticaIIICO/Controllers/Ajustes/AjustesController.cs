@@ -24,11 +24,14 @@ namespace PracticaIIICO.Controllers.Ajustes
             List<sp_Retorna_Ajustes_Result> modelObtenido = new List<sp_Retorna_Ajustes_Result>();
             modelObtenido = this.ModeloBD.sp_Retorna_Ajustes(null).ToList();
 
+
+            //Cuando Se Modifca STOCK
             if (TempData["MensajeStock"] != null)
             {
                 ViewBag.MensajeStock = TempData["MensajeStock"].ToString();
             }
 
+            this.agregaUsuariosID();
             this.agregaProductos();
             this.agregaUsuarios();
 
@@ -163,6 +166,122 @@ namespace PracticaIIICO.Controllers.Ajustes
             this.agregaUsuariosID();
             this.agregaProductos();
             return View();
+        }
+
+        //Regsitro Modal Ajustes
+
+        [HttpPost]
+        public ActionResult NuevoAjusteModal(
+            int pIdProducto,
+            int pIdUsuario,
+            string pTipoAjuste,
+            int pCantAjustar,
+            string pDescripAjuste)
+        {
+
+            int cantRegistroAfectado = 0;
+            int estadoStock = 0;
+
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+
+            sp_Retorna_Products_ID_Result productoActual = new sp_Retorna_Products_ID_Result();
+            productoActual = this.ModeloBD.sp_Retorna_Products_ID(pIdProducto).FirstOrDefault();
+
+            //Calculos
+
+            int stockActual = 0;
+            int stockVista = 0;
+            int stockFinal = 0;
+
+            stockVista = pCantAjustar;
+            stockActual = (int)productoActual.Cantidad_PROD;
+
+            if (pTipoAjuste.Equals("Entrada"))
+            {
+                stockFinal = stockActual + stockVista;
+            }
+            else if (pTipoAjuste.Equals("Salida"))
+            {
+                stockFinal = stockActual - stockVista;
+            }
+
+            DateTime fechaIngreso;
+            fechaIngreso = DateTime.Now;
+
+            try
+            {
+                // TODO: Add insert logic here
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
+                   pIdProducto,
+                   pIdUsuario,
+                   pTipoAjuste,
+                   pCantAjustar,
+                   fechaIngreso,
+                   pDescripAjuste
+                    );
+                //Actualizar el Inventario el campo STOCK
+
+                estadoStock = this.ModeloBD.sp_Modifica_Products(
+                 productoActual.ID_Producto,
+                 productoActual.ID_Categoria,
+                 productoActual.Nombre_PROD,
+                 productoActual.Precio_PROD,
+                 productoActual.Descripcion_PROD,
+                 productoActual.Estado_PROD,
+                 stockFinal
+               );
+                if (pTipoAjuste == "Entrada")
+                {
+                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                    " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                }
+                else if (pTipoAjuste == "Salida")
+                {
+                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                    " Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                }
+
+
+
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    if (pTipoAjuste == "Entrada")
+                    {
+                        MensajeFinal = "El Ajuste Se Regitro Exitosamente! " + "\n" +
+                            " Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                            " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    }
+                    else if (pTipoAjuste == "Salida")
+                    {
+                        MensajeFinal = "El Ajuste Se Regitro Exitosamente! " + "\n" +
+                            "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                            "Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    }
+
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar El Ajuste";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
 
         // GET: Ajustes/Edit/5

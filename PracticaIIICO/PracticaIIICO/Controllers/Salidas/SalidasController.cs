@@ -24,6 +24,7 @@ namespace PracticaIIICO.Controllers.Salidas
             modeloVista = this.ModeloBD.sp_Retorna_SalidaID(null).ToList();
 
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
             //Con Paginador
             var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
@@ -111,6 +112,57 @@ namespace PracticaIIICO.Controllers.Salidas
             this.agregaUsuarios();
 
             return View();
+        }
+
+        /// <summary>
+        /// Metodo Registro Salida Con Un Modal
+        /// </summary>
+        /// <param name="id_Sal"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult NuevaSalidaModal(int pIDUsuario, TimeSpan pHoraSalida)
+        {
+           
+            int cantRegistroAfectado = 0;
+            
+            DateTime fechaIngreso;
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+            fechaIngreso = DateTime.Now;
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Salida(
+                    pIDUsuario,
+                    fechaIngreso,
+                    pHoraSalida
+                    );
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "La Salida Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar La Salida";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
 
         // GET: Salidas/Edit/5

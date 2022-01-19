@@ -45,6 +45,7 @@ namespace PracticaIIICO.Controllers.Cotizacion
             vistaObtenida = this.ModeloBD.sp_Retorna_Cotizacion(null, null).ToList();
 
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
             //Con Paginador
             var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
@@ -139,6 +140,71 @@ namespace PracticaIIICO.Controllers.Cotizacion
             this.agregaUsuariosID();
             this.agregaUsuarios();
             return View();
+
+        }
+
+        // Registro Cotizacion Modal
+        [HttpPost]
+        public ActionResult NuevaCotizacionModal(
+            int pIdUsuario,
+            int pNumeroCotizacion,
+            string pNombreCliente,
+            string pTelefonoCliente,
+            string pCorreoCliente,
+            TimeSpan pHoraCot,
+            decimal pCosto)
+        {
+
+            
+
+            int cantRegistroAfectado = 0;
+            string resultado = "";
+            DateTime fechaIngreso;
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+
+            fechaIngreso = DateTime.Now;
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Cotizacion(
+                    pIdUsuario,
+                    pNumeroCotizacion,
+                    pNombreCliente,
+                    pTelefonoCliente,
+                    pCorreoCliente,
+                    fechaIngreso,
+                    pHoraCot,
+                    pCosto
+                    );
+
+               
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "La Cotizacion Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar La Cotizacion";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
 
         }
 

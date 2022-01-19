@@ -24,6 +24,8 @@ namespace PracticaIIICO.Controllers.Entradas
             List<sp_Retorna_Entradas_Result> vistaObtenida = new List<sp_Retorna_Entradas_Result>();
             vistaObtenida = this.ModeloBD.sp_Retorna_Entradas(null).ToList();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
+            this.agregaProveedores();
 
             //Con Paginador
             var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
@@ -139,6 +141,77 @@ namespace PracticaIIICO.Controllers.Entradas
             this.agregaUsuariosID();
 
             return View();
+        }
+
+        //Entrada Modal
+        [HttpPost]
+        public ActionResult NuevaEntradaModal(int pIdProveedor, int pIdUsuario, int pNumFactura, DateTime pFecha)
+        {
+            
+            int cantRegistroAfectado = 0;
+            string resultado = "";
+            DateTime fechaIngreso;
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+            decimal montoConDescuento = 0;
+            double montoDeIva = 0;
+            decimal montoTotal = 0;
+            double montoBrutoF = 0;
+
+            decimal montoBruto = 0;
+
+            decimal montoFInalIva;
+
+            montoConDescuento = 0;
+
+
+            montoDeIva = 0 * 0.13;
+            montoFInalIva = (Decimal)montoDeIva;
+
+            montoTotal = montoConDescuento + montoFInalIva;
+
+
+            fechaIngreso = DateTime.Now;
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Entrada(
+                    pIdProveedor,
+                    pIdUsuario,
+                    pNumFactura,
+                    pFecha,
+                    fechaIngreso,
+                    montoBruto,
+                    montoConDescuento,
+                    montoFInalIva,
+                    montoTotal
+                    );
+
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "La Entrada Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar La Entrada";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
 
         // GET: Entradas/Edit/5
@@ -272,14 +345,23 @@ namespace PracticaIIICO.Controllers.Entradas
 
         void agregaUsuarios()
         {
-            this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null,null).ToList();
+            this.ViewBag.ListaUsuarios = this.ModeloBD.sp_Retorna_Usuario(null, null).ToList();
         }
 
         void agregaUsuariosID()
         {
             string idConvertido = Session["IdUsuario"].ToString();
-            int idUsuarioActual = int.Parse(idConvertido);
-            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual,null, null).ToList();
+
+            if (idConvertido == null)
+            {
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(null, null, null).ToList();
+            }
+            else
+            {
+                int idUsuarioActual = int.Parse(idConvertido);
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+            }
+           
         }
     }
 }
