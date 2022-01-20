@@ -26,6 +26,7 @@ namespace PracticaIIICO.Controllers.Citas
 
             this.agregaMarcas();
             this.agregaUsuarios();
+            this.agregaUsuariosID();
 
             //Con Paginador
             var cantidadRegistroPorPagina = 5; //parametro Para limitar la cantidad de elementos al mostrar
@@ -121,6 +122,67 @@ namespace PracticaIIICO.Controllers.Citas
             this.agregaUsuarios();
             this.agregaMarcas();
             return View(vistaObtenida);
+        }
+        //Registro Modal Cita
+
+        // POST: Citas/Create
+        [HttpPost]
+        public ActionResult NuevaCitaModal(
+            int pIdUsuario,
+            int pIdMarca,
+            string pNombreCliente,
+            string pNumeroCliente,
+            string pPlacaMoto,
+            DateTime pFechaCita,
+            TimeSpan pHoraCita
+            )
+        {
+            int cantRegistroAfectado = 0;
+            string resultado = "";
+            DateTime fechaIngreso;
+            fechaIngreso = DateTime.Now;
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+            try
+            {
+                // TODO: Add insert logic here
+
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Citas(
+                    pIdUsuario,
+                    pIdMarca,
+                    pNombreCliente,
+                    pNumeroCliente,
+                    pPlacaMoto,
+                    pFechaCita,
+                    pHoraCita,
+                    fechaIngreso
+                    );
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "La Cita Se Regitro Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar La Cita";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
 
         // GET: Citas/Edit/5
