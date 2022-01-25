@@ -3,20 +3,23 @@
     ViewBag.Title = "NuevoTipoUsuario";
 }
 
-<h2>Nuevo Tipo Usuario</h2>
+<div class="formRegistrochz">
+    <h2>Nuevo Tipo Usuario</h2>
 
-<form id="frmRegistroTipoU" method="post">
+    <form id="frmRegistroTipoU" class="form-control" method="post">
 
-    <div class="form-group">
-        <label>Tipo Usuario:</label>
-        <input type="text" name="Nombre_TipoUsuario" id="Nombre_TipoUsuario" class="form-control" />
-    </div>
+        <div class="form-group">
+            <label>Tipo Usuario:</label>
+            <input type="text" name="Nombre_TipoUsuario" id="Nombre_TipoUsuario" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/TipoUsuarios/ListTypeUser" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/TipoUsuarios/ListTypeUser" class="btn btn-primary">Ver Lista</a>
+</div>
+
 
 

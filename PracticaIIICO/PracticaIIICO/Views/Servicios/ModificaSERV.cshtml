@@ -3,52 +3,59 @@
     ViewBag.Title = "ModificaSERV";
 }
 
-<h2>Modifica Servicio</h2>
 
-<form id="frmModificaSERV" method="post">
-    <div class="form-group">
-        <label>ID:</label>
-        <input type="number" value="@Model.ID_Servicio" name="ID_Servicio" id="ID_Servicio" class="form-control" readonly />
-    </div>
+<div class="formRegistrochz">
+    <h2>Modifica Servicio</h2>
 
-    <div class="form-group">
-        <label>Tipo Servicio:</label>
-        <select name="ID_TipoServicio" id="ID_TipoServicio" class="form-control">
-            @foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoSERV in this.ViewBag.ListaTipoServicios)
-            {
-                bool esIdTipoServicio = ModeloTipoSERV.ID_TipoServicio == Model.ID_TipoServicio;
+    <form id="frmModificaSERV" class="form-control" method="post">
 
-                @*
-            Incluir la propiedad selected para que la opción aparezca
-            seleccionada. Se compara la propiedad id_Provincia
-            del objeto del viewBag contra la propiedad id_Provincia
-            del modelo de la vista
-                *@
-                if (esIdTipoServicio)
-                {
-                    <option value="@ModeloTipoSERV.ID_TipoServicio" selected>@ModeloTipoSERV.Nombre_TipoServicio </option>
-                }
-                else
-                {
-                    <option value="@ModeloTipoSERV.ID_TipoServicio">@ModeloTipoSERV.Nombre_TipoServicio </option>
-                }
+        <div class="row">
+            <div class="col">
+                <label>ID:</label>
+                <input type="number" value="@Model.ID_Servicio" name="ID_Servicio" id="ID_Servicio" class="form-control" readonly />
+            </div>
+            <div class="col">
+                <label>Servicio:</label>
+                <input type="text" name="Nombre_Servicio" id="Nombre_Servicio" class="form-control" value="@Model.Nombre_Servicio" />
+            </div>
+        </div>
 
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Servicio:</label>
-        <input type="text" name="Nombre_Servicio" id="Nombre_Servicio" class="form-control" value="@Model.Nombre_Servicio"/>
-    </div>
+        <div class="row">
+            <div class="col">
+                <label>Tipo Servicio:</label>
+                <select name="ID_TipoServicio" id="ID_TipoServicio" class="form-control">
+                    @foreach (PracticaIIICO.BD.sp_Retorna_Tipo_Servicio_Result ModeloTipoSERV in this.ViewBag.ListaTipoServicios)
+                    {
+                        bool esIdTipoServicio = ModeloTipoSERV.ID_TipoServicio == Model.ID_TipoServicio;
 
-    <div class="form-group">
-        <label>Precio:</label>
-        <input type="number" name="Precio_Servicio" id="Precio_Servicio" class="form-control" value="@Model.Precio_Servicio"/>
-    </div>
+                        if (esIdTipoServicio)
+                        {
+                            <option value="@ModeloTipoSERV.ID_TipoServicio" selected>@ModeloTipoSERV.Nombre_TipoServicio </option>
+                        }
+                        else
+                        {
+                            <option value="@ModeloTipoSERV.ID_TipoServicio">@ModeloTipoSERV.Nombre_TipoServicio </option>
+                        }
+
+                    }
+                </select>
+            </div>
+            <div class="col">
+                <label>Precio:</label>
+                <input type="number" name="Precio_Servicio" id="Precio_Servicio" class="form-control" value="@Model.Precio_Servicio" />
+            </div>
+
+        </div>
+
+
+
+        
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Servicios/ListaServicios" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Servicios/ListaServicios" class="btn btn-primary">Ver Lista</a>
+
+</div>

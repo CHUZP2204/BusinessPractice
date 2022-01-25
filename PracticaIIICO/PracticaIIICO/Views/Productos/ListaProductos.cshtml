@@ -120,14 +120,12 @@
         <!--Paginador-->
         @{ Html.RenderPartial("_paginador", Model);}
         <!---->
-        <a href="~/Productos/NuevoPROD" class="btn btn-success">Nuevo Dato</a>
+        <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalProductos">Nuevo</a>
+
         <a href="~/Categorias/ListaCategorias" class="btn btn-primary">Categorias</a>
-        <a href="~/Productos/CatalogoProductos" class="btn btn-primary">Catalogos</a>
+        <a href="~/Productos/CatalogoProductos" class="btn btn-primary">Catalogo</a>
 
         <!--Pruebas Modal-->
-
-        <a href="" data-bs-toggle="modal" data-bs-target="#ModalProductos">Nuevo</a>
-
         <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
     </div>
 </div>
@@ -181,6 +179,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="~/Productos/NuevoPROD" class="btn btn-success">Ampliar</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
             </div>

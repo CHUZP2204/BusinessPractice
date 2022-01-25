@@ -4,80 +4,87 @@
 }
 
 
+<div class="formRegistrochz">
+    <h2>Modificar Producto</h2>
 
-<h2>ModificaPROD</h2>
+    <form id="frmModificaPROD" class="form-control" method="post">
 
-<form id="frmModificaPROD" method="post">
+        <div class="row">
+            <div class="col">
+                <label>ID:</label>
+                <input type="number" name="ID_Producto" id="ID_Producto" class="form-control" value="@Model.ID_Producto" readonly />
+            </div>
+            <div class="col">
+                <label>Producto:</label>
+                <input type="text" name="Nombre_PROD" id="Nombre_PROD" class="form-control" value="@Model.Nombre_PROD" />
+            </div>
+            <div class="col">
+                <label>Estado:</label>
+                <select name="Estado_PROD" id="Estado_PROD" class="form-control">
+                    @{
 
-    <div class="form-group">
-        <label>ID:</label>
-        <input type="number" name="ID_Producto" id="ID_Producto" class="form-control" value="@Model.ID_Producto" readonly />
-    </div>
-    <div class="form-group">
-        <label>Categoria:</label>
-        <select name="ID_Categoria" id="ID_Categoria" class="form-control">
-            @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategorias in this.ViewBag.ListaCategorias)
-            {
-                bool esIdcategoria = ModeloCategorias.ID_Categoria == Model.ID_Categoria;
 
+                        if (Model.Estado_PROD)
+                        {
+                            <option value="true" selected>ACTIVO</option>
+                            <option value="false">INACTIVO</option>
+                        }
+                        else
+                        {
+                            <option value="true">ACTIVO</option>
+                            <option value="false" selected>INACTIVO</option>
 
-                if (esIdcategoria)
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Categoria:</label>
+            <select name="ID_Categoria" id="ID_Categoria" class="form-control">
+                @foreach (PracticaIIICO.BD.sp_Retorna_Categorias_Result ModeloCategorias in this.ViewBag.ListaCategorias)
                 {
-                    <option value="@ModeloCategorias.ID_Categoria" selected>@ModeloCategorias.Nombre_Categoria </option>
-                }
-                else
-                {
-                    <option value="@ModeloCategorias.ID_Categoria">@ModeloCategorias.Nombre_Categoria</option>
-                }
-
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Producto:</label>
-        <input type="text" name="Nombre_PROD" id="Nombre_PROD" class="form-control" value="@Model.Nombre_PROD" />
-    </div>
-
-    <div class="form-group">
-        <label>Precio:</label>
-        <input type="number" name="Precio_PROD" id="Precio_PROD" class="form-control" value="@Model.Precio_PROD" />
-    </div>
-    <div class="form-group">
-        <label>Descripcion:</label>
-        <input type="text" name="Descripcion_PROD" id="Descripcion_PROD" class="form-control" value="@Model.Descripcion_PROD" />
-    </div>
-    <div class="form-group">
-        <label>Estado:</label>
-        <select name="Estado_PROD" id="Estado_PROD" class="form-control">
-            @{
+                    bool esIdcategoria = ModeloCategorias.ID_Categoria == Model.ID_Categoria;
 
 
-                if (Model.Estado_PROD)
-                {
-                    <option value="true" selected>ACTIVO</option>
-                    <option value="false">INACTIVO</option>
-                }
-                else
-                {
-                    <option value="true">ACTIVO</option>
-                    <option value="false" selected>INACTIVO</option>
+                    if (esIdcategoria)
+                    {
+                        <option value="@ModeloCategorias.ID_Categoria" selected>@ModeloCategorias.Nombre_Categoria </option>
+                    }
+                    else
+                    {
+                        <option value="@ModeloCategorias.ID_Categoria">@ModeloCategorias.Nombre_Categoria</option>
+                    }
 
                 }
-            }
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Cantidad:</label>
-        <input type="number" name="Cantidad_PROD" id="Cantidad_PROD" class="form-control" value="@Model.Cantidad_PROD" />
-    </div>
-
+            </select>
+        </div>
+       
+        <div class="row">
+            <div class="col">
+                <label>Precio/U:</label>
+                <input type="number" name="Precio_PROD" id="Precio_PROD" class="form-control" value="@Model.Precio_PROD" />
+            </div>
+            <div class="col">
+                <label>Cantidad:</label>
+                <input type="number" name="Cantidad_PROD" id="Cantidad_PROD" class="form-control" value="@Model.Cantidad_PROD" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Descripcion:</label>
+            <input type="text" name="Descripcion_PROD" id="Descripcion_PROD" class="form-control" value="@Model.Descripcion_PROD" />
+        </div>
+        
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Modifcar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Productos/ListaProductos" class="btn btn-primary">Ver Lista</a>
+            <p>Agregar Imagen</p>
+            <a href="~/SubirArchivo/IndexCarga?idPRODIMG=@Model.ID_Producto" class="btn btn-success"><i class="fas fa-plus"></i></a>
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Modifcar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Productos/ListaProductos" class="btn btn-primary">Ver Lista</a>
-<p>Imagen</p>
-<a href="~/SubirArchivo/IndexCarga?idPRODIMG=@Model.ID_Producto" class="btn btn-success"><i class="fas fa-eye"></i></a>
+    
+</div>
+

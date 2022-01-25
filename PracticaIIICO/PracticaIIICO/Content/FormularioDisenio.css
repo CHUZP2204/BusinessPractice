@@ -1,0 +1,19 @@
+﻿body {
+    background-image: url(https://cssdeck.com/uploads/media/items/7/7AF2Qzt.png);
+}
+
+.formRegistrochz {
+    max-width: 500px;
+    margin: auto;
+    color: azure;
+}
+
+.formRegistrochz h2{
+    color:black;
+    text-align:center;
+}
+
+.formRegistrochz form {
+    color: black;
+}
+

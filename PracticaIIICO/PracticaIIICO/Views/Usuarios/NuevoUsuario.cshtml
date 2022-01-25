@@ -3,57 +3,69 @@
     ViewBag.Title = "NuevoUsuario";
 }
 
-<h2>Nuevo Usuario</h2>
+<div class="formRegistrochz">
+    <h2>Nuevo Usuario</h2>
 
-<form id="frmRegistroTipoU" method="post">
+    <form id="frmRegistroTipoU" class="form-control" method="post">
 
-    <div class="form-group">
-        <label>Tipo Usuario:</label>
-        <select name="ID_TipoUsuario" id="ID_TipoUsuario" class="form-control">
-            @{
+        <div class="row">
+            <div class="col">
+                <label>Tipo Usuario:</label>
+                <select name="ID_TipoUsuario" id="ID_TipoUsuario" class="form-control">
+                    @{
 
-                foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result ModeloTipoU in this.ViewBag.ListaTipoUsuarios)
-                {
-                    <option value="@ModeloTipoU.ID_TipoUsuario">@ModeloTipoU.Nombre_TipoUsuario </option>
-                }
+                        foreach (PracticaIIICO.BD.sp_Retorna_TipoUsuario_Result ModeloTipoU in this.ViewBag.ListaTipoUsuarios)
+                        {
+                            <option value="@ModeloTipoU.ID_TipoUsuario">@ModeloTipoU.Nombre_TipoUsuario </option>
+                        }
 
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Nombre</label>
-        <input type="text" name="Nombre_U" id="Nombre_U" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>1 Apellido</label>
-        <input type="text" name="Apellido1_U" id="Apellido1_U" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>2 Apellido</label>
-        <input type="text" name="Apellido2_U" id="Apellido2_U" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Cedula:</label>
-        <input type="text" name="Cedula_U" id="Cedula_U" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Direccion</label>
-        <input type="text" name="Direccion_U" id="Direccion_U" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Correo</label>
-        <input type="email" name="Correo_U" id="Correo_U" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Telefono</label>
-        <input type="text" name="Telefono_U" id="Telefono_U" class="form-control" />
-    </div>
+                    }
+                </select>
+            </div>
+            <div class="col">
+                <label>Nombre</label>
+                <input type="text" name="Nombre_U" id="Nombre_U" class="form-control" />
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col">
+                <label>1 Apellido</label>
+                <input type="text" name="Apellido1_U" id="Apellido1_U" class="form-control" />
+            </div>
+            <div class="col">
+                <label>2 Apellido</label>
+                <input type="text" name="Apellido2_U" id="Apellido2_U" class="form-control" />
+            </div>
+            <div class="col">
+                <label>Cedula:</label>
+                <input type="text" name="Cedula_U" id="Cedula_U" class="form-control" />
+            </div>
+        </div>
+        
+        
+        <div class="form-group">
+            <label>Direccion</label>
+            <input type="text" name="Direccion_U" id="Direccion_U" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Correo</label>
+            <input type="email" name="Correo_U" id="Correo_U" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Telefono</label>
+            <input type="text" name="Telefono_U" id="Telefono_U" class="form-control" />
+        </div>
 
 
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Usuarios/ListaUsuarios" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Usuarios/ListaUsuarios" class="btn btn-primary">Ver Lista</a>
+    
+</div>
+

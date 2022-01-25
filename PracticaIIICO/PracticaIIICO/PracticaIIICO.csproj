@@ -427,6 +427,7 @@
     <Content Include="Content\Busqueda.css" />
     <Content Include="Content\Card\Card.css" />
     <Content Include="Content\FacturaCss.css" />
+    <Content Include="Content\FormularioDisenio.css" />
     <Content Include="Content\MiPerfil.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Sesion\loginFinal.css" />

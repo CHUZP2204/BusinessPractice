@@ -89,12 +89,12 @@
                 @{ Html.RenderPartial("_paginador", Model);}
                 <!---->
             </div>
-            
-                <a href="~/Usuarios/NuevoUsuario" class="btn btn-success">Nuevo Dato</a>
-                <a href="~/TipoUsuarios/ListTypeUser" class="btn btn-primary">Tipos Usuarios</a>
-                <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
-            
-           
+
+            <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalUsuarios">Nuevo</a>
+            <a href="~/TipoUsuarios/ListTypeUser" class="btn btn-primary">Tipos Usuarios</a>
+            <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+
+
         </div>
 
     </div>
@@ -102,7 +102,7 @@
 </div>
 
 
-<a href="" data-bs-toggle="modal" data-bs-target="#ModalUsuarios">Nuevo</a>
+
 
 <!--Modal De Registro-->
 <div class="modal" id="ModalUsuarios" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
@@ -156,6 +156,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="~/Usuarios/NuevoUsuario" class="btn btn-success">Ampliar</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
             </div>
