@@ -3,56 +3,67 @@
     ViewBag.Title = "NuevoAjuste";
 }
 
-<h2>Nuevo Ajuste</h2>
+<div class="formRegistrochz">
 
-<form id="frmRegistroAjuste" method="post">
+    <h2>Nuevo Ajuste</h2>
 
-    <div class="form-group">
-        <label>Producto:</label>
-        <select name="ID_Producto" id="ID_Producto" class="form-control">
-            @{
-                foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
-                {
-                    <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD</option>
-                }
+    <form id="frmRegistroAjuste" class="form-control" method="post">
+
+        <div class="row">
+            <div class="col">
+                <label>Producto:</label>
+                <select name="ID_Producto" id="ID_Producto" class="form-control">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
+                        {
+                            <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD</option>
+                        }
 
 
-            }
-        </select>
-    </div>
-
-        <div class="form-group">
-            <label>Usuario:</label>
-            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-                @{
-                    foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuarioID)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
                     }
-                }
-            </select>
+                </select>
+            </div>
+
+            <div class="col">
+                <label>Usuario:</label>
+                <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuarioID)
+                        {
+                            <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                        }
+                    }
+                </select>
+            </div>
         </div>
+        
+        <div class="row">
+            <div class="col">
+                <label>Tipo Ajuste:</label>
 
-    <div class="form-group">
-        <label>Tipo Ajuste:</label>
+                <select name="Tipo_Ajuste" id="Tipo_Ajuste" class="form-control">
+                    <option value="Entrada">Entrada</option>
+                    <option value="Salida">Salida</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Cantidad ajustar:</label>
+                <input type="number" name="Cantida_Ajustar" id="Cantida_Ajustar" class="form-control" value="0" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Descripcion:</label>
+            <input type="text" name="Descripcion_Ajsute" id="Descripcion_Ajsute" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Ajustes/ListAjustes" class="btn btn-primary">Ver Lista</a>
+        </div>
+        
+    </form>
 
-        <select name="Tipo_Ajuste" id="Tipo_Ajuste" class="form-control">
-            <option value="Entrada">Entrada</option>
-            <option value="Salida">Salida</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Cantidad ajustar:</label>
-        <input type="number" name="Cantida_Ajustar" id="Cantida_Ajustar" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Descripcion:</label>
-        <input type="text" name="Descripcion_Ajsute" id="Descripcion_Ajsute" class="form-control" />
-    </div>
+    
+</div>
 
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-
-<a href="~/Ajustes/ListAjustes" class="btn btn-primary">Ver Lista</a>

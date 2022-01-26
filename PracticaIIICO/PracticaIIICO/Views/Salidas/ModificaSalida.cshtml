@@ -3,49 +3,55 @@
     ViewBag.Title = "ModificaSalida";
 }
 
-<h2>ModificaSalida</h2>
+<div class="formRegistrochz">
 
-<form id="frmModificaSalida" method="post">
+    <h2>ModificaSalida</h2>
 
-    <div class="form-group">
-        <label>#ID</label>
-        <input type="number" name="ID_Salida" id="ID_Salida" class="form-control" value="@Model.ID_Salida" readonly />
-    </div>
+    <form id="frmModificaSalida" class="form-control" method="post">
 
-    <div class="form-group">
-        <label>Usuario:</label>
-        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-            @{
+        <div class="row">
+            <div class="col">
+                <label>#ID</label>
+                <input type="number" name="ID_Salida" id="ID_Salida" class="form-control" value="@Model.ID_Salida" readonly />
+            </div>
 
-                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                {
-                    bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
-                    if (esIdUser)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U </option>
+            <div class="col">
+                <label>Usuario:</label>
+                <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                        {
+                            bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
+                            if (esIdUser)
+                            {
+                                <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U </option>
+                            }
+                        }
+
                     }
-                    else
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U </option>
-                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Fecha:</label>
+                <input type="text" name="Fecha_Registro" id="Fecha_Registro" class="form-control" value="@Model.Fecha_Registro.ToShortDateString()" readonly />
+            </div>
+            <div class="col">
+                <label>Hora Registro:</label>
+                <input type="text" name="Hora_Orden" id="Hora_Orden" class="form-control" value="@Model.Hora_Orden" readonly />
+            </div>
+        </div>
+        
+        
 
-                }
 
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Fecha:</label>
-        <input type="text" name="Fecha_Registro" id="Fecha_Registro" class="form-control" value="@Model.Fecha_Registro.ToShortDateString()" readonly />
-    </div>
-    <div class="form-group">
-        <label>Hora Registro:</label>
-        <input type="text" name="Hora_Orden" id="Hora_Orden" class="form-control" value="@Model.Hora_Orden" readonly />
-    </div>
-    
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Salidas/ListaSalidas" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
 
-    <br />
-    <div class="form-group">
-        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
+</div>

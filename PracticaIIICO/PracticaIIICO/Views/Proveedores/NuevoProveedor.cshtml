@@ -3,31 +3,42 @@
     ViewBag.Title = "NuevoProveedor";
 }
 
-<h2>Nuevo Proveedor</h2>
+<div class="formRegistrochz">
 
-<form id="frmRegistroProveedor" method="post">
+    <h2>Nuevo Proveedor</h2>
 
-    <div class="form-group">
-        <label>Nombre Proveedor:</label>
-        <input type="text" name="Nombre_PROV" id="Nombre_PROV" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label>Direccion Proveedor:</label>
-        <input type="text" name="Direccion_PROV" id="Direccion_PROV" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Correo Proveedor:</label>
-        <input type="email" name="Correo_PROV" id="Correo_PROV" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <label>Telefono Proveedor:</label>
-        <input type="number" name="Telefono_PROV" id="Telefono_PROV" class="form-control" />
-    </div>
+    <form id="frmRegistroProveedor" class="form-control" method="post">
+
+        <div class="row">
+            <div class="col">
+                <label>Nombre Proveedor:</label>
+                <input type="text" name="Nombre_PROV" id="Nombre_PROV" class="form-control" />
+            </div>
+
+            <div class="col">
+                <label>Correo Proveedor:</label>
+                <input type="email" name="Correo_PROV" id="Correo_PROV" class="form-control" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label>Direccion Proveedor:</label>
+            <input type="text" name="Direccion_PROV" id="Direccion_PROV" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Telefono Proveedor:</label>
+            <input type="number" name="Telefono_PROV" id="Telefono_PROV" class="form-control" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Proveedores/ListaProveedores" class="btn btn-primary">Lista Proveedores</a>
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Proveedores/ListaProveedores" class="btn btn-primary">Lista Proveedores</a>
+
+</div>
+
 

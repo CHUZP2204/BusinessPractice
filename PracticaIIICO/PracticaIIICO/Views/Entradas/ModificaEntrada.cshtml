@@ -3,94 +3,98 @@
     ViewBag.Title = "ModificaEntrada";
 }
 
-<h2>Modifica Entrada</h2>
+<div class="formRegistrochz">
 
-<form id="frmRegistroEntrada" method="post">
+    <h2>Modifica Entrada</h2>
 
-    <div class="form-group">
-        <label>#ID</label>
-        <input type="number" name="ID_Entrada" id="ID_Entrada" class="form-control" value="@Model.ID_Entrada" readonly />
-    </div>
+    <form id="frmRegistroEntrada" class="form-control" method="post">
 
-    <div class="form-group">
-        <label>Proveedor:</label>
-        <select name="ID_Proveedor" id="ID_Proveedor" class="form-control">
-            @{
+        <div class="row">
+            <div class="col">
+                <label>#ID</label>
+                <input type="number" name="ID_Entrada" id="ID_Entrada" class="form-control" value="@Model.ID_Entrada" readonly />
+            </div>
 
-                foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result ModeloProv in this.ViewBag.ListaProveedores)
-                {
-                    bool esIdPROV = ModeloProv.ID_Proveedor == Model.ID_Proveedor;
+            <div class="col">
+                <label>Proveedor:</label>
+                <select name="ID_Proveedor" id="ID_Proveedor" class="form-control">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_Proveedores_Result ModeloProv in this.ViewBag.ListaProveedores)
+                        {
+                            bool esIdPROV = ModeloProv.ID_Proveedor == Model.ID_Proveedor;
 
-                    if (esIdPROV)
-                    {
-                        <option value="@ModeloProv.ID_Proveedor" selected>@ModeloProv.Nombre_PROV</option>
-                    }
-                    else
-                    {
-                        <option value="@ModeloProv.ID_Proveedor">@ModeloProv.Nombre_PROV </option>
-                    }
-
-
-                }
-
-            }
-
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Usuario:</label>
-        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-            @{
-
-                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                {
-                    bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
-                    if (esIdUser)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U </option>
-                    }
-                    else
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U </option>
+                            if (esIdPROV)
+                            {
+                                <option value="@ModeloProv.ID_Proveedor" selected>@ModeloProv.Nombre_PROV</option>
+                            }
+                            else
+                            {
+                                <option value="@ModeloProv.ID_Proveedor">@ModeloProv.Nombre_PROV </option>
+                            }
+                        }
                     }
 
-                }
+                </select>
+            </div>
 
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Factura:</label>
-        <input type="number" name="Numero_Factura" id="Numero_Factura" class="form-control" value="@Model.Numero_Factura" readonly />
-    </div>
-    <div class="form-group">
-        <label>Fecha Factura:</label>
-        <input type="text" name="Fecha_Factura" id="Fecha_Factura" class="form-control" value="@Model.Fecha_Factura.ToShortDateString()" readonly />
-    </div>
-    <div class="form-group">
-        <label>Fecha Ingreso:</label>
-        <input type="text" name="Fecha_Registro" id="Fecha_Registro" class="form-control" value="@Model.Fecha_Factura.ToShortDateString()" readonly />
-    </div>
+            <div class="col">
+                <label>Usuario:</label>
+                <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                        {
+                            bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
+                            if (esIdUser)
+                            {
+                                <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U </option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label>Monto Bruto:</label>
-        <input type="number" name="Monto_Bruto" id="Monto_Bruto" class="form-control" value="@Model.Monto_Bruto" />
-    </div>
-    <div class="form-group">
-        <label>Descuento:</label>
-        <input type="number" name="Monto_Descuento" id="Monto_Descuento" class="form-control" value="@Model.Monto_Descuento" />
-    </div>
-    <div class="form-group">
-        <label>Monto Final:</label>
-        <input type="number" name="Monto_Final" id="Monto_Final" class="form-control" value="@Model.Monto_Final" readonly />
-    </div>
+        <div class="row">
+            <div class="col">
+                <label>Factura:</label>
+                <input type="number" name="Numero_Factura" id="Numero_Factura" class="form-control" value="@Model.Numero_Factura" readonly />
+            </div>
+            <div class="col">
+                <label>Fecha Factura:</label>
+                <input type="text" name="Fecha_Factura" id="Fecha_Factura" class="form-control" value="@Model.Fecha_Factura.ToShortDateString()" readonly />
+            </div>
+            <div class="col">
+                <label>Fecha Ingreso:</label>
+                <input type="text" name="Fecha_Registro" id="Fecha_Registro" class="form-control" value="@Model.Fecha_Factura.ToShortDateString()" readonly />
+            </div>
+        </div>
+        
+        <div class="row">
+            <label>Calculos</label>
+            <div class="col">
+                <label>Monto Bruto:</label>
+                <input type="number" name="Monto_Bruto" id="Monto_Bruto" class="form-control" value="@Model.Monto_Bruto" readonly/>
+            </div>
+            <div class="col">
+                <label>Descuento:</label>
+                <input type="number" name="Monto_Descuento" id="Monto_Descuento" class="form-control" value="@Model.Monto_Descuento" />
+            </div>
+            <div class="col">
+                <label>Monto Final:</label>
+                <input type="number" name="Monto_Final" id="Monto_Final" class="form-control" value="@Model.Monto_Final" readonly />
+            </div>
+        </div>
 
+       
+
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+    <a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
 
+
+</div>
 

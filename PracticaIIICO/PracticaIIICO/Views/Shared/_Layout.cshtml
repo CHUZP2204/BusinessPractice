@@ -45,7 +45,7 @@
                     <!--Fin Cerrar Side Bar-->
                 </div>
                 <!--Side Bar Header-->
-                
+
                 <div class="sidebar-header">
                     <div class="user-pic">
                         <img class="img-responsive img-rounded" src="@Session["URlFoto"]" alt="User picture">
@@ -90,7 +90,7 @@
                         <li class="sidebar-dropdown">
 
                             <a aria-haspopup="true" href="#">
-                                <i class="fa fa-tachometer-alt"></i>
+                                <i class="fa fa-building"></i>
                                 <span>Empresa</span>
                                 <span class="badge badge-pill badge-success">New</span>
                             </a>
@@ -105,18 +105,16 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">Mi Empresa</a>
+                                        <a href="~/Home/MiEmpresa">Mi Empresa</a>
                                     </li>
-                                    <li>
-                                        <a href="#">Desarrollo</a>
-                                    </li>
+
                                 </ul>
                             </div>
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Ventas</span>
+                                <i class="fa fa-cogs"></i>
+                                <span>Procesos</span>
                                 <span class="badge badge-pill badge-danger">3</span>
                             </a>
                             <div class="sidebar-submenu">
@@ -135,6 +133,7 @@
                                 </ul>
                             </div>
                         </li>
+                        <!--
                         <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="far fa-gem"></i>
@@ -160,40 +159,56 @@
                                 </ul>
                             </div>
                         </li>
+                        -->
+
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-chart-line"></i>
-                                <span>Charts</span>
+                                <i class="fa fa-boxes"></i>
+                                <span>Inventario</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Pie chart</a>
+                                        <a href="~/Cotizacion/ListaCotizacion">Cotizacion</a>
                                     </li>
                                     <li>
-                                        <a href="#">Line chart</a>
+                                        <a href="~/Entradas/ListaEntradas">Entradas</a>
                                     </li>
                                     <li>
-                                        <a href="#">Bar chart</a>
+                                        <a href="~/Salidas/ListaSalidas">Salidas</a>
                                     </li>
                                     <li>
-                                        <a href="#">Histogram</a>
+                                        <a href="~/Ajustes/ListAjustes">Ajustes</a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                         <li class="sidebar-dropdown">
                             <a href="#">
-                                <i class="fa fa-globe"></i>
-                                <span>Maps</span>
+                                <i class="fa fa-motorcycle"></i>
+                                <span>Taller</span>
                             </a>
                             <div class="sidebar-submenu">
                                 <ul>
                                     <li>
-                                        <a href="#">Google maps</a>
+                                        <a href="~/Citas/ListaCitas">Citas</a>
                                     </li>
                                     <li>
-                                        <a href="#">Open street map</a>
+                                        <a href="#">Orden Trabajo</a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa fa-map-marked"></i>
+                                <span>Map</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li>
+                                        <a href="~/Home/MapsLocation">Google maps</a>
                                     </li>
                                 </ul>
                             </div>
@@ -204,22 +219,17 @@
                         <li>
                             <a href="#">
                                 <i class="fa fa-book"></i>
-                                <span>Documentation</span>
+                                <span>Reportes</span>
                                 <span class="badge badge-pill badge-primary">Beta</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
                                 <i class="fa fa-calendar"></i>
-                                <span>Calendar</span>
+                                <span>Calendario</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span>Examples</span>
-                            </a>
-                        </li>
+
                         <li>
                             <a class="fas fa-calendar-day" style="text-align:center;color:white">
                                 @DateTime.Now.Date.ToShortDateString()

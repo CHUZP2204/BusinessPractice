@@ -72,7 +72,16 @@ namespace PracticaIIICO.Controllers
             return View();
         }
 
+        public ActionResult MapsLocation()
+        {
+            return View();
+        }
         public ActionResult Configuracion()
+        {
+            return View();
+        }
+
+        public ActionResult MiEmpresa()
         {
             return View();
         }

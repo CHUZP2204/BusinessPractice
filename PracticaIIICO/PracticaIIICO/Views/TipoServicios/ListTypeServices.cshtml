@@ -13,6 +13,7 @@
     <div class="CabeceraTable">
         <h2 style="text-align:center">Lista Tipos De Servicios</h2>
         <br />
+        <a href="~/Servicios/ListaServicios" class="btn btn-success">Servicios</a>
     </div>
     <!---->
     <table id="myTable" class="table table-hover table-bordered table-success table-striped">
@@ -47,11 +48,9 @@
         <!--Paginador-->
         @{ Html.RenderPartial("_paginador", Model);}
         <!---->
-        <a href="~/TipoServicios/NuevoTipoS" class="btn btn-success">Nuevo Dato</a>
 
+        <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalTServicios">Nuevo</a>
         <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
-
-        <a href="" data-bs-toggle="modal" data-bs-target="#ModalTServicios">Nuevo</a>
     </div>
 </div>
 
@@ -84,6 +83,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="~/TipoServicios/NuevoTipoS" class="btn btn-success">Ampliar</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
             </div>

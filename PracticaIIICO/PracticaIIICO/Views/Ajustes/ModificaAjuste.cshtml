@@ -3,67 +3,72 @@
     ViewBag.Title = "ModificaAjuste";
 }
 
-<h2>Modifica Ajuste</h2>
-<form id="frmRegistroAjuste" method="post">
 
-    <div class="form-group">
-        <label>Producto:</label>
-        <select name="ID_Producto" id="ID_Producto" class="form-control">
-            @{
-                foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
-                {
-                    bool esIdProd = ModeloPROD.ID_Producto == Model.ID_Producto;
+<div class="formRegistrochz">
 
-                    if (esIdProd)
-                    {
-                        <option value="@ModeloPROD.ID_Producto" selected>@ModeloPROD.Nombre_PROD</option>
+    <h2>Modifica Ajuste</h2>
+
+    <form id="frmRegistroAjuste" class="form-control" method="post">
+
+        <div class="row">
+            <div class="col">
+                <label>Producto:</label>
+                <select name="ID_Producto" id="ID_Producto" class="form-control">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
+                        {
+                            bool esIdProd = ModeloPROD.ID_Producto == Model.ID_Producto;
+
+                            if (esIdProd)
+                            {
+                                <option value="@ModeloPROD.ID_Producto" selected>@ModeloPROD.Nombre_PROD</option>
+                            }
+                            else
+                            {
+                                <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD</option>
+                            }
+                        }
                     }
-                    else
-                    {
-                        <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Usuario:</label>
+                <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                        {
+                            bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
+
+                            if (esIdUser)
+                            {
+                                <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</option>
+                            }
+                        }
                     }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>Tipo Ajuste:</label>
+                <input type="text" name="Tipo_Ajuste" id="Tipo_Ajuste" class="form-control" value="@Model.Tipo_Ajuste" readonly />
+            </div>
+            <div class="col">
+                <label>Cantidad ajustar:</label>
+                <input type="number" name="Cantida_Ajustar" id="Cantida_Ajustar" class="form-control" value="@Model.Cantida_Ajustar" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Descripcion:</label>
+            <input type="text" name="Descripcion_Ajsute" id="Descripcion_Ajsute" class="form-control" value="@Model.Descripcion_Ajsute" />
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Ajustes/ListAjustes" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
 
-                }
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Usuario:</label>
-        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-            @{
-                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                {
-                    bool esIdUser = ModeloUSER.ID_Usuario == Model.ID_Usuario;
-
-                    if (esIdUser)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</option>
-                    }
-                    else
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
-                    }
-
-                }
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Tipo Ajuste:</label>
-        <input type="text" name="Tipo_Ajuste" id="Tipo_Ajuste" class="form-control" value="@Model.Tipo_Ajuste" readonly />
-    </div>
-    <div class="form-group">
-        <label>Cantidad ajustar:</label>
-        <input type="number" name="Cantida_Ajustar" id="Cantida_Ajustar" class="form-control" value="@Model.Cantida_Ajustar" />
-    </div>
-    <div class="form-group">
-        <label>Descripcion:</label>
-        <input type="text" name="Descripcion_Ajsute" id="Descripcion_Ajsute" class="form-control" value="@Model.Descripcion_Ajsute" />
-    </div>
-
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-
-<a href="~/Ajustes/ListAjustes" class="btn btn-primary">Ver Lista</a>
+    
+</div>

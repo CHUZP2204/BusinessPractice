@@ -90,6 +90,58 @@ namespace PracticaIIICO.Controllers.Proveedores
             return View(collection);
         }
 
+        [HttpPost]
+        public ActionResult RegistrarPROVModal(
+            string pNombrePROV,
+            string pCorreoPROV,
+            string pDireccionPROV,
+            string pTelefonoPROV)
+        {
+            int cantRegistrosAfectados = 0;
+            
+            bool estadoProv = true;
+
+            //Mensajes para JSON
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+            try
+            {
+                cantRegistrosAfectados =
+                this.ModeloBD.sp_Inserta_Proveedor(
+                    pNombrePROV,
+                    pDireccionPROV,
+                    pCorreoPROV,
+                    pTelefonoPROV,
+                    estadoProv);
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistrosAfectados > 0)
+                {
+                    MensajeFinal = "El Proveedor " + pNombrePROV + " Se Regitro Exitosamente";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar El proveedor";
+                    estadoRegistro = 0;
+                }
+            }
+
+            //return Json(resultado);
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
+        }
+
         // GET: Proveedores/Edit/5
         public ActionResult ModificaProveedor(int id_Prov)
         {

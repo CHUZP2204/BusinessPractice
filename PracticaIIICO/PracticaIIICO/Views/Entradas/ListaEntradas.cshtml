@@ -69,9 +69,10 @@
         <!--Paginador-->
         @{ Html.RenderPartial("_paginador", Model);}
         <!---->
-        <a href="~/Entradas/NuevaEntrada" class="btn btn-success">Nuevo</a>
+        <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalEntradas">Nuevo</a>
+
         <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
-        <a href="" data-bs-toggle="modal" data-bs-target="#ModalEntradas">Nuevo</a>
+
     </div>
 </div>
 <!---->
@@ -86,8 +87,9 @@
             <div class="modal-body">
                 <form method="post" class="form-control" id="frmRegistroEntradaModal">
                     <div class="row">
-                        <label class="col-form-label">Proveedor</label>
+
                         <div class="col">
+                            <label class="col-form-label">Proveedor</label>
                             <select id="pIdProveedor" name="pIdProveedor" class="form-control">
                                 @{
 
@@ -102,45 +104,40 @@
                             </select>
 
                         </div>
-                    </div>
-
-                    <div class="row ">
-                        <label class="col-form-label">Usuario</label>
-                        <div class="col-12">
+                        <div class="col">
+                            <label class="col-form-label">Usuario</label>
                             <select id="pIdUsuario" name="pIdUsuario" class="form-control">
                                 @{
 
                                     foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuariosID)
                                     {
-                                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U </option>
+                                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
                                     }
 
                                 }
                             </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <label class="col-form-label">Factura</label>
-                        <div>
+
+                    <div class="row ">
+                        <div class="col">
+                            <label class="col-form-label">Factura</label>
                             <input type="text" class="form-control" id="pNumFactura" name="pNumFactura" />
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label class="col-form-label">Fecha</label>
                             <input type="date" id="FechaP" name="FechaP" class="form-control">
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col">
                             <label class="col-form-label">Monto Bruto</label>
-                            <input type="text" id="pMontoBruto" name="pMontoBruto" class="form-control">
+                            <input type="text" id="pMontoBruto" name="pMontoBruto" class="form-control" value="0" readonly>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label class="col-form-label">Descuento</label>
-                            <input type="text" id="pDescuento" name="pDescuento" class="form-control">
+                            <input type="text" id="pDescuento" name="pDescuento" class="form-control" value="0" readonly>
                         </div>
                     </div>
                 </form>
@@ -150,6 +147,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="~/Entradas/NuevaEntrada" class="btn btn-success">Ampliar</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
             </div>

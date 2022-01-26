@@ -100,9 +100,15 @@ namespace PracticaIIICO.Controllers.Cotizacion
             int cantRegistroAfectado = 0;
             string resultado = "";
             DateTime fechaIngreso;
+            string HoraIngreso;
+            TimeSpan HoraIngresoConvertida;
 
 
             fechaIngreso = DateTime.Now;
+            HoraIngreso = DateTime.Now.ToString("hh:mm:ss");
+
+            HoraIngresoConvertida =  TimeSpan.Parse(HoraIngreso);
+
 
             try
             {
@@ -113,7 +119,7 @@ namespace PracticaIIICO.Controllers.Cotizacion
                     collection.Telefono_Cliente,
                     collection.Correo_Cliente,
                     fechaIngreso,
-                    collection.Hora_Cotizacion,
+                    HoraIngresoConvertida,
                     collection.Costo
                     );
 

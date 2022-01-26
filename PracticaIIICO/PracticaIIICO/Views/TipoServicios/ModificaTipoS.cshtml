@@ -3,29 +3,36 @@
     ViewBag.Title = "ModificaTipoS";
 }
 
-<h2>Modifica Tipo Servicios</h2>
+<div class="formRegistrochz">
+    <h2>Modifica Tipo Servicios</h2>
 
-<form id="frmModificaTipoSER" method="post">
+    <form id="frmModificaTipoSER" class="form-control" method="post">
+        <div class="row">
+            <div class="col">
 
-    <div class="form-group">
+                <label>ID:</label>
+                <input type="number" name="ID_TipoServicio" id="ID_TipoServicio" class="form-control" readonly value="@Model.ID_TipoServicio" />
+            </div>
 
-        <label>ID:</label>
-        <input type="number" name="ID_TipoServicio" id="ID_TipoServicio" class="form-control" readonly value="@Model.ID_TipoServicio" />
-    </div>
+            <div class="col">
+                <label>Tipo Servicio:</label>
+                <input type="text" name="Nombre_TipoServicio" id="Nombre_TipoServicio" class="form-control" value="@Model.Nombre_TipoServicio" />
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label>Tipo Servicio:</label>
-        <input type="text" name="Nombre_TipoServicio" id="Nombre_TipoServicio" class="form-control" value="@Model.Nombre_TipoServicio" />
-    </div>
-    <div class="form-group">
-        <label>Descripcion:</label>
-        <input type="text" name="Descripcion_TipoServicio" id="Descripcion_TipoServicio" class="form-control" value="@Model.Descripcion_TipoServicio"/>
-        
-    </div>
 
-    <div class="form-group">
-        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
+        <div class="form-group">
+            <label>Descripcion:</label>
+            <input type="text" name="Descripcion_TipoServicio" id="Descripcion_TipoServicio" class="form-control" value="@Model.Descripcion_TipoServicio" />
 
-<a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Ver Lista</a>
+        </div>
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
+
+
+</div>
+

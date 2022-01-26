@@ -3,22 +3,27 @@
     ViewBag.Title = "NuevoTipoS";
 }
 
-<h2>Nuevo Tipo Servicio</h2>
+<div class="formRegistrochz">
 
-<form id="frmRegistroTipoSER" method="post">
+    <h2>Nuevo Tipo Servicio</h2>
 
-    <div class="form-group">
-        <label>Tipo Servicio:</label>
-        <input type="text" name="Nombre_TipoServicio" id="Nombre_TipoServicio" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Descripcion:</label>
-        <input type="text" name="Descripcion_TipoServicio" id="Descripcion_TipoServicio" class="form-control" />
-    </div>
+    <form id="frmRegistroTipoSER" class="form-control" method="post">
 
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
+        <div class="form-group">
+            <label>Tipo Servicio:</label>
+            <input type="text" name="Nombre_TipoServicio" id="Nombre_TipoServicio" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Descripcion:</label>
+            <input type="text" name="Descripcion_TipoServicio" id="Descripcion_TipoServicio" class="form-control" />
+        </div>
 
-<a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Ver Lista</a>
+        <div class="form-group">
+            <br />
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/TipoServicios/ListTypeServices" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
+
+   
+</div>

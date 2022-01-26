@@ -69,9 +69,9 @@
         <!--Paginador-->
         @{ Html.RenderPartial("_paginador", Model);}
         <!---->
-        <a href="~/Cotizacion/NuevaCotizacion" class="btn btn-success">Nuevo</a>
+        <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalCotizacion">Nuevo</a>
         <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
-        <a href="" data-bs-toggle="modal" data-bs-target="#ModalCotizacion">Nuevo</a>
+
     </div>
 </div>
 
@@ -87,8 +87,9 @@
             <div class="modal-body">
                 <form method="post" class="form-control" id="frmRegistroCotizModal">
                     <div class="row ">
-                        <label class="col-form-label">Usuario</label>
-                        <div class="col-12">
+
+                        <div class="col">
+                            <label class="col-form-label">Usuario</label>
                             <select id="pIdUsuario" name="pIdUsuario" class="form-control">
                                 @{
 
@@ -100,22 +101,20 @@
                                 }
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-form-label">Numero Cotizacion</label>
-                        <div>
+                        <div class="col">
+                            <label class="col-form-label">Numero Cotizacion</label>
                             <input type="text" class="form-control" id="pNumeroCotizacion" name="pNumeroCotizacion" />
                         </div>
                     </div>
+
                     <div class="row">
-                        <label class="col-form-label">Cliente:</label>
-                        <div>
+
+                        <div class="col">
+                            <label class="col-form-label">Cliente:</label>
                             <input type="text" class="form-control" id="pNombreCliente" name="pNombreCliente" />
                         </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-form-label">Telefono Cliente</label>
-                        <div>
+                        <div class="col">
+                            <label class="col-form-label">Telefono Cliente</label>
                             <input type="text" class="form-control" id="pTelefonoCliente" name="pTelefonoCliente" />
                         </div>
                     </div>
@@ -126,15 +125,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col-form-label">Hora Orden</label>
-                        <div>
+                        
+                        <div class="col">
+                            <label class="col-form-label">Hora Orden</label>
                             <input type="time" class="form-control" id="pHoraCot" name="pHoraCot" />
                         </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-form-label">Costo Final</label>
-                        <div>
-                            <input type="number" class="form-control" id="pCosto" name="pCosto" value="0" readonly/>
+                        <div class="col">
+                            <label class="col-form-label">Costo Final</label>
+                            <input type="number" class="form-control" id="pCosto" name="pCosto" value="0" readonly />
                         </div>
                     </div>
                 </form>
@@ -144,6 +142,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="~/Cotizacion/NuevaCotizacion" class="btn btn-success">Ampliar</a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
             </div>

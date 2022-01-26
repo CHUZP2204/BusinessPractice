@@ -2,57 +2,45 @@
 @{
     ViewBag.Title = "NuevaSalida";
 }
+<div class="formRegistrochz">
 
-<h2>Nueva Salida</h2>
+    <h2>Nueva Salida</h2>
 
-<form id="frmRegistroSalida" method="post">
-    @if (ViewBag.UsuarioActual == "Empleado")
-    {
-        <div class="form-group">
-            <label>Usuario:</label>
-            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-                @{
+    <form id="frmRegistroSalida" class="form-control" method="post">
+        <div class="row">
+            <div class="col">
+                <label>Usuario:</label>
+                <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                    @{
 
-                    foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuariosID)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</option>
+                        foreach (PracticaIIICO.BD.sp_Retorna_UsuarioID_Result ModeloUSER in this.ViewBag.ListaUsuariosID)
+                        {
+                            <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</option>
+                        }
+
                     }
+                </select>
+            </div>
 
-                }
-            </select>
+            <div class="col">
+                <label>Fecha Factura:</label>
+                <input type="text" name="Fecha_Registro" id="Fecha_Registro" class="form-control" value="@DateTime.Now.ToShortDateString()" readonly />
+            </div>
+
+
+            <div class="col">
+                <label>Hora Actual:</label>
+                <input type="time" name="Hora_Orden" id="Hora_Orden" />
+            </div>
         </div>
-    }
-    else
-    {
+
+        
+        <br />
         <div class="form-group">
-            <label>Usuario:</label>
-            <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-                @{
-
-                    foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</option>
-                    }
-
-                }
-            </select>
+            <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Salidas/ListaSalidas" class="btn btn-primary">Ver Lista</a>
         </div>
-    }
-
-    <div class="form-group">
-        <label>Fecha Factura:</label>
-        <input type="date" name="Fecha_Registro" id="Fecha_Registro" class="form-control" readonly />
-    </div>
-
-
-    <div class="form-group">
-        <label>Hora Actual:</label>
-        <input type="time" name="Hora_Orden" id="Hora_Orden" />
-    </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Agregar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Salidas/ListaSalidas" class="btn btn-primary">Ver Lista</a>
+    
+</div>

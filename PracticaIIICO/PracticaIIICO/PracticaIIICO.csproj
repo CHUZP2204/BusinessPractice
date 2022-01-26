@@ -2196,6 +2196,7 @@
     <Content Include="Scripts\Citas\RegistroCitas.js" />
     <Content Include="Scripts\Cotizacion\RegistroCotizacion.js" />
     <Content Include="Scripts\Ajustes\RegistroAjustes.js" />
+    <Content Include="Scripts\Proveedores\RegistroPROV.js" />
     <Content Include="Scripts\Salidas\RegistroSalida.js" />
     <Content Include="Scripts\Entradas\RegistroEntrada.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -2315,6 +2316,8 @@
     <Content Include="Views\SubirArchivo\IndexCargaUser.cshtml" />
     <Content Include="Views\Cotizacion\Index.cshtml" />
     <Content Include="Views\Cotizacion\index2.cshtml" />
+    <Content Include="Views\Home\MapsLocation.cshtml" />
+    <Content Include="Views\Home\MiEmpresa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

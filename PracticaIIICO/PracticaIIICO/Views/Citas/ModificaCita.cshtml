@@ -3,84 +3,96 @@
     ViewBag.Title = "ModificaCita";
 }
 
-<h2>Modifica Cita</h2>
+<div class="formRegistrochz">
+    <h2>Modifica Cita</h2>
 
-<form id="frmModificaCitas" method="post">
-    <div class="form-group">
-        <label>Usuario:</label>
-        <select name="ID_Usuario" id="ID_Usuario" class="form-control">
-            @{
+    <form id="frmModificaCitas" class="form-control" method="post">
 
-                foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
-                {
-                    bool esIdUSER = ModeloUSER.ID_Usuario == Model.ID_Usuario;
+        <div class="row">
+            <div class="col">
+                <label>Usuario:</label>
+                <select name="ID_Usuario" id="ID_Usuario" class="form-control">
+                    @{
 
-                    if (esIdUSER)
-                    {
-                        <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                        foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                        {
+                            bool esIdUSER = ModeloUSER.ID_Usuario == Model.ID_Usuario;
+
+                            if (esIdUSER)
+                            {
+                                <option value="@ModeloUSER.ID_Usuario" selected>@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U </option>
+                            }
+                        }
+
                     }
-                    else
-                    {
-                        <option value="@ModeloUSER.ID_Usuario">@ModeloUSER.Nombre_U @ModeloUSER.Apellido1_U</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Marca:</label>
+                <select name="ID_Marca" id="ID_Marca" class="form-control">
+                    @{
+
+                        foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result ModeloMARK in this.ViewBag.ListaMarcas)
+                        {
+                            bool esIdMARK = ModeloMARK.ID_Marca == Model.ID_Marca;
+
+                            if (esIdMARK)
+                            {
+                                <option value="@ModeloMARK.ID_Marca" selected>@ModeloMARK.Nombre_Marca</option>
+                            }
+                            else
+                            {
+                                <option value="@ModeloMARK.ID_Marca">@ModeloMARK.Nombre_Marca</option>
+                            }
+                        }
+
                     }
-                }
+                </select>
+            </div>
+        </div>
 
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Marca:</label>
-        <select name="ID_Marca" id="ID_Marca" class="form-control">
-            @{
+        <div class="form-group">
+            <label>Nombre Cliente:</label>
+            <input type="text" name="Nombre_Cliente" id="Nombre_Cliente" class="form-control" value="@Model.Nombre_Cliente" />
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <label>Telefono:</label>
+                <input type="text" name="Numero_Cliente" id="Numero_Cliente" class="form-control" value="@Model.Numero_Cliente" />
+            </div>
 
-                foreach (PracticaIIICO.BD.sp_Retorna_Marcas_Result ModeloMARK in this.ViewBag.ListaMarcas)
-                {
-                    bool esIdMARK = ModeloMARK.ID_Marca == Model.ID_Marca;
+            <div class="col">
+                <label>Placa:</label>
+                <input type="text" name="Placa_Moto" id="Placa_Moto" class="form-control" value="@Model.Placa_Moto" />
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <label>Fecha:</label>
+                <input type="datetime" name="Fecha_Cita" id="Fecha_Cita" class="form-control" value="@Model.Fecha_Cita.Value.ToShortDateString()" required />
+            </div>
+            <div class="col">
+                <label>Hora:</label>
+                <input type="time" name="Hora_Cita" id="Hora_Cita" class="form-control" value="@Model.Hora_Cita" />
+            </div>
 
-                    if (esIdMARK)
-                    {
-                        <option value="@ModeloMARK.ID_Marca" selected>@ModeloMARK.Nombre_Marca</option>
-                    }
-                    else
-                    {
-                        <option value="@ModeloMARK.ID_Marca">@ModeloMARK.Nombre_Marca</option>
-                    }
-                }
+            <div class="col">
+                <label>Fecha Ingreso:</label>
+                <input type="text" name="Fecha_Ingreso" id="Fecha_Ingreso" class="form-control" value="@Model.Fecha_Ingreso" readonly />
+            </div>
+        </div>
 
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Nombre Cliente:</label>
-        <input type="text" name="Nombre_Cliente" id="Nombre_Cliente" class="form-control" value="@Model.Nombre_Cliente" />
-    </div>
-    <div class="form-group">
-        <label>Telefono:</label>
-        <input type="text" name="Numero_Cliente" id="Numero_Cliente" class="form-control" value="@Model.Numero_Cliente" />
-    </div>
 
-    <div class="form-group">
-        <label>Placa:</label>
-        <input type="text" name="Placa_Moto" id="Placa_Moto" class="form-control" value="@Model.Placa_Moto" />
-    </div>
-    <div class="form-group">
-        <label>Fecha:</label>
-        <input type="datetime" name="Fecha_Cita" id="Fecha_Cita" class="form-control" value="@Model.Fecha_Cita.Value.ToShortDateString()" required/>
-    </div>
-    <div class="form-group">
-        <label>Hora:</label>
-        <input type="time" name="Hora_Cita" id="Hora_Cita" class="form-control" value="@Model.Hora_Cita" />
-    </div>
-
-    <div class="form-group">
-        <label>Fecha Ingreso:</label>
-        <input type="text" name="Fecha_Ingreso" id="Fecha_Ingreso" class="form-control" value="@Model.Fecha_Ingreso" readonly/>
-    </div>
-
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
+            <a href="~/Citas/ListaCitas" class="btn btn-primary">Ver Lista</a>
+        </div>
+    </form>
     <br />
-    <div class="form-group">
-        <input type="submit" value="Modificar" id="btnAgregar" class="btn btn-success" />
-    </div>
-</form>
-<br />
-<a href="~/Citas/ListaCitas" class="btn btn-primary">Ver Lista</a>
+    
+
+</div>
+
