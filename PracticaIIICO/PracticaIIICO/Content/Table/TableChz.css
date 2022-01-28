@@ -29,9 +29,22 @@
 /*Poner Scroll Cuando la pantalla es mas pequenia*/
 @media screen and (max-width: 768px) {
     table {
-        display:block;
-        overflow-x:auto;
+        display: block;
+        overflow-x: auto;
+        overflow-y: auto;
     }
+}
+
+
+.my-custom-scrollbar {
+    
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
 }
 
 .scroll_vertical {

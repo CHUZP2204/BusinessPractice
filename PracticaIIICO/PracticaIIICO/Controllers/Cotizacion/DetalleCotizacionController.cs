@@ -29,8 +29,9 @@ namespace PracticaIIICO.Controllers.Cotizacion
 
             string Mensaje = id_Cot.ToString();
             /*Session["Mensaje"]*/
-            ViewBag.NumeroCotizacion= Mensaje;
+            ViewBag.NumeroCotizacion = Mensaje;
 
+            this.agregaCotizaciones(id_Cot);
             this.agregaProductos();
             this.agregaServicios();
 
@@ -58,7 +59,26 @@ namespace PracticaIIICO.Controllers.Cotizacion
         public ActionResult AgregaDetCot(sp_Retorna_DetalleCoti_Result collection)
         {
             int cantRegistroAfectado = 0;
+            int cantRegistroAfectado1 = 0;
             string resultado = "";
+
+            
+            decimal costoFinalCOT = 0;
+            decimal costoIvaCOT = 0;
+
+            //Producto Seleccionado
+            sp_Retorna_Products_ID_Result productoSeleccionado = new sp_Retorna_Products_ID_Result();
+            productoSeleccionado = this.ModeloBD.sp_Retorna_Products_ID(collection.ID_Producto).FirstOrDefault();
+
+
+            decimal precioPorCantidad = 0;
+            precioPorCantidad = productoSeleccionado.Precio_PROD * collection.Cant_AdquiPROD;
+
+            
+
+
+
+
 
             try
             {
@@ -67,16 +87,70 @@ namespace PracticaIIICO.Controllers.Cotizacion
                     collection.ID_Producto,
                     collection.ID_Servicio,
                     collection.Cant_AdquiPROD,
-                    collection.PrecioXCant
+                    precioPorCantidad
                     );
 
-                return RedirectToAction("ListaCotizacion","Cotizacion");
+                //Maestro Cotizacion Con Datos
+                List<sp_Retorna_DesgloseCotizacion_Result> modeloCotizacion = new List<sp_Retorna_DesgloseCotizacion_Result>();
+
+                modeloCotizacion = this.ModeloBD.sp_Retorna_DesgloseCotizacion(collection.ID_Cotizacion).ToList();
+
+                // Maestro Cotizacion A Actualizar
+                ///Actualizar Montos de la Tabla Entradas
+                List<sp_Retorna_CotizacionID_Result> listaActualizar = new List<sp_Retorna_CotizacionID_Result>();
+                listaActualizar = this.ModeloBD.sp_Retorna_CotizacionID(collection.ID_Cotizacion).ToList();
+
+                ///Sumar Los Valores Precio Por Cantidad De Detalle Entradas 
+                for (int posicionActual = 0; posicionActual < modeloCotizacion.Count; posicionActual++)
+                {
+                    costoFinalCOT = costoFinalCOT + modeloCotizacion[posicionActual].PrecioXCant;
+                }
+
+                ///Obtener Los Datos Del Encabezado Requeridos Para El Sp inserta Encabezado
+                ///Esto Para Que Ningun Valor Cambie
+                int idCotModifcar = 0;
+                int idCotUsuarioM = 0;
+                int numCotM = 0;
+                string nomClientCot = "";
+                string telClientCot = "";
+                string emailClientCot = "";
+                DateTime fechaCotM = DateTime.MinValue;
+                TimeSpan horaCotM = TimeSpan.MinValue ;
+
+                for (int posicionActual = 0; posicionActual < listaActualizar.Count; posicionActual++)
+                {
+                    idCotModifcar = listaActualizar[posicionActual].ID_Cotizacion;
+                    idCotUsuarioM = listaActualizar[posicionActual].ID_Usuario;
+                    numCotM = listaActualizar[posicionActual].Numero_Cotizacion;
+                    nomClientCot = listaActualizar[posicionActual].Nombre_Cliente;
+                    telClientCot = listaActualizar[posicionActual].Telefono_Cliente;
+                    emailClientCot = listaActualizar[posicionActual].Correo_Cliente;
+                    fechaCotM = listaActualizar[posicionActual].Fecha_Cotizacion;
+                    horaCotM = listaActualizar[posicionActual].Hora_Cotizacion;
+                }
+
+
+                //Llamar al SP Update de Cotizacion
+
+                cantRegistroAfectado1 = this.ModeloBD.sp_Modifica_Cotizacion(
+                    idCotModifcar,
+                    idCotUsuarioM,
+                    numCotM, 
+                    nomClientCot,
+                    telClientCot,
+                    emailClientCot,
+                    fechaCotM,
+                    horaCotM,
+                    costoFinalCOT);
+
+
+                return RedirectToAction("ListaCotizacion", "Cotizacion");
             }
-            catch(Exception errorObtenido)
+            catch (Exception errorObtenido)
             {
 
                 resultado = "Ocurrio Un Error: " + errorObtenido.Message;
-                
+
             }
             finally
             {
@@ -95,6 +169,125 @@ namespace PracticaIIICO.Controllers.Cotizacion
             this.agregaServicios();
 
             return View();
+        }
+
+        // POST: DetalleCotizacion/Create
+        [HttpPost]
+        public ActionResult NuevaDetCotModal(
+            int pIdCotizacion,
+            int pIdProducto,
+            int pIdServicio,
+            int pCantidad,
+            int pPrecioCant)
+        {
+
+            String MensajeFinal = "";
+            int estadoRegistro = 0;
+
+            int cantRegistroAfectado = 0;
+            int cantRegistroAfectado1 = 0;
+
+
+
+            decimal costoFinalCOT = 0;
+            decimal costoIvaCOT = 0;
+
+           
+
+            //Calcular Precio Por La Cantidad Adquirida
+            sp_Retorna_Products_ID_Result productoObtenido = new sp_Retorna_Products_ID_Result();
+            productoObtenido = this.ModeloBD.sp_Retorna_Products_ID(pIdProducto).FirstOrDefault();
+
+            decimal precioPorCantidad = 0;
+            precioPorCantidad = productoObtenido.Precio_PROD * pCantidad;
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Inserta_DetalleCoti(
+                    pIdCotizacion,
+                    pIdProducto,
+                    pIdServicio,
+                    pCantidad,
+                    precioPorCantidad
+                    );
+
+                //Maestro Cotizacion Con Datos
+                List<sp_Retorna_DesgloseCotizacion_Result> modeloCotizacion = new List<sp_Retorna_DesgloseCotizacion_Result>();
+
+                modeloCotizacion = this.ModeloBD.sp_Retorna_DesgloseCotizacion(pIdCotizacion).ToList();
+
+                // Maestro Cotizacion A Actualizar
+                ///Actualizar Montos de la Tabla Entradas
+                List<sp_Retorna_CotizacionID_Result> listaActualizar = new List<sp_Retorna_CotizacionID_Result>();
+                listaActualizar = this.ModeloBD.sp_Retorna_CotizacionID(pIdCotizacion).ToList();
+
+                ///Sumar Los Valores Precio Por Cantidad De Detalle Entradas 
+                for (int posicionActual = 0; posicionActual < modeloCotizacion.Count; posicionActual++)
+                {
+                    costoFinalCOT = costoFinalCOT + modeloCotizacion[posicionActual].PrecioXCant;
+                }
+
+                ///Obtener Los Datos Del Encabezado Requeridos Para El Sp inserta Encabezado
+                ///Esto Para Que Ningun Valor Cambie
+                int idCotModifcar = 0;
+                int idCotUsuarioM = 0;
+                int numCotM = 0;
+                string nomClientCot = "";
+                string telClientCot = "";
+                string emailClientCot = "";
+                DateTime fechaCotM = DateTime.MinValue;
+                TimeSpan horaCotM = TimeSpan.MinValue;
+
+                for (int posicionActual = 0; posicionActual < listaActualizar.Count; posicionActual++)
+                {
+                    idCotModifcar = listaActualizar[posicionActual].ID_Cotizacion;
+                    idCotUsuarioM = listaActualizar[posicionActual].ID_Usuario;
+                    numCotM = listaActualizar[posicionActual].Numero_Cotizacion;
+                    nomClientCot = listaActualizar[posicionActual].Nombre_Cliente;
+                    telClientCot = listaActualizar[posicionActual].Telefono_Cliente;
+                    emailClientCot = listaActualizar[posicionActual].Correo_Cliente;
+                    fechaCotM = listaActualizar[posicionActual].Fecha_Cotizacion;
+                    horaCotM = listaActualizar[posicionActual].Hora_Cotizacion;
+                }
+
+
+                //Llamar al SP Update de Cotizacion
+
+                cantRegistroAfectado1 = this.ModeloBD.sp_Modifica_Cotizacion(
+                    idCotModifcar,
+                    idCotUsuarioM,
+                    numCotM,
+                    nomClientCot,
+                    telClientCot,
+                    emailClientCot,
+                    fechaCotM,
+                    horaCotM,
+                    costoFinalCOT);
+
+            }
+            catch (Exception error)
+            {
+                MensajeFinal = "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "Se Agrego El Detalle Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Pudo Registrar El Detalle";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
         }
 
         // GET: DetalleCotizacion/Edit/5
@@ -120,9 +313,110 @@ namespace PracticaIIICO.Controllers.Cotizacion
         }
 
         // GET: DetalleCotizacion/Delete/5
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult eliminaDetalleCot(int idDetCot)
         {
-            return View();
+            int cantRegistroAfectado = 0;
+            string MensajeFinal = "";
+            int estadoRegistro = 0;
+
+            int cantRegistroAfectado1 = 0;
+            decimal costoFinalCOT = 0;
+
+            sp_Retorna_DetalleCoti_Result detalleActual = new sp_Retorna_DetalleCoti_Result();
+            detalleActual = this.ModeloBD.sp_Retorna_DetalleCoti(idDetCot).FirstOrDefault();
+
+            decimal precioCantidad = 0;
+            precioCantidad = detalleActual.PrecioXCant;
+
+            
+
+
+            try
+            {
+                cantRegistroAfectado = this.ModeloBD.sp_Elimina_DetalleCoti(
+                    idDetCot
+                    );
+
+                //Maestro Cotizacion Con Datos
+                List<sp_Retorna_DesgloseCotizacion_Result> modeloCotizacion = new List<sp_Retorna_DesgloseCotizacion_Result>();
+
+                modeloCotizacion = this.ModeloBD.sp_Retorna_DesgloseCotizacion(detalleActual.ID_Cotizacion).ToList();
+
+                // Maestro Cotizacion A Actualizar
+                ///Actualizar Montos de la Tabla Entradas
+                List<sp_Retorna_CotizacionID_Result> listaActualizar = new List<sp_Retorna_CotizacionID_Result>();
+                listaActualizar = this.ModeloBD.sp_Retorna_CotizacionID(detalleActual.ID_Cotizacion).ToList();
+
+
+                for (int posicionActual = 0; posicionActual < modeloCotizacion.Count; posicionActual++)
+                {
+                    costoFinalCOT = costoFinalCOT + modeloCotizacion[posicionActual].PrecioXCant;
+                }
+
+                ///Obtener Los Datos Del Encabezado Requeridos Para El Sp inserta Encabezado
+                ///Esto Para Que Ningun Valor Cambie
+                int idCotModifcar = 0;
+                int idCotUsuarioM = 0;
+                int numCotM = 0;
+                string nomClientCot = "";
+                string telClientCot = "";
+                string emailClientCot = "";
+                DateTime fechaCotM = DateTime.MinValue;
+                TimeSpan horaCotM = TimeSpan.MinValue;
+
+                for (int posicionActual = 0; posicionActual < listaActualizar.Count; posicionActual++)
+                {
+                    idCotModifcar = listaActualizar[posicionActual].ID_Cotizacion;
+                    idCotUsuarioM = listaActualizar[posicionActual].ID_Usuario;
+                    numCotM = listaActualizar[posicionActual].Numero_Cotizacion;
+                    nomClientCot = listaActualizar[posicionActual].Nombre_Cliente;
+                    telClientCot = listaActualizar[posicionActual].Telefono_Cliente;
+                    emailClientCot = listaActualizar[posicionActual].Correo_Cliente;
+                    fechaCotM = listaActualizar[posicionActual].Fecha_Cotizacion;
+                    horaCotM = listaActualizar[posicionActual].Hora_Cotizacion;
+                }
+
+
+                //Llamar al SP Update de Cotizacion
+
+                cantRegistroAfectado1 = this.ModeloBD.sp_Modifica_Cotizacion(
+                    idCotModifcar,
+                    idCotUsuarioM,
+                    numCotM,
+                    nomClientCot,
+                    telClientCot,
+                    emailClientCot,
+                    fechaCotM,
+                    horaCotM,
+                    costoFinalCOT);
+
+            }
+            catch (Exception error)
+            {
+                MensajeFinal += "Ocurrio Un Error" + error.Message;
+            }
+            finally
+            {
+                if (cantRegistroAfectado > 0)
+                {
+                    MensajeFinal = "Se Elimino El Detalle: " + idDetCot + "  Exitosamente!";
+                    estadoRegistro = 1;
+                }
+                else
+                {
+                    MensajeFinal += " No Se Elimino El Detalle \n Intente De Nuevo";
+                    estadoRegistro = 0;
+                }
+            }
+
+            return Json(new
+            {
+                resultado = MensajeFinal,
+                estado = estadoRegistro
+            });
+
+
         }
 
         // POST: DetalleCotizacion/Delete/5
@@ -139,6 +433,11 @@ namespace PracticaIIICO.Controllers.Cotizacion
             {
                 return View();
             }
+        }
+
+        void agregaCotizaciones(int idCot)
+        {
+            this.ViewBag.ListaCotizaciones = this.ModeloBD.sp_Retorna_CotizacionID(idCot).ToList();
         }
 
         void agregaProductos()

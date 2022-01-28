@@ -103,6 +103,7 @@ function cargaMensajeModalCotiz(data) {
 
     if (estadoFuncion === 1) {
         $("#ModalCotizacion").modal('hide');
+        
     }
 
     //showMessageRegistrarse(resultadoFuncion);

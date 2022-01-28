@@ -68,6 +68,7 @@ function showMessageRegistrarse(msg) {
     $("#btnCerrarModal").on("click", function () {
         $("#exampleModal").modal('hide');
         $("#ModalProductos").modal('hide');
+        
     });
 
     /*$("#myModalRegistrar").modal('show');

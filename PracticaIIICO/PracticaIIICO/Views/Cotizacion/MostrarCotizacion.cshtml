@@ -32,11 +32,11 @@
             <th scope="col">#</th>
             <th scope="col">Producto</th>
             <th scope="col">Servicio</th>
-            
-            
+
+
             <th scope="col">Cantidad</th>
             <th scope="col">Precio/Cant</th>
-            <th scope="col">Costo</th>
+
 
         </tr>
     </thead>
@@ -64,16 +64,51 @@
                             <td>@ModeloSERV.Nombre_Servicio</td>
                         }
                     }
-                    
 
-                    
+
+
                     <td>@PosicionDetalle.Cant_AdquiPROD</td>
                     <td>@PosicionDetalle.PrecioXCant</td>
-                    <td>@PosicionDetalle.Costo</td>
+
                 </tr>
             }
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+
+            <td class='text'>
+                Base Imponible <br />
+                <span>Descuento</span>
+                <br>IVA 13%<br>
+                <span class="bold">Total</span>
+            </td>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result PosicionCotizacion in this.ViewBag.ListaCotizaciones)
+                {
+                    <td class='text'>
+                        <div class="base">@PosicionCotizacion.Costo</div>
+                        <div class="descuento">0</div>
+
+                        @{
+                            double a = Convert.ToDouble(PosicionCotizacion.Costo);
+                            double iva = a * 0.13;
+                            double costoFinalVista = a+iva;
+                            <div class="iva">
+                                @iva
+                            </div>
+                        }
+
+                        <div class="total bold">@costoFinalVista</div>
+                    </td>
+                }
+            }
+
+        </tr>
+    </tfoot>
 </table>
 
 
