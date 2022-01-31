@@ -54,11 +54,11 @@
                         <td>
                             <a href="~/Entradas/ModificaEntrada?id_Entr=@PosicionEntradas.ID_Entrada" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             <a href="~/Entradas/MostrarEntrada?id_Entr=@PosicionEntradas.ID_Entrada" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                            <a href="#" class="btn btn-secondary"><i class="fa fa-print"></i></a>
+                            <a href="~/Entradas/ImprimirEntrada?idEntradaR=@PosicionEntradas.ID_Entrada" class="btn btn-secondary"><i class="fa fa-print"></i></a>
                         </td>
                         <td>
-                            <a href="~/DetalleEntradas/MostrarDetEntr?id_Entr=@PosicionEntradas.ID_Entrada" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                            <a href="~/DetalleEntradas/AgregaDetEntr?id_Entr=@PosicionEntradas.ID_Entrada" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                            <a href="~/DetalleEntradas/MostrarDetEntr?id_Entr=@PosicionEntradas.ID_Entrada" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            
                         </td>
                     </tr>
                 }

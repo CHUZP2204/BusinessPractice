@@ -334,6 +334,22 @@ namespace PracticaIIICO.Controllers.Entradas
             }
         }
 
+        public ActionResult ImprimirEntrada(int idEntradaR)
+        {
+            List<sp_Retorna_FacturaID_Result> vistaObtenida = new List<sp_Retorna_FacturaID_Result>();
+            vistaObtenida = this.ModeloBD.sp_Retorna_FacturaID(idEntradaR).ToList();
+
+            string Mensaje = idEntradaR.ToString();
+            /*Session["Mensaje"]*/
+            ViewBag.NumeroFactura = Mensaje;
+
+            this.agregaUsuarios();
+            this.agregaProductos();
+            this.agregaEntradaMontos(idEntradaR);
+
+            return View(vistaObtenida);
+        }
+
         void agregaEntradaMontos(int idEntrada)
         {
             this.ViewBag.ListaEntradas = this.ModeloBD.sp_Retorna_EntradaID(idEntrada).ToList();
@@ -362,6 +378,11 @@ namespace PracticaIIICO.Controllers.Entradas
                 this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
             }
            
+        }
+
+        void agregaProductos()
+        {
+            this.ViewBag.ListaProductos = this.ModeloBD.sp_Retorna_Productos(null, null).ToList();
         }
     }
 }

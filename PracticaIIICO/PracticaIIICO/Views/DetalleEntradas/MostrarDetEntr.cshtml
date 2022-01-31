@@ -7,47 +7,186 @@
 
 <h3>Detalle Factura #@ViewBag.NumeroFactura</h3>
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col"># Detalle</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Monto</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_Detalle_FacturaID_Result PosicionDetalle in this.Model)
-            {
-                <tr>
+<div class="" style="position: relative; max-height: 300px; overflow: auto; display: block; ">
 
-                    <td>@PosicionDetalle.ID_DetalleEntrada</td>
 
-                    @{
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col"># Detalle</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Monto</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_Detalle_FacturaID_Result PosicionDetalle in this.Model)
+                {
+                    <tr>
 
-                        foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPRD in this.ViewBag.ListaProductos)
-                        {
-                            bool esIdUser = ModeloPRD.ID_Producto == PosicionDetalle.ID_Producto;
-                            if (esIdUser)
+                        <td>@PosicionDetalle.ID_DetalleEntrada</td>
+
+                        @{
+
+                            foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPRD in this.ViewBag.ListaProductos)
                             {
-                                <td>@ModeloPRD.Nombre_PROD</td>
+                                bool esIdUser = ModeloPRD.ID_Producto == PosicionDetalle.ID_Producto;
+                                if (esIdUser)
+                                {
+                                    <td>@ModeloPRD.Nombre_PROD</td>
+                                }
                             }
+
                         }
 
-                    }
 
 
+                        <td>@PosicionDetalle.Cant_Adquirida_PROD</td>
+                        <td>@PosicionDetalle.PrecioXCant</td>
 
-                    <td>@PosicionDetalle.Cant_Adquirida_PROD</td>
-                    <td>@PosicionDetalle.PrecioXCant</td>
+                        <td style="text-align:center"><a href="#" id="detalleCot_@PosicionDetalle.ID_DetalleEntrada" onclick="eliminarDetalleEntr(@PosicionDetalle.ID_DetalleEntrada)" data-bs-target="#ModalEliminarDetEntr" data-bs-toggle="modal" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
 
-                </tr>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <div class="row">
+        <div class='col'>
+            Base Imponible <br />
+            <span>Descuento</span>
+            <br>IVA 13%<br>
+            <span class="bold">Total</span>
+        </div>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+            {
+                <div class='col'>
+                    <div class="base">@PosicionEntrada.Monto_Bruto</div>
+                    <div class="descuento">@PosicionEntrada.Monto_Descuento</div>
+                    <div class="iva">@PosicionEntrada.Monto_IVA</div>
+                    <div class="total bold">@PosicionEntrada.Monto_Final</div>
+                </div>
             }
         }
-    </tbody>
-</table>
+    </div>
 
-<br />
-<a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+
+    <br />
+    <a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+    <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ModalAgregaDetEnt">Agregar</a>
+    <a class="btn btn-primary" id="refrescar"><i class="fas fa-sync-alt"></i></a>
+</div>
+
+<!---->
+<!--Modal De Registro-->
+<div class="modal" id="ModalAgregaDetEnt" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloID">Pantalla De Registro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="form-control" id="frmRegistroDetEntModal">
+                    <div class="row">
+
+                        <div class="col">
+                            <label>ID Cotizacion</label>
+                            <input class="form-control" id="pIdEntrada" name="pIdEntrada" type="number" value="@ViewBag.NumeroFactura" readonly />
+                        </div>
+                        <div class="col">
+                            <label>Producto:</label>
+                            <select name="pIdProducto" id="pIdProducto" class="form-control">
+                                @{
+                                    foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
+                                    {
+                                        <option value="@ModeloPROD.ID_Producto">@ModeloPROD.Nombre_PROD </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label>Cantidad:</label>
+                            <input type="number" name="pCantidad" id="pCantidad" class="form-control" value="0" />
+                        </div>
+                        <div class="col">
+                            <label>Precio Por Cantidad:</label>
+                            <input type="number" name="pPrecioCant" id="pPrecioCant" class="form-control" readonly value="0" />
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row g-3 align-items-center">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="~/DetalleEntradas/AgregaDetEntr?id_Entr=@ViewBag.NumeroFactura" class="btn btn-success">Ampliar</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="registrar" type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fin-->
+<!--Modal De Eliminar-->
+<div class="modal" id="ModalEliminarDetEntr" data-bs-backdrop="static" tabindex="-1" aria-labelledby="tituloID" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloID">Eliminar Detalle!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 style="text-align:center">Esta Seguro Que Desea Eliminar El Articulo?</h4>
+
+                <form method="post" class="form-control" id="frmBorrarDetEntr">
+                    <div class="row">
+
+                        <div class="col">
+                            <label>Entrada #</label>
+                            <input class="form-control" id="pIdEntrada" name="pIdEntrada" type="number" value="@ViewBag.NumeroFactura" readonly />
+                        </div>
+
+                        <div class="col">
+                            <label>ID Detalle</label>
+                            <input class="form-control" id="pEliminaIdDetalleEntr" name="pEliminaIdDetalleEntr" type="number" readonly />
+                        </div>
+
+                    </div>
+
+                </form>
+
+                <div class="row g-3 align-items-center">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button id="EliminarDetEntr" type="button" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ModalRegistroEntrada"></div>
+
+@section scripts{
+
+
+    <script src="~/Scripts/Entradas/RegistroDetEntr.js"></script>
+    <script src="~/Scripts/Recargar.js"></script>
+}
+

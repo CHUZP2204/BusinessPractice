@@ -2197,6 +2197,7 @@
     <Content Include="Scripts\Cotizacion\RegistroCotizacion.js" />
     <Content Include="Scripts\Ajustes\RegistroAjustes.js" />
     <Content Include="Scripts\Cotizacion\RegistroDetCot.js" />
+    <Content Include="Scripts\Entradas\RegistroDetEntr.js" />
     <Content Include="Scripts\Proveedores\RegistroPROV.js" />
     <Content Include="Scripts\Salidas\RegistroSalida.js" />
     <Content Include="Scripts\Entradas\RegistroEntrada.js" />
@@ -2319,6 +2320,7 @@
     <Content Include="Views\Cotizacion\index2.cshtml" />
     <Content Include="Views\Home\MapsLocation.cshtml" />
     <Content Include="Views\Home\MiEmpresa.cshtml" />
+    <Content Include="Views\Entradas\ImprimirEntrada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

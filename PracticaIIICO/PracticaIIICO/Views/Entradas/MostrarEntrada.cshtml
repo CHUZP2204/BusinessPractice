@@ -21,71 +21,91 @@
     }
 }
 
+<div class="" style="position: relative; max-height: 300px; overflow: auto; display: block; ">
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col"># Detalle</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Precio/U</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Precio/Cant</th>
-            
 
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_FacturaID_Result PosicionDetalle in this.Model)
-            {
-                <tr>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col"># Detalle</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Precio/U</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio/Cant</th>
 
-                    <td>@PosicionDetalle.ID_DetalleEntrada</td>
-                    <td>@PosicionDetalle.Nombre_PROD</td>
-                    <td>@PosicionDetalle.Nombre_PROV</td>
-                    <td>@PosicionDetalle.Precio_PROD</td>
-                    <td>@PosicionDetalle.Cant_Adquirida_PROD</td>
-                    <td>@PosicionDetalle.PrecioXCant</td>
-                    
-                </tr>
-            }
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class='text'>
-                Base Imponible <br />
-                <span>Descuento</span>
-                <br>IVA 13%<br>
-                <span class="bold">Total</span>
-            </td>
+
+            </tr>
+        </thead>
+        <tbody>
             @{
-                foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+                foreach (PracticaIIICO.BD.sp_Retorna_FacturaID_Result PosicionDetalle in this.Model)
                 {
-                    <td class='text'>
-                        <div class="base">@PosicionEntrada.Monto_Bruto</div>
-                        <div class="descuento">@PosicionEntrada.Monto_Descuento</div>
-                        <div class="iva">@PosicionEntrada.Monto_IVA</div>
-                        <div class="total bold">@PosicionEntrada.Monto_Final</div>
-                    </td>
+                    <tr>
+
+                        <td>@PosicionDetalle.ID_DetalleEntrada</td>
+                        <td>@PosicionDetalle.Nombre_PROD</td>
+                        <td>@PosicionDetalle.Nombre_PROV</td>
+                        <td>@PosicionDetalle.Precio_PROD</td>
+                        <td>@PosicionDetalle.Cant_Adquirida_PROD</td>
+                        <td>@PosicionDetalle.PrecioXCant</td>
+
+                    </tr>
                 }
             }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class='text'>
+                    Base Imponible <br />
+                    <span>Descuento</span>
+                    <br>IVA 13%<br>
+                    <span class="bold">Total</span>
+                </td>
+                @{
+                    foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+                    {
+                        <td class='text'>
+                            <div class="base">@PosicionEntrada.Monto_Bruto</div>
+                            <div class="descuento">@PosicionEntrada.Monto_Descuento</div>
+                            <div class="iva">@PosicionEntrada.Monto_IVA</div>
+                            <div class="total bold">@PosicionEntrada.Monto_Final</div>
+                        </td>
+                    }
+                }
 
-        </tr>
-    </tfoot>
-</table>
+            </tr>
+        </tfoot>
+    </table>
 
-<br />
-<a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+    <br />
 
-
+</div>
+<div>
+    <div class="row">
+        <div class='col'>
+            Base Imponible <br />
+            <span>Descuento</span>
+            <br>IVA 13%<br>
+            <span class="bold">Total</span>
+        </div>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+            {
+                <div class='col'>
+                    <div class="base">@PosicionEntrada.Monto_Bruto</div>
+                    <div class="descuento">@PosicionEntrada.Monto_Descuento</div>
+                    <div class="iva">@PosicionEntrada.Monto_IVA</div>
+                    <div class="total bold">@PosicionEntrada.Monto_Final</div>
+                </div>
+            }
+        }
+    </div>
+    <a href="~/Entradas/ListaEntradas" class="btn btn-primary">Ver Lista</a>
+</div>
 <!--Prueba Table Dinamica-->
-
-
-

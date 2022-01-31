@@ -24,92 +24,124 @@
     }
 }
 
+<div class="" style="position: relative; max-height: 300px; overflow: auto; display: block; ">
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Servicio</th>
-
-
-            <th scope="col">Cantidad</th>
-            <th scope="col">Precio/Cant</th>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped" style="overflow:auto";>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Servicio</th>
 
 
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_DesgloseCotizacion_Result PosicionDetalle in this.Model)
-            {
-                <tr>
-
-                    <td>@PosicionDetalle.ID_DetalleCotizar</td>
-
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
-                    {
-                        bool esIdPROD = ModeloPROD.ID_Producto == PosicionDetalle.ID_Producto;
-                        if (esIdPROD)
-                        {
-                            <td>@ModeloPROD.Nombre_PROD</td>
-                        }
-                    }
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result ModeloSERV in this.ViewBag.ListaServicios)
-                    {
-                        bool esIdPROD = ModeloSERV.ID_Servicio == PosicionDetalle.ID_Servicio;
-                        if (esIdPROD)
-                        {
-                            <td>@ModeloSERV.Nombre_Servicio</td>
-                        }
-                    }
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio/Cant</th>
 
 
-
-                    <td>@PosicionDetalle.Cant_AdquiPROD</td>
-                    <td>@PosicionDetalle.PrecioXCant</td>
-
-                </tr>
-            }
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-
-            <td class='text'>
-                Base Imponible <br />
-                <span>Descuento</span>
-                <br>IVA 13%<br>
-                <span class="bold">Total</span>
-            </td>
+            </tr>
+        </thead>
+        <tbody>
             @{
-                foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result PosicionCotizacion in this.ViewBag.ListaCotizaciones)
+                foreach (PracticaIIICO.BD.sp_Retorna_DesgloseCotizacion_Result PosicionDetalle in this.Model)
                 {
-                    <td class='text'>
-                        <div class="base">@PosicionCotizacion.Costo</div>
-                        <div class="descuento">0</div>
+                    <tr>
 
-                        @{
-                            double a = Convert.ToDouble(PosicionCotizacion.Costo);
-                            double iva = a * 0.13;
-                            double costoFinalVista = a+iva;
-                            <div class="iva">
-                                @iva
-                            </div>
+                        <td>@PosicionDetalle.ID_DetalleCotizar</td>
+
+                        @foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPROD in this.ViewBag.ListaProductos)
+                        {
+                            bool esIdPROD = ModeloPROD.ID_Producto == PosicionDetalle.ID_Producto;
+                            if (esIdPROD)
+                            {
+                                <td>@ModeloPROD.Nombre_PROD</td>
+                            }
+                        }
+                        @foreach (PracticaIIICO.BD.sp_Retorna_Servicio_Result ModeloSERV in this.ViewBag.ListaServicios)
+                        {
+                            bool esIdPROD = ModeloSERV.ID_Servicio == PosicionDetalle.ID_Servicio;
+                            if (esIdPROD)
+                            {
+                                <td>@ModeloSERV.Nombre_Servicio</td>
+                            }
                         }
 
-                        <div class="total bold">@costoFinalVista</div>
-                    </td>
+
+
+                        <td>@PosicionDetalle.Cant_AdquiPROD</td>
+                        <td>@PosicionDetalle.PrecioXCant</td>
+
+                    </tr>
                 }
             }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
 
-        </tr>
-    </tfoot>
-</table>
+                <td class='text'>
+                    Base Imponible <br />
+                    <span>Descuento</span>
+                    <br>IVA 13%<br>
+                    <span class="bold">Total</span>
+                </td>
+                @{
+                    foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result PosicionCotizacion in this.ViewBag.ListaCotizaciones)
+                    {
+                        <td class='text'>
+                            <div class="base">@PosicionCotizacion.Costo</div>
+                            <div class="descuento">0</div>
+
+                            @{
+                                double a = Convert.ToDouble(PosicionCotizacion.Costo);
+                                double iva = a * 0.13;
+                                double costoFinalVista = a + iva;
+                                <div class="iva">
+                                    @iva
+                                </div>
+                            }
+
+                            <div class="total bold">@costoFinalVista</div>
+                        </td>
+                    }
+                }
+
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div>
+    <div class="row">
+        <div class='col'>
+            Base Imponible <br />
+            <span>Descuento</span>
+            <br>IVA 13%<br>
+            <span class="bold">Total</span>
+        </div>
+        @{
+            foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result PosicionCotizacion in this.ViewBag.ListaCotizaciones)
+            {
+                <div class='col'>
+                    <div class="base">@PosicionCotizacion.Costo</div>
+                    <div class="descuento">0</div>
+
+                    @{
+                        double a = Convert.ToDouble(PosicionCotizacion.Costo);
+                        double iva = a * 0.13;
+                        double costoFinalVista = a + iva;
+                        <div class="iva">
+                            @iva
+                        </div>
+                    }
+
+                    <div class="">@costoFinalVista</div>
+                </div>
+            }
+        }
+    </div>
+</div>
 
 
 <br />

@@ -8,8 +8,7 @@
 
 .ticket_body {
     background: #fff;
-    width: 230px;
-    max-width: 240px;
+   /* width: 230px;*/
 }
 
 table .textMontos {
@@ -39,8 +38,8 @@ table .textMontos {
     padding: 6px;
 }*/
 .area_print {
-    font-size: 12px;
-    font-family: 'Times New Roman';
+    /*font-size: 12px;*/
+    
 }
 
 table .text-center {
@@ -69,8 +68,8 @@ table .text-filas {
 }
 
 .ticket_body {
-    margin: auto;
-    padding: 10px;
+   /* margin: auto;*/
+   /* padding: 10px;*/
 }
 
     .ticket_body table {
