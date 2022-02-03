@@ -285,9 +285,17 @@ namespace PracticaIIICO.Controllers.Citas
         }
         void agregaUsuariosID()
         {
-            string idConvertido = Session["IdUsuario"].ToString();
-            int idUsuarioActual = int.Parse(idConvertido);
-            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual,null, null).ToList();
+            if(Session["IdUsuario"] != null)
+            {
+                string idConvertido = Session["IdUsuario"].ToString();
+                int idUsuarioActual = int.Parse(idConvertido);
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+            }
+            else
+            {
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(null, null, null).ToList();
+            }
+            
         }
         void agregaMarcas()
         {

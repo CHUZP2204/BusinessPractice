@@ -147,9 +147,9 @@ namespace PracticaIIICO.Controllers.Entradas
         [HttpPost]
         public ActionResult NuevaEntradaModal(int pIdProveedor, int pIdUsuario, int pNumFactura, DateTime pFecha)
         {
-            
+
             int cantRegistroAfectado = 0;
-            string resultado = "";
+
             DateTime fechaIngreso;
             String MensajeFinal = "";
             int estadoRegistro = 0;
@@ -157,7 +157,7 @@ namespace PracticaIIICO.Controllers.Entradas
             decimal montoConDescuento = 0;
             double montoDeIva = 0;
             decimal montoTotal = 0;
-            double montoBrutoF = 0;
+
 
             decimal montoBruto = 0;
 
@@ -366,18 +366,17 @@ namespace PracticaIIICO.Controllers.Entradas
 
         void agregaUsuariosID()
         {
-            string idConvertido = Session["IdUsuario"].ToString();
-
-            if (idConvertido == null)
+            if (Session["IdUsuario"] != null)
             {
-                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(null, null, null).ToList();
+                string idConvertido = Session["IdUsuario"].ToString();
+                int idUsuarioActual = int.Parse(idConvertido);
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+
             }
             else
             {
-                int idUsuarioActual = int.Parse(idConvertido);
-                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(null, null, null).ToList();
             }
-           
         }
 
         void agregaProductos()

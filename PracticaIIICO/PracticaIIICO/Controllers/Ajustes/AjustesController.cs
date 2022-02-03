@@ -61,10 +61,13 @@ namespace PracticaIIICO.Controllers.Ajustes
         // GET: Ajustes/Create
         public ActionResult NuevoAjuste()
         {
+            if (Session["RoleUsuario"] != null)
+            {
+                string tipoUsuarioActual = Session["RoleUsuario"].ToString();
 
-            string tipoUsuarioActual = Session["RoleUsuario"].ToString();
-
-            this.ViewBag.UsuarioActual = tipoUsuarioActual;
+                this.ViewBag.UsuarioActual = tipoUsuarioActual;
+            }
+            
 
             this.agregaProductos();
             this.agregaUsuarios();
@@ -90,18 +93,11 @@ namespace PracticaIIICO.Controllers.Ajustes
             int stockActual = 0;
             int stockVista = 0;
             int stockFinal = 0;
-
+            bool estadoInventario = false;
             stockVista = modeloVista.Cantida_Ajustar;
             stockActual = (int)productoActual.Cantidad_PROD;
 
-            if (modeloVista.Tipo_Ajuste.Equals("Entrada"))
-            {
-                stockFinal = stockActual + stockVista;
-            }
-            else if (modeloVista.Tipo_Ajuste.Equals("Salida"))
-            {
-                stockFinal = stockActual - stockVista;
-            }
+
 
             DateTime fechaIngreso;
             fechaIngreso = DateTime.Now;
@@ -110,39 +106,85 @@ namespace PracticaIIICO.Controllers.Ajustes
 
             try
             {
-                // TODO: Add insert logic here
-                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
-                    modeloVista.ID_Producto,
-                    modeloVista.ID_Usuario,
-                    modeloVista.Tipo_Ajuste,
-                    modeloVista.Cantida_Ajustar,
-                    fechaIngreso,
-                    modeloVista.Descripcion_Ajsute
-                    );
-                //Actualizar el Inventario el campo STOCK
-
-                estadoStock = this.ModeloBD.sp_Modifica_Products(
-                 productoActual.ID_Producto,
-                 productoActual.ID_Categoria,
-                 productoActual.Nombre_PROD,
-                 productoActual.Precio_PROD,
-                 productoActual.Descripcion_PROD,
-                 productoActual.Estado_PROD,
-                 stockFinal
-               );
-                if (modeloVista.Tipo_Ajuste == "Entrada")
+                if (modeloVista.Tipo_Ajuste.Equals("Entrada"))
                 {
-                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
-                    " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    stockFinal = stockActual + stockVista;
+                    // TODO: Add insert logic here
+                    cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
+                        modeloVista.ID_Producto,
+                        modeloVista.ID_Usuario,
+                        modeloVista.Tipo_Ajuste,
+                        modeloVista.Cantida_Ajustar,
+                        fechaIngreso,
+                        modeloVista.Descripcion_Ajsute
+                        );
+                    //Actualizar el Inventario el campo STOCK
+
+                    estadoStock = this.ModeloBD.sp_Modifica_Products(
+                     productoActual.ID_Producto,
+                     productoActual.ID_Categoria,
+                     productoActual.Nombre_PROD,
+                     productoActual.Precio_PROD,
+                     productoActual.Descripcion_PROD,
+                     productoActual.Estado_PROD,
+                     stockFinal
+                   );
+
+                    if (modeloVista.Tipo_Ajuste == "Entrada")
+                    {
+                        @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                        " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    }
+
+                    return RedirectToAction("ListAjustes");
                 }
-                else if (modeloVista.Tipo_Ajuste == "Salida")
+                else if (modeloVista.Tipo_Ajuste.Equals("Salida"))
                 {
-                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
-                    " Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    if (stockActual <= 0)
+                    {
+                        resultado += "No Hay Productos En Inventario: Cantidad Actual 0 ";
+                        estadoInventario = true;
+                    }
+                    else if (stockActual < stockVista)
+                    {
+                        resultado += "La Cantidad Solicitada Supera la existencia del Producto \n" +
+                                 " en el Inventario, Solo hay: " + stockActual + " productos en existencia";
+                        estadoInventario = true;
+                    }
+                    else
+                    {
+                        stockFinal = stockActual - stockVista;
+
+                        // TODO: Add insert logic here
+                        cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
+                            modeloVista.ID_Producto,
+                            modeloVista.ID_Usuario,
+                            modeloVista.Tipo_Ajuste,
+                            modeloVista.Cantida_Ajustar,
+                            fechaIngreso,
+                            modeloVista.Descripcion_Ajsute
+                            );
+                        //Actualizar el Inventario el campo STOCK
+
+                        estadoStock = this.ModeloBD.sp_Modifica_Products(
+                         productoActual.ID_Producto,
+                         productoActual.ID_Categoria,
+                         productoActual.Nombre_PROD,
+                         productoActual.Precio_PROD,
+                         productoActual.Descripcion_PROD,
+                         productoActual.Estado_PROD,
+                         stockFinal
+                       );
+                        if (modeloVista.Tipo_Ajuste == "Salida")
+                        {
+                            @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                            " Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                        }
+                        return RedirectToAction("ListAjustes");
+                    }
+
                 }
 
-
-                return RedirectToAction("ListAjustes");
             }
             catch (Exception errorObtenido)
             {
@@ -199,52 +241,91 @@ namespace PracticaIIICO.Controllers.Ajustes
             stockVista = pCantAjustar;
             stockActual = (int)productoActual.Cantidad_PROD;
 
-            if (pTipoAjuste.Equals("Entrada"))
-            {
-                stockFinal = stockActual + stockVista;
-            }
-            else if (pTipoAjuste.Equals("Salida"))
-            {
-                stockFinal = stockActual - stockVista;
-            }
+
 
             DateTime fechaIngreso;
             fechaIngreso = DateTime.Now;
 
             try
             {
-                // TODO: Add insert logic here
-                cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
-                   pIdProducto,
-                   pIdUsuario,
-                   pTipoAjuste,
-                   pCantAjustar,
-                   fechaIngreso,
-                   pDescripAjuste
-                    );
-                //Actualizar el Inventario el campo STOCK
-
-                estadoStock = this.ModeloBD.sp_Modifica_Products(
-                 productoActual.ID_Producto,
-                 productoActual.ID_Categoria,
-                 productoActual.Nombre_PROD,
-                 productoActual.Precio_PROD,
-                 productoActual.Descripcion_PROD,
-                 productoActual.Estado_PROD,
-                 stockFinal
-               );
-                if (pTipoAjuste == "Entrada")
+                if (pTipoAjuste.Equals("Entrada"))
                 {
-                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
-                    " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    stockFinal = stockActual + stockVista;
+
+                    // TODO: Add insert logic here
+                    cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
+                       pIdProducto,
+                       pIdUsuario,
+                       pTipoAjuste,
+                       pCantAjustar,
+                       fechaIngreso,
+                       pDescripAjuste
+                        );
+                    //Actualizar el Inventario el campo STOCK
+
+                    estadoStock = this.ModeloBD.sp_Modifica_Products(
+                     productoActual.ID_Producto,
+                     productoActual.ID_Categoria,
+                     productoActual.Nombre_PROD,
+                     productoActual.Precio_PROD,
+                     productoActual.Descripcion_PROD,
+                     productoActual.Estado_PROD,
+                     stockFinal
+                   );
+
+                    if (pTipoAjuste == "Entrada")
+                    {
+                        @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                        " Se Agregaron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                    }
                 }
-                else if (pTipoAjuste == "Salida")
+                else if (pTipoAjuste.Equals("Salida"))
                 {
-                    @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
-                    " Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+
+                    if (stockActual <= 0)
+                    {
+                        MensajeFinal += "No Hay Productos En Inventario: Cantidad Actual 0 ";
+
+                    }
+                    else if (stockActual < stockVista)
+                    {
+                        MensajeFinal += "La Cantidad Solicitada Supera la existencia del Producto \n" +
+                                 " en el Inventario, Solo hay: " + stockActual + " productos en existencia";
+
+                    }
+                    else
+                    {
+
+                        stockFinal = stockActual - stockVista;
+                        // TODO: Add insert logic here
+                        cantRegistroAfectado = this.ModeloBD.sp_Inserta_Ajuste(
+                           pIdProducto,
+                           pIdUsuario,
+                           pTipoAjuste,
+                           pCantAjustar,
+                           fechaIngreso,
+                           pDescripAjuste
+                            );
+                        //Actualizar el Inventario el campo STOCK
+
+                        estadoStock = this.ModeloBD.sp_Modifica_Products(
+                         productoActual.ID_Producto,
+                         productoActual.ID_Categoria,
+                         productoActual.Nombre_PROD,
+                         productoActual.Precio_PROD,
+                         productoActual.Descripcion_PROD,
+                         productoActual.Estado_PROD,
+                         stockFinal
+                       );
+
+                        if (pTipoAjuste == "Salida")
+                        {
+                            @TempData["MensajeStock"] = "Se Actualizo el STOCK del producto " + productoActual.Nombre_PROD + " \n " +
+                            " Se Retiraron " + stockVista + " Unidades"; //Es Parecido al ViewBag Pero Vive mas
+                        }
+
+                    }
                 }
-
-
 
             }
             catch (Exception error)
@@ -383,9 +464,18 @@ namespace PracticaIIICO.Controllers.Ajustes
 
         void agregaUsuariosID()
         {
-            string idConvertido = Session["IdUsuario"].ToString();
-            int idUsuarioActual = int.Parse(idConvertido);
-            this.ViewBag.ListaUsuarioID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+            if (Session["IdUsuario"] != null)
+            {
+                string idConvertido = Session["IdUsuario"].ToString();
+                int idUsuarioActual = int.Parse(idConvertido);
+                this.ViewBag.ListaUsuarioID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+            }
+            else
+            {
+                this.ViewBag.ListaUsuarioID = this.ModeloBD.sp_Retorna_UsuarioID(null, null, null).ToList();
+            }
+
+            
         }
 
         void agregaUsuarios()

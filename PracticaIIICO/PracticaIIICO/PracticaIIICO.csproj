@@ -2199,6 +2199,7 @@
     <Content Include="Scripts\Cotizacion\RegistroDetCot.js" />
     <Content Include="Scripts\Entradas\RegistroDetEntr.js" />
     <Content Include="Scripts\Proveedores\RegistroPROV.js" />
+    <Content Include="Scripts\Salidas\RegistroDetSal.js" />
     <Content Include="Scripts\Salidas\RegistroSalida.js" />
     <Content Include="Scripts\Entradas\RegistroEntrada.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

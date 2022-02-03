@@ -22,41 +22,36 @@
     }
 }
 
+<div style="position: relative; max-height: 300px; overflow: auto; display: block;">
 
-<!---->
-<table id="myTable" class="table table-hover table-bordered table-success table-striped">
-    <thead>
-        <tr>
-            <th scope="col"># Salida</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Fecha</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (PracticaIIICO.BD.sp_Retorna_DesgloseSalida_Result PosicionDetalle in this.Model)
-            {
-                <tr>
 
-                    <td>@PosicionDetalle.ID_Salida</td>
-                    @foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUS in this.ViewBag.ListaUsuarios)
-                    {
-                        bool esIdU = ModeloUS.ID_Usuario == PosicionDetalle.ID_Usuario;
-                        if (esIdU)
-                        {
-                            <td>@ModeloUS.Nombre_U @ModeloUS.Apellido1_U</td>
-                        }
-                    }
-                    <td>@PosicionDetalle.Nombre_PROD</td>
-                    <td>@PosicionDetalle.Cant_Salida_PROD</td>
-                    <td>@PosicionDetalle.Fecha_Registro.ToShortDateString()</td>
-                </tr>
+    <!---->
+    <table id="myTable" class="table table-hover table-bordered table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col"># Salida</th>
+                
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (PracticaIIICO.BD.sp_Retorna_DesgloseSalida_Result PosicionDetalle in this.Model)
+                {
+                    <tr>
+
+                        <td>@PosicionDetalle.ID_Salida</td>
+                       
+                        <td>@PosicionDetalle.Nombre_PROD</td>
+                        <td>@PosicionDetalle.Cant_Salida_PROD</td>
+                        <td>@PosicionDetalle.Fecha_Registro.ToShortDateString()</td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+</div>
 <br />
 <a href="~/Salidas/ListaSalidas" class="btn btn-primary">Ver Lista</a>

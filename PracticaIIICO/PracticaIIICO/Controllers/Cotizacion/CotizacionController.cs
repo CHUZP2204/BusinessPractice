@@ -34,10 +34,7 @@ namespace PracticaIIICO.Controllers.Cotizacion
             
         }
 
-        void agregaEntradaMontos(int idEntrada)
-        {
-            this.ViewBag.ListaEntradas = this.ModeloBD.sp_Retorna_EntradaID(idEntrada).ToList();
-        }
+       
         // GET: Cotizacion/Details/5
         public ActionResult ListaCotizacion(int pagina = 1)
         {
@@ -321,9 +318,18 @@ namespace PracticaIIICO.Controllers.Cotizacion
         void agregaUsuariosID()
 
         {
-            string idConvertido = Session["IdUsuario"].ToString();
-            int idUsuarioActual = int.Parse(idConvertido);
-            this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+            if (Session["IdUsuario"] != null)
+            {
+                string idConvertido = Session["IdUsuario"].ToString();
+
+                int idUsuarioActual = int.Parse(idConvertido);
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(idUsuarioActual, null, null).ToList();
+            }
+            else
+            {
+                this.ViewBag.ListaUsuariosID = this.ModeloBD.sp_Retorna_UsuarioID(null, null, null).ToList();
+            }
+
         }
         void agregaCotizaciones(int idCot)
         {
@@ -338,6 +344,10 @@ namespace PracticaIIICO.Controllers.Cotizacion
         void agregaServicios()
         {
             this.ViewBag.ListaServicios = this.ModeloBD.sp_Retorna_Servicio(null).ToList();
+        }
+        void agregaEntradaMontos(int idEntrada)
+        {
+            this.ViewBag.ListaEntradas = this.ModeloBD.sp_Retorna_EntradaID(idEntrada).ToList();
         }
     }
 }
