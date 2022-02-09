@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "GenerarReporte";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index2</title>
+    <link href="~/Content/Boostrap_5/css/bootstrap.css" rel="stylesheet" />
+    <style type="text/css" media="print">
+        #imprimirbtn {
+            display: none
+        }
+    </style>
+</head>
+<body>
+
+    
+
+    <div id="ticket" class="ticket_body" style="margin-left:6%;margin-right:6%;">
+        <h2 style="text-align:center;">Generar Reporte</h2>
+        <div class="area_print">
+            <div class="row">
+                <div class="col" style="margin:2px 5px 2px 5px ;padding-right:100px; padding-left:10px;">
+                    <div style="border: groove; border-width: 0.1rem; border-color: black; border-radius:10px ;font-size:10px;">
+                        <div style="text-align:center">
+                            <b>MOTO REPUESTOS Y LLANTERA MAKO</b>
+                        </div>
+                        <div style="text-align:center">
+                            <b>MARCO MARTINEZ MENA</b>
+                        </div>
+                        <div style="text-align:center">112630999</div>
+                        <div style="text-align:center">QUITIRRISI DE MORA,50 OESTE DEL GIMNASIO</div>
+                        <div style="text-align:center">TELEFONO: 84173048</div>
+                    </div>
+
+                </div>
+                <div class="col" style="padding:10px;">
+                    <div class="report-encabezado" style="width:153px;height:65px;margin-left:30%">
+                        <img style="width:100%" src="~/Images/LogoSinFondo.png">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col" style="font-size:10px">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result Posicion in this.ViewBag.ListaEntradas)
+                        {
+
+                            <div class="cliente_text">FECHA:@Posicion.Fecha_Factura.ToShortDateString() </div>
+                            foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
+                            {
+                                bool esIdUser = ModeloUSER.ID_Usuario == Posicion.ID_Usuario;
+                                if (esIdUser)
+                                {
+                                    <div class="cliente_text">CLIENTE:<b>@ModeloUSER.Nombre_U.ToUpper() @ModeloUSER.Apellido1_U.ToUpper()</b></div>
+                                    <div class="cliente_text">CED:@ModeloUSER.Cedula_U</div>
+                                }
+                            }
+                            <div class="cliente_text">TIQUETE ELECTRONICO: @ViewBag.NumeroFactura</div>
+                        }
+                    }
+                </div>
+                <div class="col">
+
+                </div>
+            </div>
+            <div style="border:groove; border-color:black; border-width:0.1rem"></div>
+
+            <br>
+            
+
+           
+
+
+
+
+            <br>
+            <div>------------------------------------------------</div>
+            <table>
+                <thead>
+
+                    <tr>
+                        <th class="text-center">CANT.</th>
+                        <th class="text-center">DESC.</th>
+                        <th class="text-center">PRECIO</th>
+                        <th class="text-center">TOTAL</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_FacturaID_Result PosicionDetalle in this.Model)
+                        {
+                            <tr>
+                                <td class="text-filas">@PosicionDetalle.Cant_Adquirida_PROD</td>
+                                <td class="text-filas">@PosicionDetalle.Nombre_PROD</td>
+                                <td class="text-filas">@PosicionDetalle.Precio_PROD</td>
+                                <td class="text-filas">@PosicionDetalle.PrecioXCant</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <table>
+                <tfoot class="tfootChuz">
+                    @{
+                        foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+                        {
+                            <tr>
+
+                                <td colspan="4" class="text-right2">
+                                    <b>Sub Total</b>
+
+                                </td>
+
+                                <td class="textMontos">
+                                    <b>@PosicionEntrada.Monto_Bruto</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4" class="text-right2">
+                                    <b>Descuento</b>
+
+                                </td>
+
+                                <td class="textMontos">
+                                    <b>@PosicionEntrada.Monto_Descuento</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="text-right2">
+                                    <b>IVA</b>
+
+                                </td>
+
+                                <td colspan="4" class="textMontos">
+                                    <b>@PosicionEntrada.Monto_IVA</b>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td colspan="4" class="text-right2">
+                                    <b>Total</b>
+
+                                </td>
+
+                                <td class="textMontos">
+                                    <b>@PosicionEntrada.Monto_Final</b>
+                                </td>
+
+                            </tr>
+
+
+                        }
+                    }
+
+
+
+                </tfoot>
+            </table>
+            <div>------------------------UL--------------------</div>
+            <b>Su Pago: ₡/13000.00 Colones</b>
+            <br />
+            <b>Su Cambio: ₡/344.00</b>
+            <br />
+            <div>Atendio:Marco Mena Martinez</div>
+            <div>------------------------------------------------</div>
+
+
+            <div class="text-encabezado">
+                Autorizado mediante Resolución de Tributacion N° 001-001
+                Representación impresa de la Factura Electrónica.
+            </div>
+            <hr>
+
+            <div class="text-encabezado" style="font-size:12px;">
+                <b>HASH: Hb80fKOWgPSw6NcfJUzomi4GF8g=</b>
+            </div>
+            <hr>
+
+            <div class="text-encabezado">
+                TODO CAMBIO SE DEBE REALIZAR DENTRO DE LAS 24 HORAS NO HAY DEVOLUCIONES DE DINERO
+                <br />
+                <p>*** PARA EFECTOS DE GARANTIA SE DEBE PRESENTAR LA FACTURA FISICA Y ORIGINAL ***</p>
+
+                <br />
+                GRACIAS POR SU COMPRA
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

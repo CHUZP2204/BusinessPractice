@@ -2322,6 +2322,7 @@
     <Content Include="Views\Home\MapsLocation.cshtml" />
     <Content Include="Views\Home\MiEmpresa.cshtml" />
     <Content Include="Views\Entradas\ImprimirEntrada.cshtml" />
+    <Content Include="Views\Entradas\GenerarReporte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
