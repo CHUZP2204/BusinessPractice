@@ -248,6 +248,27 @@ namespace PracticaIIICO.Controllers.Salidas
             return View(collectionObtenido);
         }
 
+        //Reporte Salidas
+        public ActionResult GenerarReporteSal(int idSalidaR)
+        {
+            List<sp_Retorna_DetalleFacturaSalida_Result>vistaObtenida = new List<sp_Retorna_DetalleFacturaSalida_Result>();
+            vistaObtenida = this.ModeloBD.sp_Retorna_DetalleFacturaSalida(idSalidaR).ToList();
+
+
+            string Mensaje = idSalidaR.ToString();
+            /*Session["Mensaje"]*/
+            ViewBag.NumeroDetalleSal = Mensaje;
+
+            this.agregaProductos();
+
+            this.agregaSalidas(idSalidaR);
+            this.agregaUsuarios();
+            this.agregaProductos();
+            
+
+            return View(vistaObtenida);
+        }
+
         // GET: Salidas/Delete/5
         public ActionResult Delete(int id)
         {
@@ -268,6 +289,10 @@ namespace PracticaIIICO.Controllers.Salidas
             {
                 return View();
             }
+        }
+        void agregaProductos()
+        {
+            this.ViewBag.ListaProductos = this.ModeloBD.sp_Retorna_Productos(null, null).ToList();
         }
         void agregaSalidas(int idSal)
         {

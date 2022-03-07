@@ -288,6 +288,26 @@ namespace PracticaIIICO.Controllers.Cotizacion
             return View(modeloVista);
         }
 
+
+        // Reporte Cotizaciones
+
+        public ActionResult GenerarReporteCot(int id_Cot)
+        {
+            List<sp_Retorna_DetalleCotID_Result> modeloVista = new List<sp_Retorna_DetalleCotID_Result>();
+            modeloVista = this.ModeloBD.sp_Retorna_DetalleCotID(id_Cot).ToList();
+
+            string Mensaje = id_Cot.ToString();
+            /*Session["Mensaje"]*/
+            ViewBag.NumeroCotizacion = Mensaje;
+
+            this.agregaCotizaciones(id_Cot);
+            this.agregaUsuarios();
+            this.agregaProductos();
+
+
+            return View(modeloVista);
+        }
+
         // GET: Cotizacion/Delete/5
         public ActionResult Delete(int id)
         {

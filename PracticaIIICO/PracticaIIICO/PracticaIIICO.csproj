@@ -2323,6 +2323,8 @@
     <Content Include="Views\Home\MiEmpresa.cshtml" />
     <Content Include="Views\Entradas\ImprimirEntrada.cshtml" />
     <Content Include="Views\Entradas\GenerarReporte.cshtml" />
+    <Content Include="Views\Salidas\GenerarReporteSal.cshtml" />
+    <Content Include="Views\Cotizacion\GenerarReporteCot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

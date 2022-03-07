@@ -1,7 +1,30 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div class="container" style="border:double;">
+    <div class="row">
+        <div class="col">
+            <h4 style="text-align:center;">Sistema De Gestion De Inventario</h4>
+            <h5 style="text-align:center;">Ingresos y Salidas</h5>
+
+            <p style="text-align:center">Version 1.0.0</p>
+            <p style="text-align:center">Desarrollador: Jesus Perez Saenz</p>
+            <p style="text-align:center">Puriscal,San Jose, Costa Rica</p>
+            <p style="text-align:center">Correo: jesussaenz04@gmail.com</p>
+            <p style="text-align:center">Año: @DateTime.Now.Year </p>
+            <div style="margin:auto;text-align:center;">
+                <a class="btn btn-success"><i class="fa fa-download"></i>Manual De Usuario</a>
+            </div>
+            <br />
+            <br />
+        </div>
+        <div style="margin:auto;" class="col">
+            <div style="width:280px;">
+                <img style="width:100%;" src="~/Images/LogoSinFondo.png" />
+            </div>
+            
+        </div>
+    </div>
+</div>
+

@@ -24,7 +24,7 @@
 
 
     <div id="ticket" class="ticket_body" style="margin-left:6%;margin-right:6%;">
-        <h2 style="text-align:center;">Generar Reporte</h2>
+        <h2 style="text-align:center;">Reporte Cotizacion</h2>
         <div class="area_print">
             <div class="row">
                 <div class="col" style="margin:2px 5px 2px 5px ;padding-right:100px; padding-left:10px;">
@@ -51,20 +51,22 @@
             <div class="row">
                 <div class="col" style="font-size:10px">
                     @{
-                        foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result Posicion in this.ViewBag.ListaEntradas)
+                        foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result Posicion in this.ViewBag.ListaCotizaciones)
                         {
 
-                            <div class="cliente_text">FECHA:@Posicion.Fecha_Factura.ToShortDateString() </div>
+                            <div class="cliente_text">FECHA:@Posicion.Fecha_Cotizacion.ToShortDateString() </div>
                             foreach (PracticaIIICO.BD.sp_Retorna_Usuario_Result ModeloUSER in this.ViewBag.ListaUsuarios)
                             {
                                 bool esIdUser = ModeloUSER.ID_Usuario == Posicion.ID_Usuario;
                                 if (esIdUser)
                                 {
-                                    <div class="cliente_text">CLIENTE:<b>@ModeloUSER.Nombre_U.ToUpper() @ModeloUSER.Apellido1_U.ToUpper()</b></div>
+                                    <div class="cliente_text">Usuario:<b>@ModeloUSER.Nombre_U.ToUpper() @ModeloUSER.Apellido1_U.ToUpper()</b></div>
                                     <div class="cliente_text">CED:@ModeloUSER.Cedula_U</div>
                                 }
                             }
-                            <div class="cliente_text">TIQUETE ELECTRONICO: @ViewBag.NumeroFactura</div>
+                            <div class="cliente_text">CLIENTE: @Posicion.Nombre_Cliente</div>
+                            <div class="cliente_text">CORREO CLIENTE: @Posicion.Correo_Cliente</div>
+                            <div class="cliente_text">TIQUETE ELECTRONICO: @ViewBag.NumeroCotizacion</div>
                         }
                     }
                 </div>
@@ -89,14 +91,28 @@
                 <tbody>
 
                     @{
-                        foreach (PracticaIIICO.BD.sp_Retorna_FacturaID_Result PosicionDetalle in this.Model)
+                        foreach (PracticaIIICO.BD.sp_Retorna_DetalleCotID_Result PosicionDetalle in this.Model)
                         {
-                            <tr>
-                                <td class="text-center">@PosicionDetalle.Nombre_PROD</td>
-                                <td class="text-center">@PosicionDetalle.Precio_PROD</td>
-                                <td class="text-center">@PosicionDetalle.Cant_Adquirida_PROD</td>
-                                <td class="text-center">@PosicionDetalle.PrecioXCant</td>
-                            </tr>
+                                        <tr>
+                                            @{
+                                                foreach (PracticaIIICO.BD.sp_Retorna_Productos_Result ModeloPRD in this.ViewBag.ListaProductos)
+                                                {
+                                                    bool esIdUser = ModeloPRD.ID_Producto == PosicionDetalle.ID_Producto;
+                                                    if (esIdUser)
+                                                    {
+                                                        <td>@ModeloPRD.Nombre_PROD</td>
+
+                                                        <td class="text-center">@ModeloPRD.Precio_PROD</td>
+                                                    }
+                                                }
+                                            }
+
+
+
+
+                                            <td class="text-center">@PosicionDetalle.Cant_AdquiPROD</td>
+                                            <td class="text-center">@PosicionDetalle.PrecioXCant</td>
+                                        </tr>
                         }
                     }
                 </tbody>
@@ -106,7 +122,7 @@
 
                     <tfoot class="tfootChuz">
                         @{
-                            foreach (PracticaIIICO.BD.sp_Retorna_EntradaID_Result PosicionEntrada in this.ViewBag.ListaEntradas)
+                            foreach (PracticaIIICO.BD.sp_Retorna_CotizacionID_Result PosicionCotizacion in this.ViewBag.ListaCotizaciones)
                             {
                                 <tr>
 
@@ -116,7 +132,7 @@
                                     </td>
 
                                     <td class="textMontos">
-                                        <b>@PosicionEntrada.Monto_Bruto</b>
+                                        <b>@PosicionCotizacion.Costo</b>
                                     </td>
                                 </tr>
 
@@ -127,17 +143,22 @@
                                     </td>
 
                                     <td class="textMontos">
-                                        <b>@PosicionEntrada.Monto_Descuento</b>
+                                        <b>0</b>
                                     </td>
                                 </tr>
                                 <tr>
+                                    @{
+                                        double a = Convert.ToDouble(PosicionCotizacion.Costo);
+                                        double iva = a * 0.13;
+                                        double costoFinalVista = a + iva;   
+                                    }
                                     <td colspan="4" class="text-right2">
                                         <b>IVA</b>
 
                                     </td>
 
                                     <td colspan="4" class="textMontos">
-                                        <b>@PosicionEntrada.Monto_IVA</b>
+                                        <b>@iva</b>
                                     </td>
                                 </tr>
 
@@ -147,19 +168,16 @@
                                         <b>Total</b>
 
                                     </td>
-                                    @{
-                                        decimal montofinal = 0;
-                                        montofinal = PosicionEntrada.Monto_Final;
-                                    }
+                                    
 
                                     <td class="textMontos">
-                                        <b> @PosicionEntrada.Monto_Final</b>
+                                        <b> @costoFinalVista</b>
                                     </td>
 
                                 </tr>
 
 
-                                        }
+                            }
                         }
 
 
@@ -168,19 +186,19 @@
                 </table>
             </div>
 
-           
+
             <div>Atendio:Marco Martinez Mena</div>
             <hr>
 
             <hr>
 
             <div style="text-align:center;font-size:10px;">
-                TODO CAMBIO SE DEBE REALIZAR DENTRO DE LAS 24 HORAS NO HAY DEVOLUCIONES DE DINERO
+                TODA COTIZACION SE DEBE REALIZAR DENTRO DE LAS 24 HORAS PARA HACERLA EFECTIVA
                 <br />
-                <p>*** PARA EFECTOS DE GARANTIA SE DEBE PRESENTAR LA FACTURA FISICA Y ORIGINAL ***</p>
+                <p>*** PARA REALIZAR EFECTIVA SU COTIZACION SE DEBE PRESENTAR EL REPORTE FISICO Y ORIGINAL ***</p>
 
                 <br />
-                GRACIAS POR SU COMPRA
+                GRACIAS POR ELEGIRNOS
             </div>
 
         </div>
@@ -188,3 +206,4 @@
 
 </body>
 </html>
+
